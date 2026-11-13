@@ -1,0 +1,20 @@
+{
+ "accent": "#1D4E89",
+ "symbol": "%",
+ "variants": [
+  {
+   "file": "og-it.png",
+   "title": "Rendimento netto BTP\nBOT e Buoni postali",
+   "subtitle": "Aste del Tesoro · Buoni · Conto deposito · Netto a scadenza",
+   "badge": "Dati del Tesoro e di Poste, letti a novembre 2026",
+   "brand": "BTP Netto"
+  },
+  {
+   "file": "og-en.png",
+   "title": "Net return on Italian BTP\nBOT and postal bonds",
+   "subtitle": "Treasury auctions · Postal bonds · Deposits · Net at maturity",
+   "badge": "Treasury and Poste data, read in November 2026",
+   "brand": "BTP Netto"
+  }
+ ]
+}

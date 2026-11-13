@@ -1,0 +1,27 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { AUTHOR_NAME, CONTACT_EMAIL, AUTHOR_ROLE, SITE_NAMES } from '../../data/site-config';
+import { route } from '../../i18n/routes';
+import { personSchema, organizationSchema, breadcrumbSchema, profilePageSchema } from '../../lib/seo';
+import { displayDate } from '../../lib/format';
+import { P } from '../../lib/engine/params';
+const lang = 'en';
+const d = (iso: string) => displayDate(iso, 'en-GB');
+---
+<PageLayout title="BTP Netto, about us: who does the figures and with what data" description="Who publishes BTP Netto, why a net comparison of Italian BTP, BOT, postal bonds and deposits, where prices and rates come from and how to report an error." lang={lang} jsonLd={[personSchema(lang), organizationSchema(lang), profilePageSchema({ path: route('about', lang), lang }), breadcrumbSchema([{ name: 'Home', path: route('home', lang) }, { name: 'About', path: route('about', lang) }])]} breadcrumbs={[{ label: 'About' }]}>
+  <header class="mb-6"><h1 class="text-3xl font-bold text-navy-900 md:text-4xl">Who publishes {SITE_NAMES[lang]}</h1></header>
+  <div class="prose prose-slate max-w-none">
+    <div class="not-prose mb-6"><p class="text-lg font-semibold text-navy-900">{AUTHOR_NAME}</p><p class="text-navy-700">{AUTHOR_ROLE[lang]}</p></div>
+    <p>{SITE_NAMES[lang]} is published by Radif Partners. It answers a simple question that market sites leave half done: for my amount, how much do I actually keep from an Italian BTP, a BOT, a postal savings bond or a deposit account, once tax and stamp duty are paid?</p>
+    <h2>Why this site</h2>
+    <p>Yield boards show gross percentages, bond by bond, with no field for an amount. Postal bond calculators only cover postal bonds; BTP calculators ask you to type the price and never compare with a deposit. Here one amount and one term put the four products in the same table, with dated auction prices and rates.</p>
+    <h2>Where the data come from</h2>
+    <p>From the Treasury Department’s auction result PDFs, the Ministry of Economy releases on retail issues, Poste Italiane’s pages on the bonds on sale, the ECB’s deposit rate statistics and the tax laws read on Normattiva. Last reread: {d(P.retrieved_at)}. Everything is explained in the <a href={route('method', lang)}>method</a>.</p>
+    <h2>What we are not</h2>
+    <p>Radif Partners is not the Ministry of Economy, Poste Italiane, Cassa Depositi e Prestiti, a bank or a financial adviser. It sells no securities, takes no commission and gives no personal investment advice: the site does calculations and cites facts.</p>
+    <h2>Funding and data</h2><p>The site is free and needs no sign-up. Calculations run in your browser: the amounts you type are neither sent nor stored.</p>
+    <h2>Why in English too</h2><p>Every page exists in Italian and English, for people living in Italy without speaking Italian: terms such as BTP, BOT, CCTeu and bollo (stamp duty) are explained.</p>
+    <h2>Write to us</h2><p>A wrong price, a new postal bond, a new issue: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. See also the <a href={route('editorial', lang)}>editorial policy</a> and the <a href={route('terms', lang)}>legal notice</a>.</p>
+    <p class="text-sm text-navy-600">Data reread on <time datetime={P.retrieved_at}>{d(P.retrieved_at)}</time>.</p>
+  </div>
+</PageLayout>

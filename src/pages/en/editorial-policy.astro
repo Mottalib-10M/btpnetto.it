@@ -1,0 +1,28 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { AUTHOR_NAME, CONTACT_EMAIL, LAST_UPDATED, SITE_NAMES } from '../../data/site-config';
+import { route } from '../../i18n/routes';
+const lang = 'en';
+---
+<PageLayout title={`Editorial policy – ${SITE_NAMES[lang]}`} description="Where the auction prices, postal bond rates and deposit rates shown here come from, who answers for them, when they are reread and what happens when an error is reported." lang={lang} noindex={true} breadcrumbs={[{ label: 'Editorial policy' }]} showAuthor={false}>
+  <div class="prose prose-slate max-w-none">
+    <h1>Editorial and corrections policy</h1>
+    <p>A misread auction price shifts the net yield; a postal bond rate a year out of date skews the comparison. Here is where our data come from and what we do when one is wrong.</p>
+    <h2>Responsibility</h2><p>{AUTHOR_NAME} answers for every price, rate, date and calculation in the tools. A figure that does not match its source can be reported to <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.</p>
+    <h2>Primary sources only</h2>
+    <ul>
+      <li><strong>auction result PDFs</strong> and releases of the Treasury Department and the Ministry of Economy, cited with the auction date;</li>
+      <li><strong>Poste Italiane’s pages</strong> on the bonds on sale, with the date the terms took effect;</li>
+      <li><strong>ECB statistics</strong> on household deposit rates in Italy, with the reference month;</li>
+      <li><strong>the tax laws</strong> (Legislative Decree 239/1996, Decree-Law 66/2014, Presidential Decree 642/1972) read on Normattiva.</li>
+    </ul>
+    <p>Nothing comes from forums, press articles or trading sites. We publish no stock-exchange prices, as their licences forbid it: anyone wanting today’s price types it into the price field.</p>
+    <h2>Calculations, not advice</h2><p>The site compares figures. It does not say what to buy: risk, term, liquidity and your tax position remain for you or your adviser to weigh.</p>
+    <h2>Checks before publication</h2><p>For every auction the engine recomputes the Treasury’s published yield from the price; if the gap exceeds two hundredths of a point, publication is blocked. The postal bond, deposit, BTP Valore and tax formulas are automated tests too.</p>
+    <h2>Updates</h2><p>Manual: after auctions, with each new retail issue, each change in postal bond terms and each new ECB month. The date of the last reread is written on every page.</p>
+    <h2>Handling errors</h2>
+    <ol><li>Check against the source.</li><li>Parameters or code fixed, a test added.</li><li>New date on the pages concerned.</li></ol>
+    <h2>Independence</h2><p>No commercial tie to banks, trading platforms, Poste Italiane or advisers. No sponsored links in the texts. Any commercial relationship would be stated plainly.</p>
+    <p>See also the <a href={route('method', lang)}>method</a>. Version: {LAST_UPDATED}.</p>
+  </div>
+</PageLayout>

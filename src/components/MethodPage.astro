@@ -1,0 +1,93 @@
+---
+/** Metodo e fonti (page de confiance, RECETTE §8.2) : dati usati, formule, test contro il Tesoro, limiti, aggiornamenti. */
+import PageLayout from '../layouts/PageLayout.astro';
+import { route, type Locale } from '../i18n/routes';
+import { P } from '../lib/engine/params';
+import * as M from '../lib/engine/index';
+import { formatMoney, formatDecimal, displayDate } from '../lib/format';
+import { breadcrumbSchema, webPageSchema, faqSchema } from '../lib/seo';
+import { CONTACT_EMAIL } from '../data/site-config';
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const it = lang === 'it';
+const tag = it ? 'it-IT' : 'en-GB';
+const $ = (n: number, d = 0) => formatMoney(n, d, lang);
+const dec = (x: number, d = 2) => formatDecimal(x, d, lang);
+const d = (iso: string) => displayDate(iso, tag);
+const title = it ? 'Metodo: come calcoliamo il rendimento netto di BTP e Buoni' : 'Method: how we work out the net return on BTP and bonds';
+const description = it ? 'Metodo di BTP Netto: aste del Tesoro, tassi dei Buoni di Poste, media BCE dei depositi, tasse del 12,5% e del 26%, bollo, test contro i rendimenti ufficiali.' : 'How BTP Netto works: Treasury auction results, Poste bond rates, ECB deposit averages, the 12.5% and 26% taxes, stamp duty, and tests against official yields.';
+const h1 = it ? 'Metodo e fonti' : 'Method and sources';
+const path = route('method', lang);
+const sources = Object.values(P.sources);
+const nBtp = M.BTPS.length, nBot = M.BOTS.length;
+const es = M.BTPS.find((a) => a.nome.startsWith('BTP 3 anni') && a.asta === M.ULTIMA_ASTA.asta) ?? M.BTPS[0];
+const faqs = it ? [
+  { q: 'Perché uso il prezzo dell’asta e non quello di Borsa?', a: 'Perché i prezzi d’asta sono pubblicati dal Tesoro e sono dati pubblici riutilizzabili, mentre i prezzi di Borsa in tempo reale hanno licenze che ne vietano la ripubblicazione. Ogni prezzo è datato. Se in banca vedi un prezzo diverso, scrivilo nel campo del prezzo: il calcolo si rifà con quello.' },
+  { q: 'I numeri si aggiornano da soli dopo ogni asta?', a: 'No. I parametri vengono riletti a mano dai PDF dei risultati, poi si rieseguono i test e si ripubblica; non c’è alcun aggiornamento automatico. Finché questo non avviene valgono i numeri della data indicata: la data dell’ultima asta letta è scritta in ogni pagina e nell’elenco delle aste.' },
+  { q: 'Il sito conserva gli importi che scrivo?', a: 'No. I calcoli girano nel browser con il codice della pagina: importi, prezzi e durate non vengono inviati a nessun server. Se copi l’indirizzo dopo un calcolo, le tue scelte sono nel link e le vede solo chi lo riceve.' },
+] : [
+  { q: 'Why use the auction price rather than the market price?', a: 'Because auction prices are published by the Treasury as reusable public data, while real-time stock-exchange prices come with licences that forbid republishing them. Every price is dated. If your bank shows a different price, type it into the price field and the calculation reruns with it.' },
+  { q: 'Do the figures update by themselves after each auction?', a: 'No. The parameters are reread by hand from the results PDFs, then the tests are rerun and the site is republished; there is no automatic update. Until that happens the figures of the stated date apply: the date of the latest auction read is written on every page and in the auction list.' },
+  { q: 'Does the site keep the amounts I type?', a: 'No. Calculations run in your browser with the page’s own code: amounts, prices and durations are sent to no server. If you copy the address after a calculation, your choices are in the link and only the people you send it to see them.' },
+];
+---
+<PageLayout title={title} description={description} lang={lang} jsonLd={[webPageSchema({ name: h1, description, path, lang }), breadcrumbSchema([{ name: 'Home', path: route('home', lang) }, { name: h1, path }]), faqSchema(faqs, lang)]} faqs={faqs} breadcrumbs={[{ label: h1 }]}>
+  <header class="mb-6"><h1 class="text-3xl font-bold text-navy-900 md:text-4xl">{h1}</h1></header>
+  {it ? (
+  <div class="prose prose-slate max-w-none">
+    <p>Ogni risultato del sito nasce da quattro gruppi di dati, letti il {d(P.retrieved_at)} e raccolti nel file <code>src/data/params-2026.json</code>: i risultati delle aste del Dipartimento del Tesoro ({nBtp} BTP a tasso fisso e {nBot} BOT ancora in vita, l’ultima asta letta è del {d(M.ULTIMA_ASTA.asta)}), i comunicati del MEF su BTP Valore e BTP Italia, le condizioni dei Buoni fruttiferi postali pubblicate da Poste Italiane e i tassi medi sui depositi delle famiglie pubblicati dalla BCE. Nessuna pagina scrive un numero a mano.</p>
+    <h2>Da dove vengono i prezzi</h2>
+    <p>Per ogni titolo prendiamo l’ultima asta: prezzo di aggiudicazione, rendimento lordo, prezzo fiscale, cedola e date, così come stampati nel PDF «Risultati Asta» del Tesoro. Il sito del Dipartimento del Tesoro non indica una licenza; per l’articolo 52, comma 2, del Codice dell’amministrazione digitale i dati pubblicati da un’amministrazione senza licenza espressa sono dati aperti, e li citiamo con il link al PDF. Non usiamo i prezzi di Borsa Italiana né i dati della Banca d’Italia riservati all’uso personale.</p>
+    <h2>Le formule</h2>
+    <ul>
+      <li><strong>BTP</strong>: spesa = valore nominale × prezzo / 100 più il rateo maturato dall’ultima cedola; cedole semestrali alle date della scadenza; alla scadenza rimborso a 100. Tassa del 12,5% sulle cedole e sulla differenza tra 100 e il prezzo pagato; bollo dello 0,20% all’anno. Il rendimento netto è il tasso interno di rendimento dei flussi netti, con capitalizzazione annua sui giorni effettivi.</li>
+      <li><strong>BOT</strong>: guadagno = 100 meno il prezzo; tassa del 12,5% su questa differenza; bollo dello 0,20% al prorata dei giorni. Il rendimento lordo è quello del Tesoro, semplice su 360 giorni; il netto è annuo su 365.</li>
+      <li><strong>Buoni</strong>: valore = importo × (1 + tasso effettivo annuo lordo)<sup>anni</sup>, con il tasso della tabella di Poste per quel periodo di possesso; tassa del 12,5% sugli interessi; bollo dello 0,20% solo se i Buoni superano {$(P.fisco.bollo_buoni_franchigia)} in tutto.</li>
+      <li><strong>Conto deposito</strong>: interessi semplici, tassa del 26%, bollo dello 0,20% all’anno. Tasso predefinito: media BCE dei depositi vincolati delle famiglie in Italia ({P.deposito.mese}: {dec(P.deposito.entro_1_anno)}% fino a un anno, {dec(P.deposito.oltre_2_anni)}% oltre due anni), modificabile.</li>
+    </ul>
+    <h2>I test contro il Tesoro</h2>
+    <p>Il motore rifà il rendimento lordo di ogni asta partendo dal prezzo e dal giorno di regolamento, e lo confronta con quello pubblicato. Su {nBtp} BTP lo scarto massimo misurato è di 0,008 punti; esempio: {es.nome} del {d(es.asta)}, prezzo {dec(es.prezzo, 2)}, rendimento del Tesoro {dec(es.rendimento, 2)}%. Anche i BOT tornano al millesimo. I test (<code>src/lib/engine/titoli.test.ts</code>) girano a ogni pubblicazione: se uno fallisce la pubblicazione si ferma.</p>
+    <h2>Cosa il sito non fa</h2>
+    <ul>
+      <li>Non conosce il prezzo di mercato di oggi: lo puoi scrivere tu.</li>
+      <li>Non conta commissioni bancarie, minusvalenze compensabili né la tua situazione fiscale personale.</li>
+      <li>Il bollo è stimato sul capitale investito, mentre la banca lo calcola sul valore di mercato al rendiconto: lo scarto è di pochi euro.</li>
+      <li>Non dice cosa comprare: confronta numeri. Rischio, durata e bisogno di liquidità restano scelte tue.</li>
+      <li>L’elenco dei Buoni comprende quelli di cui abbiamo letto la pagina sul sito di Poste: altri Buoni riservati a gruppi particolari possono esistere.</li>
+    </ul>
+    <h2>Aggiornamenti</h2>
+    <p>Manuali: dopo le aste (i BOT ogni due settimane circa, i BTP ogni mese), a ogni nuova emissione per i risparmiatori, a ogni cambio delle condizioni dei Buoni e quando la BCE pubblica un nuovo mese. Un errore segnalato a <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> viene verificato sulla fonte, corretto e trasformato in test. Vedi la <a href={route('editorial', lang)}>politica editoriale</a>.</p>
+    <h2>Tutte le fonti</h2>
+    <ul>{sources.map((s) => <li><a href={s.url} rel="nofollow noopener" target="_blank">{s.label.it}</a></li>)}</ul>
+    <p class="text-sm text-navy-600">Dati riletti il <time datetime={P.retrieved_at}>{d(P.retrieved_at)}</time>.</p>
+  </div>
+  ) : (
+  <div class="prose prose-slate max-w-none">
+    <p>Every result on the site comes from four sets of data, read on {d(P.retrieved_at)} and kept in <code>src/data/params-2026.json</code>: the auction results of Italy’s Treasury Department ({nBtp} fixed-rate BTP and {nBot} BOT still running; the latest auction read is from {d(M.ULTIMA_ASTA.asta)}), the Ministry of Economy releases on BTP Valore and BTP Italia, the postal savings bond terms published by Poste Italiane and the ECB’s average household deposit rates. No page types a figure by hand.</p>
+    <h2>Where the prices come from</h2>
+    <p>For each security we take its latest auction: allotment price, gross yield, tax price, coupon and dates, as printed in the Treasury’s “Risultati Asta” PDF. The Treasury site states no licence; under article 52(2) of Italy’s Digital Administration Code, data a public body publishes without an express licence are open data, and we cite them with a link to the PDF. We do not use Borsa Italiana prices or Bank of Italy data restricted to personal use.</p>
+    <h2>The formulas</h2>
+    <ul>
+      <li><strong>BTP</strong>: cost = face value × price / 100 plus interest accrued since the last coupon; half-yearly coupons on the maturity dates; repaid at 100. A 12.5% tax on coupons and on the gap between 100 and the price paid; 0.20% stamp duty a year. The net yield is the internal rate of return of the net cash flows, compounded yearly on actual days.</li>
+      <li><strong>BOT</strong>: gain = 100 minus the price; 12.5% tax on that gap; 0.20% stamp duty pro rata. The gross yield is the Treasury’s simple 360-day figure; the net one is yearly on 365 days.</li>
+      <li><strong>Postal bonds</strong>: value = amount × (1 + gross effective yearly rate)<sup>years</sup>, using Poste’s rate for that holding period; 12.5% tax on the interest; 0.20% stamp duty only above {$(P.fisco.bollo_buoni_franchigia)} of bonds in total.</li>
+      <li><strong>Deposit account</strong>: simple interest, 26% tax, 0.20% stamp duty a year. Default rate: the ECB average for Italian household fixed-term deposits ({P.deposito.mese}: {dec(P.deposito.entro_1_anno)}% up to one year, {dec(P.deposito.oltre_2_anni)}% over two years), which you can change.</li>
+    </ul>
+    <h2>Tests against the Treasury</h2>
+    <p>The engine recomputes each auction’s gross yield from its price and settlement date and compares it with the published one. Across {nBtp} BTP the largest gap measured is 0.008 points; for instance {es.nome} of {d(es.asta)}, price {dec(es.prezzo, 2)}, Treasury yield {dec(es.rendimento, 2)}%. BOT yields match to the thousandth too. The tests (<code>src/lib/engine/titoli.test.ts</code>) run at every publication: if one fails, publication stops.</p>
+    <h2>What the site does not do</h2>
+    <ul>
+      <li>It does not know today’s market price: you can type it in.</li>
+      <li>It leaves out bank fees, offsettable capital losses and your own tax position.</li>
+      <li>Stamp duty is estimated on the amount invested, while banks apply it to the market value on the statement: a gap of a few euros.</li>
+      <li>It does not say what to buy: it compares figures. Risk, term and the need for cash remain your choices.</li>
+      <li>The postal bond list covers the bonds whose Poste page we read: other bonds reserved for particular groups may exist.</li>
+    </ul>
+    <h2>Updates</h2>
+    <p>Manual: after auctions (BOT roughly every two weeks, BTP every month), with each new retail issue, each change in postal bond terms and when the ECB publishes a new month. An error reported to <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> is checked against the source, fixed and turned into a test. See the <a href={route('editorial', lang)}>editorial policy</a>.</p>
+    <h2>All sources</h2>
+    <ul>{sources.map((s) => <li><a href={s.url} rel="nofollow noopener" target="_blank">{s.label.en}</a></li>)}</ul>
+    <p class="text-sm text-navy-600">Data reread on <time datetime={P.retrieved_at}>{d(P.retrieved_at)}</time>.</p>
+  </div>
+  )}
+</PageLayout>

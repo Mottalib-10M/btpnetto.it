@@ -1,0 +1,22 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import LegalIdentity from '../../components/LegalIdentity.astro';
+import { AUTHOR_NAME, CONTACT_EMAIL, LAST_UPDATED, SITE_NAMES } from '../../data/site-config';
+import { route } from '../../i18n/routes';
+const lang = 'en';
+---
+<PageLayout title={`Contact – ${SITE_NAMES[lang]}`} description="Write to the publisher of BTP Netto: report a wrong price, rate or calculation, a new auction or postal bond, a question about the method, or embed the comparison tool." lang={lang} noindex={true} breadcrumbs={[{ label: 'Contact' }]} showAuthor={false}>
+  <div class="prose prose-slate max-w-none">
+    <h1>Contact</h1>
+    <p>One address, read every week: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. There is no phone line: this site sells nothing.</p>
+    <h2>Reporting an error</h2>
+    <p>For a price, a rate or a calculation, attach the Treasury PDF, the Poste page or the legal text that contradicts the site, or paste the tool’s share link: it holds your choices and nothing else. Never send us bank statements or securities account details. The procedure is in the <a href={route('editorial', lang)}>editorial policy</a>.</p>
+    <h2>What we cannot do</h2>
+    <p>We neither buy nor sell securities, cannot see your account and give no advice on what to buy. For orders, fees and statements, ask your bank or Poste Italiane.</p>
+    <h2>Embedding the tool</h2>
+    <p>Blogs, newspapers and consumer groups can embed the net comparison for free with an iframe. The code is on the <a href={route('widget', lang)}>Embed the tool</a> page.</p>
+    <h2>Publisher</h2>
+    <LegalIdentity lang={lang} />
+    <p>{AUTHOR_NAME} is responsible for the content of {SITE_NAMES[lang]}; full details are in the <a href={route('terms', lang)}>legal notice</a>. Page reviewed on {LAST_UPDATED}.</p>
+  </div>
+</PageLayout>

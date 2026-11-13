@@ -1,0 +1,7 @@
+---
+/** Outil principal d'une page (src/content/pagine : `tool` et `outil`). */
+import SpecTool from './calc/SpecTool';
+interface Props { tool: string; lang: 'it' | 'en'; id: string; opts?: Record<string, unknown>; methodHref?: string }
+const { tool, lang, id, opts, methodHref } = Astro.props;
+---
+<SpecTool client:load kind={tool} lang={lang} id={id} opts={opts} methodHref={methodHref} />

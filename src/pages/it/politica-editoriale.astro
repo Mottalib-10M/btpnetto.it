@@ -1,0 +1,28 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { AUTHOR_NAME, CONTACT_EMAIL, LAST_UPDATED, SITE_NAMES } from '../../data/site-config';
+import { route } from '../../i18n/routes';
+const lang = 'it';
+---
+<PageLayout title={`Politica editoriale – ${SITE_NAMES[lang]}`} description="Da dove vengono prezzi d’asta, tassi dei Buoni e tassi dei depositi pubblicati qui, chi ne risponde, quando vengono riletti e cosa succede quando si segnala un errore." lang={lang} noindex={true} breadcrumbs={[{ label: 'Politica editoriale' }]} showAuthor={false}>
+  <div class="prose prose-slate max-w-none">
+    <h1>Politica editoriale e delle correzioni</h1>
+    <p>Un prezzo d’asta letto male sposta il rendimento netto; un tasso dei Buoni vecchio di un anno fa sbagliare il confronto. Ecco da dove vengono i nostri dati e cosa facciamo quando uno è sbagliato.</p>
+    <h2>Responsabilità</h2><p>{AUTHOR_NAME} risponde di ogni prezzo, tasso, data e calcolo degli strumenti. Un dato che non corrisponde alla sua fonte si segnala a <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.</p>
+    <h2>Solo fonti primarie</h2>
+    <ul>
+      <li><strong>i PDF dei risultati d’asta</strong> e i comunicati del Dipartimento del Tesoro e del MEF, citati con la data dell’asta;</li>
+      <li><strong>le pagine di Poste Italiane</strong> sui Buoni in emissione, con la data di entrata in vigore delle condizioni;</li>
+      <li><strong>le statistiche della BCE</strong> sui tassi dei depositi delle famiglie in Italia, con il mese di riferimento;</li>
+      <li><strong>le leggi fiscali</strong> (D.Lgs. n. 239/1996, DL n. 66/2014, DPR n. 642/1972) lette su Normattiva.</li>
+    </ul>
+    <p>Nessun dato viene da forum, articoli di stampa o siti di trading. Non pubblichiamo prezzi di Borsa, perché le loro licenze non lo permettono: chi vuole il prezzo di oggi lo scrive nel campo apposito.</p>
+    <h2>Calcoli, non consigli</h2><p>Il sito mette numeri a confronto. Non dice cosa comprare: rischio, durata, liquidità e situazione fiscale restano valutazioni tue o del tuo consulente.</p>
+    <h2>Controlli prima della pubblicazione</h2><p>Per ogni asta il motore rifà il rendimento pubblicato dal Tesoro partendo dal prezzo; se lo scarto supera due centesimi di punto la pubblicazione si blocca. Anche le formule di Buoni, depositi, BTP Valore e tasse sono test automatici.</p>
+    <h2>Aggiornamenti</h2><p>Manuali: dopo le aste, a ogni nuova emissione per i risparmiatori, a ogni cambio delle condizioni dei Buoni e a ogni nuovo mese della BCE. La data dell’ultima rilettura è scritta in ogni pagina.</p>
+    <h2>Gestione degli errori</h2>
+    <ol><li>Verifica sulla fonte.</li><li>Parametri o codice corretti, un test aggiunto.</li><li>Nuova data sulle pagine interessate.</li></ol>
+    <h2>Indipendenza</h2><p>Nessun legame commerciale con banche, piattaforme di trading, Poste Italiane o consulenti. Nessun link sponsorizzato nei testi. Un eventuale rapporto commerciale verrebbe dichiarato chiaramente.</p>
+    <p>Vedi anche il <a href={route('method', lang)}>metodo</a>. Versione: {LAST_UPDATED}.</p>
+  </div>
+</PageLayout>

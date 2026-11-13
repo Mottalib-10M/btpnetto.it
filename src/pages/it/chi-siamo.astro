@@ -1,0 +1,27 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { AUTHOR_NAME, CONTACT_EMAIL, AUTHOR_ROLE, SITE_NAMES } from '../../data/site-config';
+import { route } from '../../i18n/routes';
+import { personSchema, organizationSchema, breadcrumbSchema, profilePageSchema } from '../../lib/seo';
+import { displayDate } from '../../lib/format';
+import { P } from '../../lib/engine/params';
+const lang = 'it';
+const d = (iso: string) => displayDate(iso, 'it-IT');
+---
+<PageLayout title="BTP Netto, chi siamo: chi fa questi calcoli e con quali dati" description="Chi pubblica BTP Netto, perché un confronto netto tra BTP, BOT, Buoni postali e conto deposito, da dove vengono prezzi e tassi e come segnalarci un errore." lang={lang} jsonLd={[personSchema(lang), organizationSchema(lang), profilePageSchema({ path: route('about', lang), lang }), breadcrumbSchema([{ name: 'Home', path: route('home', lang) }, { name: 'Chi siamo', path: route('about', lang) }])]} breadcrumbs={[{ label: 'Chi siamo' }]}>
+  <header class="mb-6"><h1 class="text-3xl font-bold text-navy-900 md:text-4xl">Chi pubblica {SITE_NAMES[lang]}</h1></header>
+  <div class="prose prose-slate max-w-none">
+    <div class="not-prose mb-6"><p class="text-lg font-semibold text-navy-900">{AUTHOR_NAME}</p><p class="text-navy-700">{AUTHOR_ROLE[lang]}</p></div>
+    <p>{SITE_NAMES[lang]} è pubblicato da Radif Partners. Risponde a una domanda semplice che i siti di Borsa lasciano a metà: con la mia somma, quanto mi resta davvero in tasca da un BTP, da un BOT, da un Buono postale o da un conto deposito, dopo le tasse e il bollo?</p>
+    <h2>Perché questo sito</h2>
+    <p>I tabelloni dei rendimenti mostrano percentuali lorde, titolo per titolo, senza un campo per l’importo. I simulatori dei Buoni calcolano solo i Buoni; quelli dei BTP chiedono di inserire a mano il prezzo e non confrontano con il deposito. Qui un importo e una durata bastano per mettere i quattro strumenti nella stessa tabella, con prezzi d’asta e tassi datati.</p>
+    <h2>Da dove vengono i dati</h2>
+    <p>Dai PDF dei risultati d’asta del Dipartimento del Tesoro, dai comunicati del MEF sulle emissioni per i risparmiatori, dalle pagine di Poste Italiane sui Buoni in emissione, dalle statistiche della BCE sui tassi dei depositi e dalle leggi fiscali lette su Normattiva. Ultima rilettura: {d(P.retrieved_at)}. Tutto è spiegato nel <a href={route('method', lang)}>metodo</a>.</p>
+    <h2>Cosa non siamo</h2>
+    <p>Radif Partners non è il MEF, Poste Italiane, Cassa Depositi e Prestiti, una banca né un consulente finanziario. Non colloca titoli, non riceve commissioni e non dà consigli d’investimento personalizzati: il sito fa calcoli e cita fatti.</p>
+    <h2>Finanziamento e dati</h2><p>Il sito è gratuito e senza registrazione. I calcoli si fanno nel tuo browser: gli importi che scrivi non vengono inviati né salvati.</p>
+    <h2>Perché anche in inglese</h2><p>Ogni pagina esiste in italiano e in inglese, per chi vive in Italia senza parlare italiano: sigle come BTP, BOT, CCTeu e bollo vengono spiegate.</p>
+    <h2>Scrivici</h2><p>Un prezzo sbagliato, un nuovo Buono, una nuova emissione: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. Vedi anche la <a href={route('editorial', lang)}>politica editoriale</a> e le <a href={route('terms', lang)}>note legali</a>.</p>
+    <p class="text-sm text-navy-600">Dati riletti il <time datetime={P.retrieved_at}>{d(P.retrieved_at)}</time>.</p>
+  </div>
+</PageLayout>

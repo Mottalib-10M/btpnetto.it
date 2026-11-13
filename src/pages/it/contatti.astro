@@ -1,0 +1,22 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import LegalIdentity from '../../components/LegalIdentity.astro';
+import { AUTHOR_NAME, CONTACT_EMAIL, LAST_UPDATED, SITE_NAMES } from '../../data/site-config';
+import { route } from '../../i18n/routes';
+const lang = 'it';
+---
+<PageLayout title={`Contatti – ${SITE_NAMES[lang]}`} description="Scrivi all’editore di BTP Netto: segnala un prezzo, un tasso o un calcolo sbagliato, una nuova asta o un nuovo Buono, una domanda sul metodo, oppure inserisci lo strumento." lang={lang} noindex={true} breadcrumbs={[{ label: 'Contatti' }]} showAuthor={false}>
+  <div class="prose prose-slate max-w-none">
+    <h1>Contatti</h1>
+    <p>Un solo indirizzo, letto ogni settimana: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. Non c’è una linea telefonica: questo sito non vende nulla.</p>
+    <h2>Segnalare un errore</h2>
+    <p>Per un prezzo, un tasso o un calcolo, allega il PDF del Tesoro, la pagina di Poste o il testo di legge che contraddice il sito, oppure incolla il link di condivisione dello strumento: contiene le tue scelte e nient’altro. Non mandarci mai estratti conto o dati del tuo deposito titoli. La procedura è nella <a href={route('editorial', lang)}>politica editoriale</a>.</p>
+    <h2>Cosa non possiamo fare</h2>
+    <p>Non compriamo né vendiamo titoli, non vediamo il tuo conto e non diamo consigli su cosa comprare. Per ordini, commissioni e rendiconti rivolgiti alla tua banca o a Poste Italiane.</p>
+    <h2>Inserire lo strumento</h2>
+    <p>Blog, testate e associazioni di consumatori possono inserire gratis il confronto netto con un iframe. Il codice è nella pagina <a href={route('widget', lang)}>Inserisci lo strumento</a>.</p>
+    <h2>Editore</h2>
+    <LegalIdentity lang={lang} />
+    <p>{AUTHOR_NAME} è responsabile dei contenuti di {SITE_NAMES[lang]}; i dati completi sono nelle <a href={route('terms', lang)}>note legali</a>. Pagina rivista il {LAST_UPDATED}.</p>
+  </div>
+</PageLayout>

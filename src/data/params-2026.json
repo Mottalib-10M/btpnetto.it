@@ -1,0 +1,844 @@
+{
+ "_lisezmoi": "Paramètres du site btpnetto.it. Adjudications : PDF « Risultati Asta » du Dipartimento del Tesoro (dt.mef.gov.it), lus par pypdf le 2026-11-13, dernière adjudication par code ISIN, titres échus ou à moins de deux mois écartés. Données publiées sans licence expresse : données ouvertes par défaut (CAD art. 52 c. 2). Taux des Buoni : pages produit buonielibretti.poste.it lues le 2026-11-13. Dépôts : BCE, statistiques MIR Italie. Aucune valeur sans source ; mise à jour manuelle après chaque adjudication relue.",
+ "year": 2026,
+ "retrieved_at": "2026-11-13",
+ "valid_from": "2026-11-13",
+ "valid_to": "2026-12-31",
+ "fisco": {
+  "titoli_stato": 0.125,
+  "altri": 0.26,
+  "bollo": 0.002,
+  "bollo_buoni_franchigia": 5000,
+  "bollo_libretto_annuo": 34.2,
+  "isee_titoli_esclusi": 50000
+ },
+ "aste": [
+  {
+   "isin": "IT0005716839",
+   "tipo": "BTP",
+   "nome": "BTP 3 anni",
+   "cedola": 3.0,
+   "emissione": "2026-06-15",
+   "scadenza": "2029-09-15",
+   "asta": "2026-11-12",
+   "regolamento": "2026-11-16",
+   "prezzo": 98.51,
+   "rendimento": 3.58,
+   "prezzo_fiscale": 99.96,
+   "base": 365,
+   "url": "https://www.dt.mef.gov.it/export/sites/sitodt/modules/documenti_it/debito_pubblico/risultati_aste/risultati_aste_btp_3_anni/BTP-3-Anni-Risultati-Asta-12.11.2026.pdf"
+  },
+  {
+   "isin": "IT0005722845",
+   "tipo": "BTP",
+   "nome": "BTP 7 anni",
+   "cedola": 3.35,
+   "emissione": "2026-07-15",
+   "scadenza": "2033-09-15",
+   "asta": "2026-11-12",
+   "regolamento": "2026-11-16",
+   "prezzo": 96.15,
+   "rendimento": 4.04,
+   "prezzo_fiscale": 99.22,
+   "base": 365,
+   "url": "https://www.dt.mef.gov.it/export/sites/sitodt/modules/documenti_it/debito_pubblico/risultati_aste/risultati_aste_btp_7_anni/BTP-7-Anni-Risultati-Asta-12.11.2026.pdf"
+  },
+  {
+   "isin": "IT0005744930",
+   "tipo": "BOT",
+   "nome": "BOT 12 mesi",
+   "emissione": "2026-11-13",
+   "scadenza": "2027-11-12",
+   "asta": "2026-11-11",
+   "regolamento": "2026-11-13",
+   "prezzo": 96.859,
+   "rendimento": 3.207,
+   "prezzo_fiscale": 96.859,
+   "base": 360,
+   "url": "https://www.dt.mef.gov.it/export/sites/sitodt/modules/documenti_it/debito_pubblico/risultati_aste/risultati_aste_bot_12_mesi/BOT-12-Mesi-Risultati-Asta-11-12.11.2026.pdf"
+  },
+  {
+   "isin": "IT0005707689",
+   "tipo": "CCTeu",
+   "nome": "CCTeu",
+   "cedola": null,
+   "emissione": "2026-04-15",
+   "scadenza": "2036-04-15",
+   "asta": "2026-10-29",
+   "regolamento": "2026-11-02",
+   "prezzo": 97.41,
+   "rendimento": 4.02,
+   "prezzo_fiscale": 99.02,
+   "base": 360,
+   "url": "https://www.dt.mef.gov.it/export/sites/sitodt/modules/documenti_it/debito_pubblico/risultati_aste/risultati_aste_cct_eu/CCTeu-Risultati-Asta-29-30.10.2026.pdf"
+  },
+  {
+   "isin": "IT0005729931",
+   "tipo": "BTP",
+   "nome": "BTP 10 anni",
+   "cedola": 4.0,
+   "emissione": "2026-09-01",
+   "scadenza": "2036-10-01",
+   "asta": "2026-10-29",
+   "regolamento": "2026-11-02",
+   "prezzo": 96.48,
+   "rendimento": 4.49,
+   "prezzo_fiscale": 99.56,
+   "base": 365,
+   "url": "https://www.dt.mef.gov.it/export/sites/sitodt/modules/documenti_it/debito_pubblico/risultati_aste/risultati_aste_btp_10_anni/BTP-10-Anni-Risultati-Asta-29.10.2026.pdf"
+  },
+  {
+   "isin": "IT0005733636",
+   "tipo": "BTP",
+   "nome": "BTP 5 anni",
+   "cedola": 3.95,
+   "emissione": "2026-10-01",
+   "scadenza": "2032-02-01",
+   "asta": "2026-10-29",
+   "regolamento": "2026-11-02",
+   "prezzo": 99.83,
+   "rendimento": 4.02,
+   "prezzo_fiscale": 99.58,
+   "base": 365,
+   "url": "https://www.dt.mef.gov.it/export/sites/sitodt/modules/documenti_it/debito_pubblico/risultati_aste/risultati_aste_btp_5_anni/BTP-5-Anni-Risultati-Asta-29-30.10.2026.pdf"
+  },
+  {
+   "isin": "IT0005580094",
+   "tipo": "BTP",
+   "nome": "BTP 7 anni (vita residua 5 anni)",
+   "cedola": 3.5,
+   "emissione": "2024-01-16",
+   "scadenza": "2031-02-15",
+   "asta": "2026-10-29",
+   "regolamento": "2026-11-02",
+   "prezzo": 98.57,
+   "rendimento": 3.9,
+   "prezzo_fiscale": 99.88,
+   "base": 365,
+   "url": "https://www.dt.mef.gov.it/export/sites/sitodt/modules/documenti_it/debito_pubblico/risultati_aste/risultati_aste_btp_7_anni/BTP-7-Anni-vita-residua-5-anni-Risultati-Asta-29-30.10.2026.pdf"
+  },
+  {
+   "isin": "IT0005699340",
+   "tipo": "BOT",
+   "nome": "BOT 12 mesi",
+   "emissione": "2026-03-13",
+   "scadenza": "2027-03-12",
+   "asta": "2026-10-28",
+   "regolamento": "2026-10-30",
+   "prezzo": 98.957,
+   "rendimento": 2.853,
+   "prezzo_fiscale": 97.658,
+   "base": 360,
+   "url": "https://www.dt.mef.gov.it/export/sites/sitodt/modules/documenti_it/debito_pubblico/risultati_aste/risultati_aste_bot_12_mesi/BOT-12-Mesi-vita-residua-4-mesi-Risultati-Asta-28-29.10.2026.pdf"
+  },
+  {
+   "isin": "IT0005729733",
+   "tipo": "BTPST",
+   "nome": "BTP Short Term",
+   "cedola": 3.0,
+   "emissione": "2026-08-28",
+   "scadenza": "2028-10-30",
+   "asta": "2026-10-27",
+   "regolamento": "2026-10-29",
+   "prezzo": 99.01,
+   "rendimento": 3.55,
+   "prezzo_fiscale": 100.0,
+   "base": 365,
+   "url": "https://www.dt.mef.gov.it/export/sites/sitodt/modules/documenti_it/debito_pubblico/risultati_aste/risultati_aste_btp_short_term/BTP-Short-Term-Risultati-Asta-27-28.10.2026.pdf"
+  },
+  {
+   "isin": "IT0005694630",
+   "tipo": "BTP",
+   "nome": "BTP 15 anni",
+   "cedola": 3.95,
+   "emissione": "2026-02-10",
+   "scadenza": "2041-10-01",
+   "asta": "2026-10-13",
+   "regolamento": "2026-10-15",
+   "prezzo": 91.13,
+   "rendimento": 4.84,
+   "prezzo_fiscale": 99.99,
+   "base": 365,
+   "url": "https://www.dt.mef.gov.it/export/sites/sitodt/modules/documenti_it/debito_pubblico/risultati_aste/risultati_aste_btp_15_anni/BTP-15-Anni-Risultati-Asta-13-14.10.2026.pdf"
+  },
+  {
+   "isin": "IT0005735094",
+   "tipo": "BOT",
+   "nome": "BOT 12 mesi",
+   "emissione": "2026-10-14",
+   "scadenza": "2027-10-14",
+   "asta": "2026-10-09",
+   "regolamento": "2026-10-14",
+   "prezzo": 96.881,
+   "rendimento": 3.175,
+   "prezzo_fiscale": 96.881,
+   "base": 360,
+   "url": "https://www.dt.mef.gov.it/export/sites/sitodt/modules/documenti_it/debito_pubblico/risultati_aste/risultati_aste_bot_12_mesi/BOT-12-Mesi-Risultati-Asta-9-12.10.2026.pdf"
+  },
+  {
+   "isin": "IT0005733115",
+   "tipo": "BOT",
+   "nome": "BOT 6 mesi",
+   "emissione": "2026-09-30",
+   "scadenza": "2027-03-31",
+   "asta": "2026-09-25",
+   "regolamento": "2026-09-30",
+   "prezzo": 98.568,
+   "rendimento": 2.873,
+   "prezzo_fiscale": 98.568,
+   "base": 360,
+   "url": "https://www.dt.mef.gov.it/export/sites/sitodt/modules/documenti_it/debito_pubblico/risultati_aste/risultati_aste_bot_6_mesi/BOT-6-Mesi-Risultati-Asta-25-28.09.2026.pdf"
+  },
+  {
+   "isin": "IT0005441883",
+   "tipo": "BTP",
+   "nome": "BTP 50 anni",
+   "cedola": 2.15,
+   "emissione": "2021-03-01",
+   "scadenza": "2072-03-01",
+   "asta": "2026-09-10",
+   "regolamento": "2026-09-15",
+   "prezzo": 53.94,
+   "rendimento": 4.61,
+   "prezzo_fiscale": 99.467,
+   "base": 365,
+   "url": "https://www.dt.mef.gov.it/export/sites/sitodt/modules/documenti_it/debito_pubblico/risultati_aste/risultati_aste_btp_50_anni/BTP-50-Anni-Risultati-Asta-10-11.09.2026.pdf"
+  },
+  {
+   "isin": "IT0005730681",
+   "tipo": "BOT",
+   "nome": "BOT 12 mesi",
+   "emissione": "2026-09-14",
+   "scadenza": "2027-09-14",
+   "asta": "2026-09-09",
+   "regolamento": "2026-09-14",
+   "prezzo": 97.08,
+   "rendimento": 2.967,
+   "prezzo_fiscale": 97.08,
+   "base": 360,
+   "url": "https://www.dt.mef.gov.it/export/sites/sitodt/modules/documenti_it/debito_pubblico/risultati_aste/risultati_aste_bot_12_mesi/BOT-12-Mesi-Risultati-Asta-9-10.09.2026.pdf"
+  },
+  {
+   "isin": "IT0005707614",
+   "tipo": "BTP",
+   "nome": "BTP 5 anni",
+   "cedola": 3.15,
+   "emissione": "2026-05-04",
+   "scadenza": "2031-06-01",
+   "asta": "2026-08-28",
+   "regolamento": "2026-09-01",
+   "prezzo": 98.83,
+   "rendimento": 3.44,
+   "prezzo_fiscale": 99.34,
+   "base": 365,
+   "url": "https://www.dt.mef.gov.it/export/sites/sitodt/modules/documenti_it/debito_pubblico/risultati_aste/risultati_aste_btp_5_anni/BTP-5-Anni-Risultati-Asta-28-31.08.2026.pdf"
+  },
+  {
+   "isin": "IT0005725236",
+   "tipo": "BOT",
+   "nome": "BOT 6 mesi",
+   "emissione": "2026-07-31",
+   "scadenza": "2027-01-29",
+   "asta": "2026-08-27",
+   "regolamento": "2026-08-31",
+   "prezzo": 98.918,
+   "rendimento": 2.607,
+   "prezzo_fiscale": 98.719,
+   "base": 360,
+   "url": "https://www.dt.mef.gov.it/export/sites/sitodt/modules/documenti_it/debito_pubblico/risultati_aste/risultati_aste_bot_6_mesi/BOT-6-Mesi-Risultati-Asta-27-28.08.2026.pdf"
+  },
+  {
+   "isin": "IT0005729220",
+   "tipo": "BOT",
+   "nome": "BOT 12 mesi",
+   "emissione": "2026-08-14",
+   "scadenza": "2027-08-13",
+   "asta": "2026-08-12",
+   "regolamento": "2026-08-14",
+   "prezzo": 97.277,
+   "rendimento": 2.768,
+   "prezzo_fiscale": 97.277,
+   "base": 360,
+   "url": "https://www.dt.mef.gov.it/export/sites/sitodt/modules/documenti_it/debito_pubblico/risultati_aste/risultati_aste_bot_12_mesi/BOT-12-Mesi-Risultati-Asta-12-13.08.2026.pdf"
+  },
+  {
+   "isin": "IT0005706285",
+   "tipo": "BTP",
+   "nome": "BTP 10 anni",
+   "cedola": 3.8,
+   "emissione": "2026-04-22",
+   "scadenza": "2036-07-01",
+   "asta": "2026-07-30",
+   "regolamento": "2026-08-03",
+   "prezzo": 98.7,
+   "rendimento": 4.0,
+   "prezzo_fiscale": 99.731,
+   "base": 365,
+   "url": "https://www.dt.mef.gov.it/export/sites/sitodt/modules/documenti_it/debito_pubblico/risultati_aste/risultati_aste_btp_10_anni/BTP-10-Anni-Risultati-Asta-30-31.07.2026.pdf"
+  },
+  {
+   "isin": "IT0005402117",
+   "tipo": "BTP",
+   "nome": "BTP 15 anni (vita residua 10 anni)",
+   "cedola": 1.45,
+   "emissione": "2020-02-18",
+   "scadenza": "2036-03-01",
+   "asta": "2026-07-30",
+   "regolamento": "2026-08-03",
+   "prezzo": 80.49,
+   "rendimento": 3.95,
+   "prezzo_fiscale": 99.513,
+   "base": 365,
+   "url": "https://www.dt.mef.gov.it/export/sites/sitodt/modules/documenti_it/debito_pubblico/risultati_aste/risultati_aste_btp_15_anni/BTP-15-Anni-vita-residua-10-anni-Risultati-Asta-30-31.07.2026.pdf"
+  },
+  {
+   "isin": "IT0005692410",
+   "tipo": "BTPST",
+   "nome": "BTP Short Term",
+   "cedola": 2.2,
+   "emissione": "2026-01-29",
+   "scadenza": "2028-02-28",
+   "asta": "2026-07-28",
+   "regolamento": "2026-07-30",
+   "prezzo": 98.93,
+   "rendimento": 2.92,
+   "prezzo_fiscale": 99.91,
+   "base": 365,
+   "url": "https://www.dt.mef.gov.it/export/sites/sitodt/modules/documenti_it/debito_pubblico/risultati_aste/risultati_aste_btp_short_term/BTP-Short-Term-Risultati-Asta-28-29.07.2026.pdf"
+  },
+  {
+   "isin": "IT0005445306",
+   "tipo": "BTP",
+   "nome": "BTP 7 anni (vita residua 2 anni)",
+   "cedola": 0.5,
+   "emissione": "2021-05-17",
+   "scadenza": "2028-07-15",
+   "asta": "2026-07-28",
+   "regolamento": "2026-07-30",
+   "prezzo": 95.5,
+   "rendimento": 2.89,
+   "prezzo_fiscale": 98.69,
+   "base": 365,
+   "url": "https://www.dt.mef.gov.it/export/sites/sitodt/modules/documenti_it/debito_pubblico/risultati_aste/risultati_aste_btp_7_anni/BTP-7-Anni-vita-residua-2-anni-Risultati-Asta-28-29.07.2026.pdf"
+  },
+  {
+   "isin": "IT0005676504",
+   "tipo": "BTP",
+   "nome": "BTP 10 anni (vita residua 10 anni)",
+   "cedola": 3.45,
+   "emissione": "2025-11-03",
+   "scadenza": "2036-02-01",
+   "asta": "2026-06-26",
+   "regolamento": "2026-07-01",
+   "prezzo": 99.22,
+   "rendimento": 3.58,
+   "prezzo_fiscale": 100.0,
+   "base": 365,
+   "url": "https://www.dt.mef.gov.it/export/sites/sitodt/modules/documenti_it/debito_pubblico/risultati_aste/risultati_aste_btp_10_anni/BTP-10-Anni-vita-residua-10-anni-Risultati-Asta-26-26.06.2026.pdf"
+  },
+  {
+   "isin": "IT0005177909",
+   "tipo": "BTP",
+   "nome": "BTP 20 anni (vita residua 10 anni)",
+   "cedola": 2.25,
+   "emissione": "2016-03-01",
+   "scadenza": "2036-09-01",
+   "asta": "2026-05-28",
+   "regolamento": "2026-06-01",
+   "prezzo": 87.58,
+   "rendimento": 3.75,
+   "prezzo_fiscale": 99.368,
+   "base": 365,
+   "url": "https://www.dt.mef.gov.it/export/sites/sitodt/modules/documenti_it/debito_pubblico/risultati_aste/risultati_aste_btp_20_anni/BTP-20-Anni-vita-residua-10-anni-Risultati-Asta-28-29.05.2026.pdf"
+  },
+  {
+   "isin": "IT0005689960",
+   "tipo": "BTP",
+   "nome": "BTP 3 anni",
+   "cedola": 2.4,
+   "emissione": "2026-01-15",
+   "scadenza": "2029-03-15",
+   "asta": "2026-05-13",
+   "regolamento": "2026-05-15",
+   "prezzo": 98.5,
+   "rendimento": 2.98,
+   "prezzo_fiscale": 99.82,
+   "base": 365,
+   "url": "https://www.dt.mef.gov.it/export/sites/sitodt/modules/documenti_it/debito_pubblico/risultati_aste/risultati_aste_btp_3_anni/BTP-3-Anni-Risultati-Asta-13-14.05.2026.pdf"
+  },
+  {
+   "isin": "IT0005704868",
+   "tipo": "BTP",
+   "nome": "BTP 7 anni",
+   "cedola": 3.3,
+   "emissione": "2026-04-15",
+   "scadenza": "2033-06-15",
+   "asta": "2026-05-13",
+   "regolamento": "2026-05-15",
+   "prezzo": 98.63,
+   "rendimento": 3.55,
+   "prezzo_fiscale": 98.86,
+   "base": 365,
+   "url": "https://www.dt.mef.gov.it/export/sites/sitodt/modules/documenti_it/debito_pubblico/risultati_aste/risultati_aste_btp_7_anni/BTP-7-Anni-Risultati-Asta-13-14.05.2026.pdf"
+  },
+  {
+   "isin": "IT0005321325",
+   "tipo": "BTP",
+   "nome": "BTP 20 anni (vita residua 12 anni)",
+   "cedola": 2.95,
+   "emissione": "2017-09-01",
+   "scadenza": "2038-09-01",
+   "asta": "2026-05-13",
+   "regolamento": "2026-05-15",
+   "prezzo": 89.89,
+   "rendimento": 4.04,
+   "prezzo_fiscale": 99.766,
+   "base": 365,
+   "url": "https://www.dt.mef.gov.it/export/sites/sitodt/modules/documenti_it/debito_pubblico/risultati_aste/risultati_aste_btp_20_anni/BTP-20-Anni-vita-residua-12-anni-Risultati-Asta-13-14.05.2026.pdf"
+  },
+  {
+   "isin": "IT0005358806",
+   "tipo": "BTP",
+   "nome": "BTP 15 anni (vita residua 9 anni)",
+   "cedola": 3.35,
+   "emissione": "2018-09-01",
+   "scadenza": "2035-03-01",
+   "asta": "2026-04-29",
+   "regolamento": "2026-05-04",
+   "prezzo": 97.11,
+   "rendimento": 3.77,
+   "prezzo_fiscale": 99.609,
+   "base": 365,
+   "url": "https://www.dt.mef.gov.it/export/sites/sitodt/modules/documenti_it/debito_pubblico/risultati_aste/risultati_aste_btp_15_anni/BTP-15-Anni-vita-residua-9-anni-Risultati-Asta-29-30.04.2026.pdf"
+  },
+  {
+   "isin": "IT0005671273",
+   "tipo": "BTP",
+   "nome": "BTP 5 anni",
+   "cedola": 2.85,
+   "emissione": "2025-10-01",
+   "scadenza": "2031-02-01",
+   "asta": "2026-03-27",
+   "regolamento": "2026-04-01",
+   "prezzo": 97.33,
+   "rendimento": 3.48,
+   "prezzo_fiscale": 99.66,
+   "base": 365,
+   "url": "https://www.dt.mef.gov.it/export/sites/sitodt/modules/documenti_it/debito_pubblico/risultati_aste/risultati_aste_btp_5_anni/BTP-5-Anni-Risultati-Asta-27-30.03.2026.pdf"
+  },
+  {
+   "isin": "IT0005496770",
+   "tipo": "BTP",
+   "nome": "BTP 15 anni (vita residua 12 anni)",
+   "cedola": 3.25,
+   "emissione": "2022-03-01",
+   "scadenza": "2038-03-01",
+   "asta": "2026-03-12",
+   "regolamento": "2026-03-16",
+   "prezzo": 94.63,
+   "rendimento": 3.85,
+   "prezzo_fiscale": 99.651,
+   "base": 365,
+   "url": "https://www.dt.mef.gov.it/export/sites/sitodt/modules/documenti_it/debito_pubblico/risultati_aste/risultati_aste_btp_15_anni/BTP-15-Anni-vita-residua-12-anni-Risultati-Asta-12-13.03.2026.pdf"
+  }
+ ],
+ "retail": {
+  "valore_2031": {
+   "nome": "BTP Valore 27/10/2031",
+   "isin": "IT0005735201",
+   "godimento": "2026-10-27",
+   "scadenza": "2031-10-27",
+   "cedole": "trimestrali",
+   "tassi": [
+    [
+     1,
+     3.75
+    ],
+    [
+     2,
+     3.75
+    ],
+    [
+     3,
+     4.2
+    ],
+    [
+     4,
+     4.2
+    ],
+    [
+     5,
+     4.75
+    ]
+   ],
+   "tassi_minimi": [
+    3.7,
+    3.7,
+    4.1,
+    4.1,
+    4.7
+   ],
+   "prezzo": 100,
+   "minimo": 1000,
+   "raccolta_mln": 12071.383,
+   "comunicato": "2026-10-23"
+  },
+  "insieme_2031": {
+   "nome": "BTP Valore Insieme 27/10/2031",
+   "isin": "IT0005735227",
+   "godimento": "2026-10-27",
+   "scadenza": "2031-10-27",
+   "cedola_unica": 22.7,
+   "cedola_minima": 22.25,
+   "prezzo": 100,
+   "minimo": 1000,
+   "raccolta_mln": 4551.135,
+   "comunicato": "2026-10-23"
+  },
+  "valore_2032": {
+   "nome": "BTP Valore 10/03/2032",
+   "godimento": "2026-03-10",
+   "scadenza": "2032-03-10",
+   "tassi": [
+    [
+     1,
+     2.6
+    ],
+    [
+     2,
+     2.6
+    ],
+    [
+     3,
+     3.2
+    ],
+    [
+     4,
+     3.2
+    ],
+    [
+     5,
+     3.8
+    ],
+    [
+     6,
+     3.8
+    ]
+   ],
+   "premio_finale": 0.8,
+   "prezzo": 100,
+   "raccolta_mln": 16222.584,
+   "comunicato": "2026-03-06"
+  },
+  "italia_2032": {
+   "nome": "BTP Italia 04/06/2032",
+   "godimento": "2025-06-04",
+   "scadenza": "2032-06-04",
+   "tasso_reale": 1.85,
+   "indice": "FOI senza tabacchi",
+   "cedole": "semestrali",
+   "raccolta_mln": 8790.678,
+   "comunicato": "2025-05-30"
+  }
+ },
+ "buoni": [
+  {
+   "id": "ordinario",
+   "nome": "Buono Ordinario",
+   "anni": 20,
+   "dal": "2025-06-24",
+   "tassi": [
+    [
+     1,
+     0.75
+    ],
+    [
+     2,
+     0.75
+    ],
+    [
+     3,
+     0.75
+    ],
+    [
+     4,
+     0.75
+    ],
+    [
+     5,
+     0.9
+    ],
+    [
+     6,
+     1.04
+    ],
+    [
+     7,
+     1.14
+    ],
+    [
+     8,
+     1.25
+    ],
+    [
+     9,
+     1.36
+    ],
+    [
+     10,
+     1.47
+    ],
+    [
+     11,
+     1.57
+    ],
+    [
+     12,
+     1.64
+    ],
+    [
+     13,
+     1.75
+    ],
+    [
+     14,
+     1.86
+    ],
+    [
+     15,
+     1.97
+    ],
+    [
+     16,
+     2.07
+    ],
+    [
+     17,
+     2.18
+    ],
+    [
+     18,
+     2.28
+    ],
+    [
+     19,
+     2.37
+    ],
+    [
+     20,
+     2.5
+    ]
+   ],
+   "interessi_prima": "dopo il 1° anno",
+   "source": "posteOrdinario"
+  },
+  {
+   "id": "4plus",
+   "nome": "Buono 4 anni Plus",
+   "anni": 4,
+   "dal": "2026-09-22",
+   "tassi": [
+    [
+     4,
+     2.25
+    ]
+   ],
+   "interessi_prima": "nessuno prima del 4° anno",
+   "source": "poste4Plus"
+  },
+  {
+   "id": "minori",
+   "nome": "Buono dedicato ai Minori",
+   "anni": 18,
+   "dal": "2026-09-22",
+   "tasso_unico": 5.0,
+   "min_periodo_mesi": 18,
+   "interessi_prima": "fino ai 18 anni del titolare",
+   "source": "posteMinori"
+  },
+  {
+   "id": "eredita",
+   "nome": "Buono Soluzione Eredità",
+   "anni": 4,
+   "dal": "2026-09-22",
+   "tassi": [
+    [
+     4,
+     3.0
+    ]
+   ],
+   "interessi_prima": "nessuno prima del 4° anno",
+   "riservato": "beneficiari di una successione conclusa in Poste",
+   "source": "posteEredita"
+  },
+  {
+   "id": "risparmiosemplice",
+   "nome": "Buono 4 anni risparmiosemplice",
+   "anni": 4,
+   "dal": "2025-06-24",
+   "tassi": [
+    [
+     4,
+     1.25
+    ]
+   ],
+   "tasso_premiale": 1.5,
+   "versamenti_premio": 24,
+   "interessi_prima": "nessuno prima del 4° anno",
+   "source": "posteRisparmiosemplice"
+  }
+ ],
+ "deposito": {
+  "mese": "2026-09",
+  "entro_1_anno": 2.91,
+  "oltre_2_anni": 2.89,
+  "tutte": 2.9,
+  "conti_correnti": 0.25,
+  "bce_depositi": 2.5,
+  "bce_depositi_dal": "2026-11-13",
+  "libretto_ordinario": 0.001,
+  "libretto_ordinario_dal": "2019-11-07"
+ },
+ "sources": {
+  "mefAste": {
+   "url": "https://www.dt.mef.gov.it/it/debito_pubblico/emissioni_titoli_di_stato_interni/risultati_aste/",
+   "label": {
+    "it": "Dipartimento del Tesoro, risultati delle aste dei titoli di Stato (PDF per asta)",
+    "en": "Italian Treasury Department, government bond auction results (one PDF per auction)"
+   }
+  },
+  "mefBot": {
+   "url": "https://www.dt.mef.gov.it/it/debito_pubblico/emissioni_titoli_di_stato_interni/risultati_aste/risultati_aste_bot_12_mesi/index.html",
+   "label": {
+    "it": "Dipartimento del Tesoro, risultati delle aste dei BOT a 12 mesi",
+    "en": "Italian Treasury Department, 12-month BOT auction results"
+   }
+  },
+  "mefBtpValore": {
+   "url": "https://www.dt.mef.gov.it/export/sites/sitodt/modules/documenti_it/debito_pubblico/risultati_aste/risultati_aste_btp_valore/BTP-Valore-e-BTP-Valore-Insieme-27.10.2031-8-e-9-Risultati-collocamento.pdf",
+   "label": {
+    "it": "MEF, comunicato del 23 ottobre 2026 sui tassi definitivi di BTP Valore e BTP Valore Insieme",
+    "en": "Ministry of Economy, release of 23 October 2026 on the final BTP Valore and BTP Valore Insieme rates"
+   }
+  },
+  "mefBtpValore2032": {
+   "url": "https://www.dt.mef.gov.it/export/sites/sitodt/modules/documenti_it/debito_pubblico/risultati_aste/risultati_aste_btp_valore/BTP-Valore-10.03.2032-7-Risultati-collocamento.pdf",
+   "label": {
+    "it": "MEF, comunicato del 6 marzo 2026 sul BTP Valore 10/03/2032",
+    "en": "Ministry of Economy, release of 6 March 2026 on BTP Valore 10/03/2032"
+   }
+  },
+  "mefBtpItalia": {
+   "url": "https://www.dt.mef.gov.it/export/sites/sitodt/modules/documenti_it/debito_pubblico/risultati_aste/risultati_aste_btp_italia/BTP-Italia-04.06.2032-20-Risultati-collocamento-..pdf",
+   "label": {
+    "it": "MEF, comunicato del 30 maggio 2025 sul BTP Italia 04/06/2032",
+    "en": "Ministry of Economy, release of 30 May 2025 on BTP Italia 04/06/2032"
+   }
+  },
+  "mefCalendario": {
+   "url": "https://www.dt.mef.gov.it/export/sites/sitodt/modules/documenti_it/debito_pubblico/calendario/Calendario-Emissioni-Titoli-di-Stato-2026.pdf",
+   "label": {
+    "it": "Dipartimento del Tesoro, calendario delle emissioni dei titoli di Stato 2026",
+    "en": "Italian Treasury Department, 2026 government bond issuance calendar"
+   }
+  },
+  "posteBuoni": {
+   "url": "https://buonielibretti.poste.it/buoni-fruttiferi-postali",
+   "label": {
+    "it": "Poste Italiane, Buoni fruttiferi postali (emessi da Cassa Depositi e Prestiti)",
+    "en": "Poste Italiane, postal savings bonds (issued by Cassa Depositi e Prestiti)"
+   }
+  },
+  "posteOrdinario": {
+   "url": "https://buonielibretti.poste.it/buoni-fruttiferi-postali/buono-ordinario",
+   "label": {
+    "it": "Poste Italiane, Buono Ordinario: rendimenti per anno, condizioni dal 24 giugno 2025",
+    "en": "Poste Italiane, Buono Ordinario: yield by year, terms from 24 June 2025"
+   }
+  },
+  "poste4Plus": {
+   "url": "https://buonielibretti.poste.it/buoni-fruttiferi-postali/buono-4-anni-plus",
+   "label": {
+    "it": "Poste Italiane, Buono 4 anni Plus, condizioni dal 22 settembre 2026",
+    "en": "Poste Italiane, Buono 4 anni Plus, terms from 22 September 2026"
+   }
+  },
+  "posteMinori": {
+   "url": "https://buonielibretti.poste.it/buoni-fruttiferi-postali/buono-minori",
+   "label": {
+    "it": "Poste Italiane, Buono dedicato ai Minori, condizioni dal 22 settembre 2026",
+    "en": "Poste Italiane, savings bond for minors, terms from 22 September 2026"
+   }
+  },
+  "posteEredita": {
+   "url": "https://buonielibretti.poste.it/buoni-fruttiferi-postali/buono-soluzione-eredita",
+   "label": {
+    "it": "Poste Italiane, Buono Soluzione Eredità, condizioni dal 22 settembre 2026",
+    "en": "Poste Italiane, Buono Soluzione Eredità, terms from 22 September 2026"
+   }
+  },
+  "posteRisparmiosemplice": {
+   "url": "https://buonielibretti.poste.it/buoni-fruttiferi-postali/buono-4-anni-risparmiosemplice",
+   "label": {
+    "it": "Poste Italiane, Buono 4 anni risparmiosemplice, condizioni dal 24 giugno 2025",
+    "en": "Poste Italiane, Buono 4 anni risparmiosemplice, terms from 24 June 2025"
+   }
+  },
+  "posteLibretto": {
+   "url": "https://buonielibretti.poste.it/libretti-postali/libretto-postale-ordinario",
+   "label": {
+    "it": "Poste Italiane, Libretto postale ordinario: tasso, ritenuta del 26% e bollo",
+    "en": "Poste Italiane, ordinary postal savings book: rate, 26% tax and stamp duty"
+   }
+  },
+  "bceMir": {
+   "url": "https://data-api.ecb.europa.eu/service/data/MIR/M.IT.B.L22.F.R.A.2250.EUR.N?lastNObservations=3",
+   "label": {
+    "it": "BCE, tassi bancari italiani sui depositi delle famiglie con durata prestabilita (nuove operazioni)",
+    "en": "ECB, Italian bank rates on household deposits with agreed maturity (new business)"
+   }
+  },
+  "bceTassi": {
+   "url": "https://data-api.ecb.europa.eu/service/data/FM/D.U2.EUR.4F.KR.DFR.LEV?lastNObservations=1",
+   "label": {
+    "it": "BCE, tasso sui depositi presso la banca centrale",
+    "en": "ECB, deposit facility rate"
+   }
+  },
+  "dlgs239": {
+   "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:1996-04-01;239",
+   "label": {
+    "it": "Decreto legislativo 1° aprile 1996, n. 239 (imposta sostitutiva sugli interessi dei titoli pubblici)",
+    "en": "Legislative Decree 239 of 1 April 1996 (substitute tax on government bond interest)"
+   }
+  },
+  "dl66": {
+   "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legge:2014-04-24;66",
+   "label": {
+    "it": "Decreto-legge 24 aprile 2014, n. 66, art. 3 (aliquota del 26% e 12,5% per i titoli di Stato)",
+    "en": "Decree-Law 66 of 24 April 2014, art. 3 (26% rate, 12.5% kept for government bonds)"
+   }
+  },
+  "dpr642": {
+   "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:presidente.repubblica:decreto:1972-10-26;642",
+   "label": {
+    "it": "DPR 26 ottobre 1972, n. 642, tariffa, art. 13 (imposta di bollo dello 0,20% sui prodotti finanziari)",
+    "en": "Presidential Decree 642 of 26 October 1972, tariff art. 13 (0.20% stamp duty on financial products)"
+   }
+  },
+  "l213": {
+   "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:legge:2023-12-30;213",
+   "label": {
+    "it": "Legge 30 dicembre 2023, n. 213 (titoli di Stato e buoni esclusi dall’ISEE fino a 50.000 euro)",
+    "en": "Law 213 of 30 December 2023 (government bonds and postal bonds left out of the ISEE up to €50,000)"
+   }
+  },
+  "cad": {
+   "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2005-03-07;82",
+   "label": {
+    "it": "Codice dell’amministrazione digitale, art. 52 (dati pubblici aperti per impostazione predefinita)",
+    "en": "Digital Administration Code, art. 52 (public data open by default)"
+   }
+  }
+ }
+}
