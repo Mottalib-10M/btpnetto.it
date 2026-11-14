@@ -37,12 +37,13 @@ const faqs = it ? [
   <div class="prose prose-slate max-w-none">
     <p>Ogni risultato del sito nasce da quattro gruppi di dati, letti il {d(P.retrieved_at)} e raccolti nel file <code>src/data/params-2026.json</code>: i risultati delle aste del Dipartimento del Tesoro ({nBtp} BTP a tasso fisso e {nBot} BOT ancora in vita, l’ultima asta letta è del {d(M.ULTIMA_ASTA.asta)}), i comunicati del MEF su BTP Valore e BTP Italia, le condizioni dei Buoni fruttiferi postali pubblicate da Poste Italiane e i tassi medi sui depositi delle famiglie pubblicati dalla BCE. Nessuna pagina scrive un numero a mano.</p>
     <h2>Da dove vengono i prezzi</h2>
-    <p>Per ogni titolo prendiamo l’ultima asta: prezzo di aggiudicazione, rendimento lordo, prezzo fiscale, cedola e date, così come stampati nel PDF «Risultati Asta» del Tesoro. Il sito del Dipartimento del Tesoro non indica una licenza; per l’articolo 52, comma 2, del Codice dell’amministrazione digitale i dati pubblicati da un’amministrazione senza licenza espressa sono dati aperti, e li citiamo con il link al PDF. Non usiamo i prezzi di Borsa Italiana né i dati della Banca d’Italia riservati all’uso personale.</p>
+    <p>Per ogni titolo prendiamo l’ultima asta: prezzo di aggiudicazione, rendimento lordo, prezzo fiscale, cedola (l’interesse annuo) e date, così come stampati nel PDF «Risultati Asta» del Tesoro. Il sito del Dipartimento del Tesoro non indica una licenza; per l’articolo 52, comma 2, del Codice dell’amministrazione digitale i dati pubblicati da un’amministrazione senza licenza espressa sono dati aperti, e li citiamo con il link al PDF. Non usiamo i prezzi di Borsa Italiana né i dati della Banca d’Italia riservati all’uso personale.</p>
     <h2>Le formule</h2>
     <ul>
       <li><strong>BTP</strong>: spesa = valore nominale × prezzo / 100 più il rateo maturato dall’ultima cedola; cedole semestrali alle date della scadenza; alla scadenza rimborso a 100. Tassa del 12,5% sulle cedole e sulla differenza tra 100 e il prezzo pagato; bollo dello 0,20% all’anno. Il rendimento netto è il tasso interno di rendimento dei flussi netti, con capitalizzazione annua sui giorni effettivi.</li>
-      <li><strong>BOT</strong>: guadagno = 100 meno il prezzo; tassa del 12,5% su questa differenza; bollo dello 0,20% al prorata dei giorni. Il rendimento lordo è quello del Tesoro, semplice su 360 giorni; il netto è annuo su 365.</li>
+      <li><strong>BOT</strong>: guadagno = 100 meno il prezzo; tassa del 12,5% su questa differenza; bollo dello 0,20% all’anno, solo per i giorni in cui hai il titolo. Il rendimento lordo è quello del Tesoro, semplice su 360 giorni; il netto è annuo su 365.</li>
       <li><strong>Buoni</strong>: valore = importo × (1 + tasso effettivo annuo lordo)<sup>anni</sup>, con il tasso della tabella di Poste per quel periodo di possesso; tassa del 12,5% sugli interessi; bollo dello 0,20% solo se i Buoni superano {$(P.fisco.bollo_buoni_franchigia)} in tutto.</li>
+      <li><strong>BTP Italia</strong>: approssimazione annuale, prezzo 100; ogni anno il lordo è il capitale × ((1 + inflazione) × (1 + tasso reale) − 1), cioè la rivalutazione più la cedola sul capitale rivalutato; tassa del 12,5% e bollo dello 0,20% all’anno.</li>
       <li><strong>Conto deposito</strong>: interessi semplici, tassa del 26%, bollo dello 0,20% all’anno. Tasso predefinito: media BCE dei depositi vincolati delle famiglie in Italia ({P.deposito.mese}: {dec(P.deposito.entro_1_anno)}% fino a un anno, {dec(P.deposito.oltre_2_anni)}% oltre due anni), modificabile.</li>
     </ul>
     <h2>I test contro il Tesoro</h2>
@@ -69,8 +70,9 @@ const faqs = it ? [
     <h2>The formulas</h2>
     <ul>
       <li><strong>BTP</strong>: cost = face value × price / 100 plus interest accrued since the last coupon; half-yearly coupons on the maturity dates; repaid at 100. A 12.5% tax on coupons and on the gap between 100 and the price paid; 0.20% stamp duty a year. The net yield is the internal rate of return of the net cash flows, compounded yearly on actual days.</li>
-      <li><strong>BOT</strong>: gain = 100 minus the price; 12.5% tax on that gap; 0.20% stamp duty pro rata. The gross yield is the Treasury’s simple 360-day figure; the net one is yearly on 365 days.</li>
+      <li><strong>BOT</strong>: gain = 100 minus the price; 12.5% tax on that gap; 0.20% yearly stamp duty, only for the days you hold it. The gross yield is the Treasury’s simple 360-day figure; the net one is yearly on 365 days.</li>
       <li><strong>Postal bonds</strong>: value = amount × (1 + gross effective yearly rate)<sup>years</sup>, using Poste’s rate for that holding period; 12.5% tax on the interest; 0.20% stamp duty only above {$(P.fisco.bollo_buoni_franchigia)} of bonds in total.</li>
+      <li><strong>BTP Italia</strong>: yearly approximation at a price of 100; each year the gross is capital × ((1 + inflation) × (1 + real rate) − 1), the revaluation plus the coupon on revalued capital; 12.5% tax and 0.20% yearly stamp duty.</li>
       <li><strong>Deposit account</strong>: simple interest, 26% tax, 0.20% stamp duty a year. Default rate: the ECB average for Italian household fixed-term deposits ({P.deposito.mese}: {dec(P.deposito.entro_1_anno)}% up to one year, {dec(P.deposito.oltre_2_anni)}% over two years), which you can change.</li>
     </ul>
     <h2>Tests against the Treasury</h2>

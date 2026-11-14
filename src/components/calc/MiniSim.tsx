@@ -98,5 +98,6 @@ export default function MiniSim({ kind, lang = 'en', href, title, idPrefix = 'm'
 /** Valeur d'un champ telle que le lecteur la lit : libellé de l'option choisie, ou nombre et unité. */
 export function valeurAffichee(i: MiniInput, x: number, lang?: string): string {
   if (i.options) return i.options.find((o) => o.value === String(x))?.label ?? String(x);
+  if (x === 0 && i.vuoto) return i.vuoto;
   return `${formatNumber(x, Number.isInteger(x) ? 0 : (i.decimals ?? 0), lang)}${i.unit ? `\u00a0${i.unit}` : ''}`;
 }

@@ -16,6 +16,25 @@ export function Shell({ form, result, id, below }: { form: ReactNode; result: Re
   const [key, setKey] = useState<{ label: string; value: string } | null>(null);
   // Pendant la saisie, la barre se retire : elle cachait le champ en cours (testeurs naïfs du 2026-11-14).
   const [saisie, setSaisie] = useState(false);
+  // 2e tour (2026-11-14) : même sans saisie, la barre posée sur le bas de l'écran couvrait le dernier champ ou son
+  // libellé (inflation du BTP Italia, « Anni tenuti » du BTP Valore). Elle ne s'affiche plus tant qu'un morceau du
+  // formulaire passe dans la bande du bas de l'écran où elle se pose.
+  const formRef = useRef<HTMLFormElement>(null);
+  const [formEnBas, setFormEnBas] = useState(false);
+  useEffect(() => {
+    const f = formRef.current;
+    if (!f || typeof IntersectionObserver === 'undefined') return;
+    let io: IntersectionObserver | null = null;
+    const arm = () => {
+      io?.disconnect();
+      const bande = Math.max(0, window.innerHeight - 120);
+      io = new IntersectionObserver(([e]) => setFormEnBas(e.isIntersecting), { rootMargin: `-${bande}px 0px 0px 0px` });
+      io.observe(f);
+    };
+    arm();
+    window.addEventListener('resize', arm);
+    return () => { io?.disconnect(); window.removeEventListener('resize', arm); };
+  }, []);
   useEffect(() => {
     const el = card.current;
     if (!el || typeof IntersectionObserver === 'undefined') return;
@@ -26,15 +45,15 @@ export function Shell({ form, result, id, below }: { form: ReactNode; result: Re
   return (
     <div className="rechner not-prose rounded-xl border border-navy-200 bg-white p-4 sm:p-6" data-chrome data-calc={id}>
       <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,24rem)] lg:items-start lg:gap-6">
-        <form onSubmit={(e) => e.preventDefault()} onFocus={() => setSaisie(true)} onBlur={() => setSaisie(false)} className="space-y-5 scroll-mb-24">{form}</form>
+        <form ref={formRef} onSubmit={(e) => e.preventDefault()} onFocus={() => setSaisie(true)} onBlur={() => setSaisie(false)} className="space-y-5 scroll-mb-24">{form}</form>
         <div ref={card} aria-live="polite" data-resultat className="mt-6 rounded-xl border border-accent-200 bg-accent-50/60 p-4 sm:p-5 lg:sticky lg:top-20 lg:mt-0"><KeyFigure.Provider value={setKey}>{result}</KeyFigure.Provider></div>
       </div>
       {below}
-      {belowCard && key && !saisie && (
+      {belowCard && key && !saisie && !formEnBas && (
         <button type="button" aria-hidden="true" tabIndex={-1} onClick={() => card.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
           className="fixed inset-x-0 bottom-0 z-40 flex items-baseline justify-between gap-3 border-t border-accent-200 bg-accent-50 px-4 py-3 text-left shadow-lg lg:hidden">
-          <span className="text-sm font-medium text-navy-700">{key.label}</span>
-          <span className="tabular-nums text-xl font-bold text-navy-900">{key.value}</span>
+          <span className="min-w-0 truncate text-sm font-medium text-navy-700">{key.label}</span>
+          <span className="shrink-0 tabular-nums text-xl font-bold text-navy-900">{key.value}</span>
         </button>
       )}
     </div>

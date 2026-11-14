@@ -57,7 +57,7 @@ export default function SpecTool({ kind, lang, id, opts, methodHref }: Props) {
   const fid = (k: string) => `${id}-${k}`;
   const champ = (i: ToolInput) => (i.options
     ? <SelectField key={i.id} id={fid(i.id)} label={i.label} value={String(v[i.id])} onChange={(x) => set(i.id)(Number(x))} options={i.options} help={i.help} />
-    : <NumberField key={i.id} id={fid(i.id)} label={i.label} value={v[i.id]} onChange={set(i.id)} unit={i.unit} max={i.max} decimals={i.decimals} help={i.help} lang={lang} />);
+    : <NumberField key={i.id} id={fid(i.id)} label={i.label} value={v[i.id]} onChange={set(i.id)} unit={i.unit} max={i.max} decimals={i.decimals} help={i.help} lang={lang} placeholder={i.vuoto} />);
   const visibles = spec.inputs.filter((i) => !i.showIf || i.showIf(v));
   const avances = visibles.filter((i) => i.avance);
   const form = (

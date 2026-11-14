@@ -2,6 +2,7 @@
 import { T, eur, eur2, pct, type L } from '../minis/_kit';
 import { buono, buonoById } from '../engine/index';
 import type { ToolSpec } from '../tool-types';
+import { P } from '../engine/params';
 import { formatDecimal } from '../format';
 export default (l: L): ToolSpec => ({
   exemple: T(l, 'Esempio: 1.000 € per un bambino di 3 anni', 'Example: €1,000 for a three-year-old'),
@@ -15,13 +16,13 @@ export default (l: L): ToolSpec => ({
     const anni = Math.max(0, 18 - v.eta);
     const r = buono('minori', v.importo, anni, v.importo + v.altri);
     return {
-      head: [T(l, 'Netto ai 18 anni', 'Net at age 18'), eur(r.netto, l)],
-      sub: T(l, `${anni} anni al ${formatDecimal(r.tasso, 2, l)}% lordo · ${pct(r.rendNetto, l, 2)} netto all’anno`, `${anni} years at ${formatDecimal(r.tasso, 2, l)}% gross · ${pct(r.rendNetto, l, 2)} net a year`),
+      head: [T(l, 'Valore netto ai 18 anni (capitale più interessi)', 'Net value at age 18 (capital plus interest)'), eur(r.netto, l)],
+      sub: T(l, `di cui ${eur(r.netto - v.importo, l)} di interessi netti · ${anni} anni al ${formatDecimal(r.tasso, 2, l)}% lordo · ${pct(r.rendNetto, l, 2)} netto all’anno`, `of which ${eur(r.netto - v.importo, l)} net interest · ${anni} years at ${formatDecimal(r.tasso, 2, l)}% gross · ${pct(r.rendNetto, l, 2)} net a year`),
       alert: r.tasso === 0 ? T(l, `Servono almeno ${b.min_periodo_mesi} mesi tra acquisto e 18 anni per avere interessi.`, `At least ${b.min_periodo_mesi} months are needed between purchase and age 18 to earn interest.`) : undefined,
       rows: [
         [T(l, 'Valore lordo ai 18 anni', 'Gross value at 18'), eur2(r.valoreLordo, l)],
         [T(l, 'Tassa 12,5%', '12.5% tax'), eur2(r.tassa, l)],
-        [T(l, 'Bollo', 'Stamp duty'), eur2(r.bollo, l)],
+        [T(l, `Bollo (0,20% all’anno, solo se i Buoni del bambino superano ${eur(P.fisco.bollo_buoni_franchigia, l)})`, `Stamp duty (0.20% a year, only if the child’s bonds exceed ${eur(P.fisco.bollo_buoni_franchigia, l)})`), eur2(r.bollo, l)],
         [T(l, 'Interessi netti', 'Net interest'), eur2(r.netto - v.importo, l), true],
       ],
       note: T(l, 'Tasso letto su Poste Italiane per i Buoni sottoscritti dal 22 settembre 2026; vale fino al compimento dei 18 anni del titolare.', 'Rate read on Poste Italiane for bonds bought from 22 September 2026; it runs until the holder turns 18.'),

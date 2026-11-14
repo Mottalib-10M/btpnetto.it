@@ -11,7 +11,7 @@ export default (l: L, o: { fisso?: string } = {}): ToolSpec => ({
   inputs: [
     ...(o.fisso ? [] : [{ id: 'tipo', label: T(l, 'Quale Buono', 'Which bond'), def: 0, options: TIPI.map((id, i) => ({ value: String(i), label: `${buonoById(id).nome} (${buonoById(id).anni} ${T(l, 'anni', 'years')})` })) }]),
     importo(l),
-    { id: 'anni', label: T(l, 'Dopo quanti anni lo rimborsi', 'Cashed in after'), def: o.fisso === 'ordinario' ? 10 : 4, options: ANNI(l, 20) },
+    { id: 'anni', label: T(l, 'Dopo quanti anni lo rimborsi', 'Cashed in after'), def: o.fisso === 'ordinario' ? 10 : 5, options: ANNI(l, 20) },
     { id: 'altri', label: T(l, 'Altri Buoni che possiedi già (per il bollo)', 'Other postal bonds you already hold (for stamp duty)'), def: 0, unit: '€', max: 5000000, avance: true },
   ],
   run: (v) => {
@@ -20,21 +20,24 @@ export default (l: L, o: { fisso?: string } = {}): ToolSpec => ({
     const r = buono(id, v.importo, v.anni, v.importo + v.altri);
     const oltre = v.anni > b.anni;
     return {
-      head: [T(l, `${b.nome}: rimborso netto dopo ${r.anni} ${r.anni === 1 ? 'anno' : 'anni'}`, `${b.nome}: net cash-in after ${r.anni} year${r.anni === 1 ? '' : 's'}`), eur(r.netto, l)],
-      sub: T(l, `${pct(r.rendNetto, l, 2)} netto all’anno · tasso lordo ${formatDecimal(r.tasso, 2, l)}% (condizioni dal ${data(b.dal, l)})`, `${pct(r.rendNetto, l, 2)} net a year · gross rate ${formatDecimal(r.tasso, 2, l)}% (terms from ${data(b.dal, l)})`),
+      // Le gros chiffre est le gain, comme à l'accueil ; le total remboursé vient dessous (testeurs naïfs du 2026-11-14, 2e tour :
+      // « 10.184 € » lu comme un gain).
+      head: [T(l, `${b.nome}: guadagno netto dopo ${r.anni} ${r.anni === 1 ? 'anno' : 'anni'}`, `${b.nome}: net gain after ${r.anni} year${r.anni === 1 ? '' : 's'}`), eur(r.netto - v.importo, l)],
+      sub: T(l, `ti restituiscono in tutto ${eur(r.netto, l)} · ${pct(r.rendNetto, l, 2)} netto all’anno · tasso lordo ${formatDecimal(r.tasso, 2, l)}% (condizioni dal ${data(b.dal, l)})`, `you get back ${eur(r.netto, l)} in all · ${pct(r.rendNetto, l, 2)} net a year · gross rate ${formatDecimal(r.tasso, 2, l)}% (terms from ${data(b.dal, l)})`),
       alert: r.tasso === 0 ? T(l, `Rimborsato così presto, questo Buono restituisce solo il capitale: gli interessi maturano ${b.interessi_prima}.`, `Cashed in this early, the bond only returns your capital.`) : oltre ? T(l, `Il Buono scade dopo ${b.anni} anni e poi non frutta più: il calcolo si ferma alla scadenza.`, `The bond matures after ${b.anni} years and earns nothing afterwards: the calculation stops at maturity.`) : undefined,
       rows: [
         [T(l, 'Valore lordo', 'Gross value'), eur2(r.valoreLordo, l)],
         [T(l, 'Interessi lordi', 'Gross interest'), eur2(r.interessi, l)],
         [T(l, 'Tassa 12,5%', '12.5% tax'), eur2(r.tassa, l)],
-        [T(l, r.esenteBollo ? `Bollo: esente fino a ${eur(P.fisco.bollo_buoni_franchigia, l)} di Buoni` : 'Bollo 0,20% stimato', r.esenteBollo ? `Stamp duty: none up to ${eur(P.fisco.bollo_buoni_franchigia, l)} of bonds` : 'Estimated 0.20% stamp duty'), eur2(r.bollo, l)],
+        [T(l, r.esenteBollo ? `Bollo: esente fino a ${eur(P.fisco.bollo_buoni_franchigia, l)} di Buoni` : `Bollo stimato (0,20% all’anno: si paga perché i tuoi Buoni superano ${eur(P.fisco.bollo_buoni_franchigia, l)})`, r.esenteBollo ? `Stamp duty: none up to ${eur(P.fisco.bollo_buoni_franchigia, l)} of bonds` : `Estimated stamp duty (0.20% a year: due because your bonds exceed ${eur(P.fisco.bollo_buoni_franchigia, l)})`), eur2(r.bollo, l)],
         [T(l, 'Interessi netti', 'Net interest'), eur2(r.netto - v.importo, l), true],
+        [T(l, 'Rimborso totale netto (capitale più interessi)', 'Total net cash-in (capital plus interest)'), eur2(r.netto, l)],
       ],
       note: T(l, `Tassi di Poste Italiane per i Buoni sottoscritti oggi. Tasso a ${b.anni} anni: ${formatDecimal(tassoBuono(id, b.anni), 2, l)}% lordo.`, `Poste Italiane rates for bonds bought today. Rate at ${b.anni} years: ${formatDecimal(tassoBuono(id, b.anni), 2, l)}% gross.`),
       table: id === 'ordinario' ? {
         caption: T(l, 'Buono Ordinario anno per anno, per l’importo scritto sopra', 'Buono Ordinario year by year, for the amount above'),
-        headers: T(l, ['Anni', 'Tasso lordo', 'Valore lordo', 'Netto'], ['Years', 'Gross rate', 'Gross value', 'Net']), align: ['l', 'r', 'r', 'r'],
-        rows: Array.from({ length: 20 }, (_, i) => { const x = buono(id, v.importo, i + 1, v.importo + v.altri); return [String(i + 1), `${formatDecimal(x.tasso, 2, l)}%`, eur(x.valoreLordo, l), eur(x.netto, l)]; }),
+        headers: T(l, ['Rimborso dopo', 'Tasso lordo', 'Valore lordo', 'Netto'], ['Cashed in after', 'Gross rate', 'Gross value', 'Net']), align: ['l', 'r', 'r', 'r'],
+        rows: Array.from({ length: 20 }, (_, i) => { const x = buono(id, v.importo, i + 1, v.importo + v.altri); return [T(l, i ? `${i + 1} anni` : '1 anno', i ? `${i + 1} years` : '1 year'), pct(x.tasso / 100, l, 2), eur(x.valoreLordo, l), eur(x.netto, l)]; }),
       } : undefined,
     };
   },

@@ -3,6 +3,8 @@
 export interface MiniInput { id: string; label: string; def: number; unit?: string; max?: number; decimals?: number; help?: string; options?: Array<{ value: string; label: string }>;
   /** Champ facultatif rangé dans le repli « Plus de détails » ; sa valeur actuelle reste lisible dans le titre du repli. */
   avance?: boolean;
+  /** Ce que vaut un champ laissé vide (0), dit en mots : texte d'attente du champ et valeur du résumé (« quello dell’ultima asta »). */
+  vuoto?: string;
   /** Champ montré seulement quand il change le résultat (financecertcost.com, 2026-11-08 : un champ sans effet se lit
    *  comme une panne). Un champ caché garde sa valeur et ne compte pas parmi les champs modifiables. */
   showIf?: (v: Record<string, number>) => boolean }

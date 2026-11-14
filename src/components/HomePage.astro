@@ -21,7 +21,6 @@ const { lang } = Astro.props;
 const x = HOME[lang];
 const H = helpers(lang);
 const path = route('home', lang);
-const parts = x.body(H).split(/<!--mini:([A-Za-z0-9_]+)-->/);
 const resume = x.resume(H);
 const faqs = x.faqs(H);
 const keys: SourceKey[] = ['mefAste', 'mefBtpValore', 'mefBtpItalia', 'posteBuoni', 'posteOrdinario', 'bceMir', 'dlgs239', 'dl66', 'dpr642', 'cad'];
@@ -29,10 +28,16 @@ const sources = keys.map((k) => ({ name: P.sources[k].label[lang], url: P.source
 const jsonLd = [websiteSchema(lang), organizationSchema(lang), webPageSchema({ name: x.h1, description: x.description, path, lang }), webApplicationSchema({ name: x.h1, description: x.description, path, lang }), faqSchema(faqs, lang)];
 const it = lang === 'it';
 import * as M from '../lib/engine/index';
+import { nomeBase, traQuanto } from '../lib/nomi';
 const ultime = M.ULTIME.slice(0, 4);
 // Testeurs naïfs du 2026-11-14 : « 3,58 % » puis « BTP 3 anni 3,00 % », deux taux sans nom, et deux dates collées.
-const nomeA = (a: (typeof ultime)[number]) => { const n = a.nome.split(' (')[0]; return it ? n : n.replace(/anni/g, 'years').replace(/mesi/g, 'months'); };
-const dettA = (a: (typeof ultime)[number]) => `${a.cedola != null ? `${it ? 'cedola' : 'coupon'} ${H.num(a.cedola, 2)}% · ` : ''}${it ? 'scade il' : 'matures'} ${H.date(a.scadenza)}`;
+// 2e tour : « BTP 7 anni » qui échoit en 2031 se lisait comme une erreur ; le nom reste, le temps restant s'ajoute (lib/nomi.ts).
+const nomeA = (a: (typeof ultime)[number]) => nomeBase(a, lang);
+const dettA = (a: (typeof ultime)[number]) => `${a.cedola != null ? `${it ? 'cedola' : 'coupon'} ${H.num(a.cedola, 2)}% · ` : ''}${it ? 'scade il' : 'matures'} ${H.date(a.scadenza)}${traQuanto(a, lang)}`;
+// Corps : la première section (le tableau par durée) reste ouverte, les suivantes se replient sous leur titre
+// (testeurs naïfs du 2026-11-14, 2e tour : « longs paragraphes non repliés » ; tout reste dans le HTML).
+const sezioni = (html: string) => { let n = 0; return html.split(/(?=<h2>)/).map((s) => (!s.startsWith('<h2>') || n++ === 0 ? s : s.replace(/^<h2>(.*?)<\/h2>/s, '<details class="sezione"><summary class="cursor-pointer"><h2 class="inline">$1</h2></summary>') + '</details>')).join(''); };
+const parts = sezioni(x.body(H)).split(/<!--mini:([A-Za-z0-9_]+)-->/);
 const cats = navCategories(lang);
 ---
 <PageLayout title={x.title} description={x.description} lang={lang} jsonLd={jsonLd} faqs={faqs} sources={sources}>
@@ -46,6 +51,7 @@ const cats = navCategories(lang);
   <p class="mt-3 text-sm text-navy-600">{it ? 'Di' : 'By'} <a href={route('about', lang)} class="underline">{AUTHOR_NAME}</a> · <a href={route('method', lang)} class="underline">{it ? 'Metodo e fonti' : 'Method and sources'}</a> · <a href={route('rendimento-btp', lang)} class="underline">{it ? 'Calcola un BTP preciso' : 'Work out one BTP'}</a></p>
   <section data-chrome class="mt-8 rounded-xl border border-navy-200 bg-navy-50 p-4 sm:p-6" aria-labelledby="aste">
     <h2 id="aste" class="text-lg font-bold text-navy-900">{it ? 'Le ultime aste del Tesoro' : 'The latest Treasury auctions'}</h2>
+    <p class="mt-1 text-sm text-navy-700">{it ? 'Rendimenti prima delle tasse, come li pubblica il Tesoro: il netto per il tuo importo è nel calcolo qui sopra.' : 'Yields before tax, as the Treasury publishes them: the net figure for your amount is in the calculation above.'}</p>
     <ol class="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
       {ultime.map((a) => (
         <li class="rounded-lg bg-white p-3 shadow-sm">
