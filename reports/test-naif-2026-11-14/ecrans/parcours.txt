@@ -1,0 +1,9 @@
+01 / → /it/
+02 menu ☰ ouvert (rubriques dépliées)
+03 /en/
+04 /en/about/
+05 /en/bot-net-yield/
+06 /en/btp-italia-inflation-linked/
+07 /en/btp-net-yield/
+08 /en/btp-or-postal-bonds/
+09 /en/btp-valore/

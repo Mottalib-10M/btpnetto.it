@@ -14,6 +14,8 @@ export function Shell({ form, result, id, below }: { form: ReactNode; result: Re
   const card = useRef<HTMLDivElement>(null);
   const [belowCard, setBelow] = useState(false);
   const [key, setKey] = useState<{ label: string; value: string } | null>(null);
+  // Pendant la saisie, la barre se retire : elle cachait le champ en cours (testeurs naïfs du 2026-11-14).
+  const [saisie, setSaisie] = useState(false);
   useEffect(() => {
     const el = card.current;
     if (!el || typeof IntersectionObserver === 'undefined') return;
@@ -24,11 +26,11 @@ export function Shell({ form, result, id, below }: { form: ReactNode; result: Re
   return (
     <div className="rechner not-prose rounded-xl border border-navy-200 bg-white p-4 sm:p-6" data-chrome data-calc={id}>
       <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,24rem)] lg:items-start lg:gap-6">
-        <form onSubmit={(e) => e.preventDefault()} className="space-y-5">{form}</form>
+        <form onSubmit={(e) => e.preventDefault()} onFocus={() => setSaisie(true)} onBlur={() => setSaisie(false)} className="space-y-5 scroll-mb-24">{form}</form>
         <div ref={card} aria-live="polite" data-resultat className="mt-6 rounded-xl border border-accent-200 bg-accent-50/60 p-4 sm:p-5 lg:sticky lg:top-20 lg:mt-0"><KeyFigure.Provider value={setKey}>{result}</KeyFigure.Provider></div>
       </div>
       {below}
-      {belowCard && key && (
+      {belowCard && key && !saisie && (
         <button type="button" aria-hidden="true" tabIndex={-1} onClick={() => card.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
           className="fixed inset-x-0 bottom-0 z-40 flex items-baseline justify-between gap-3 border-t border-accent-200 bg-accent-50 px-4 py-3 text-left shadow-lg lg:hidden">
           <span className="text-sm font-medium text-navy-700">{key.label}</span>

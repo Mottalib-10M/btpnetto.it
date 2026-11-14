@@ -1,34 +1,47 @@
 /** Un montant, une durée : BTP de l'adjudication la plus proche, BOT à 12 mois, Buono, dépôt — nets d'impôt et de timbre. */
 import { T, eur, pct, data, type L } from '../minis/_kit';
-import { confronto, tassoDeposito } from '../engine/index';
+import { formatDecimal } from '../format';
+import { confronto, tassoDeposito, tassoBuono } from '../engine/index';
 import { P } from '../engine/params';
 import type { ToolSpec } from '../tool-types';
 import { ANNI, importo } from './_opz';
+const mese = (ym: string, l: L) => new Date(`${ym}-01T00:00:00Z`).toLocaleDateString(l === 'en' ? 'en-GB' : 'it-IT', { month: 'long', year: 'numeric', timeZone: 'UTC' });
 type Opts = { importo?: number; anni?: number; solo?: string[]; tassoVisibile?: boolean };
 export default (l: L, o: Opts = {}): ToolSpec => ({
   exemple: T(l, `Esempio: ${eur(o.importo ?? 10000, l)} per ${o.anni ?? 5} anni`, `Example: ${eur(o.importo ?? 10000, l)} for ${o.anni ?? 5} years`),
   inputs: [
     importo(l, o.importo ?? 10000),
     { id: 'anni', label: T(l, 'Per quanto tempo', 'For how long'), def: o.anni ?? 5, options: ANNI(l) },
-    { id: 'tasso', label: T(l, 'Tasso lordo del conto deposito (%)', 'Deposit account gross rate (%)'), def: P.deposito.oltre_2_anni, max: 10, decimals: 2,
-      help: T(l, `Media BCE dei depositi vincolati in Italia, ${P.deposito.mese}: ${P.deposito.entro_1_anno}% fino a 1 anno, ${P.deposito.oltre_2_anni}% oltre 2 anni`, `ECB average for Italian fixed-term deposits, ${P.deposito.mese}: ${P.deposito.entro_1_anno}% up to 1 year, ${P.deposito.oltre_2_anni}% over 2 years`),
+    { id: 'tasso', label: T(l, 'Tasso del conto deposito prima delle tasse (%)', 'Deposit account rate before tax (%)'), def: P.deposito.oltre_2_anni, max: 10, decimals: 2,
+      help: T(l, `Media della Banca centrale europea (BCE) per i depositi vincolati in Italia, ${mese(P.deposito.mese, l)}: ${formatDecimal(P.deposito.entro_1_anno, 2, l)}% fino a 1 anno, ${formatDecimal(P.deposito.oltre_2_anni, 2, l)}% oltre 2 anni. Scrivi quello della tua banca.`, `European Central Bank (ECB) average for Italian fixed-term deposits, ${mese(P.deposito.mese, l)}: ${formatDecimal(P.deposito.entro_1_anno, 2, l)}% up to 1 year, ${formatDecimal(P.deposito.oltre_2_anni, 2, l)}% over 2 years. Type your bank’s rate.`),
       avance: !o.tassoVisibile },
   ],
   run: (v) => {
     const anni = Math.max(1, Math.round(v.anni));
     const righe = confronto(v.importo, anni, v.tasso || tassoDeposito(anni)).filter((r) => !o.solo || o.solo.includes(r.id));
-    const nome = (r: (typeof righe)[number]) => (r.id === 'deposito' ? T(l, `Conto deposito al ${String(v.tasso).replace('.', l === 'en' ? '.' : ',')}%`, `Deposit account at ${v.tasso}%`) : r.nome);
+    const nome = (r: (typeof righe)[number]) => {
+      if (r.id === 'deposito') return T(l, `Conto deposito al ${formatDecimal(v.tasso, 2, l)}%`, `Deposit account at ${formatDecimal(v.tasso, 2, l)}%`);
+      const n = l === 'en' && r.id !== 'buono' ? r.nome.replace('anni', 'years').replace('mesi', 'months') : r.nome;
+      const c = r.cedola != null ? T(l, `, cedola ${formatDecimal(r.cedola, 2, l)}%`, `, ${formatDecimal(r.cedola, 2, l)}% coupon`) : '';
+      return r.scadenza ? `${n}${c}, ${T(l, 'scade il', 'matures')} ${data(r.scadenza, l)}` : n;
+    };
+    const fonte = (r: (typeof righe)[number]) => r.id === 'deposito' ? T(l, `media BCE di ${mese(r.fonte, l)}`, `ECB average, ${mese(r.fonte, l)}`)
+      : r.id === 'buono' ? T(l, `tassi Poste in vigore dal ${data(r.fonte, l)}`, `Poste rates in force since ${data(r.fonte, l)}`)
+      : T(l, `prezzo dell’asta del ${data(r.fonte, l)}`, `price at the ${data(r.fonte, l)} auction`);
     const best = [...righe].sort((a, b) => b.netti - a.netti)[0];
+    const ord = righe.find((r) => r.id === 'buono' && r.nome === 'Buono Ordinario');
+    const tOrd = (n: number) => formatDecimal(tassoBuono('ordinario', n), 2, l);
+    const notaBuono = ord ? T(l, `Il Buono Ordinario rende poco se lo tieni pochi anni: il suo tasso prima delle tasse è ${tOrd(1)}% all’anno fino a 4 anni e sale con gli anni, fino al ${tOrd(20)}% a 20 anni. `, `The Buono Ordinario pays little if held only a few years: its rate before tax is ${tOrd(1)}% a year up to 4 years and rises with time, to ${tOrd(20)}% at 20 years. `) : '';
     return {
-      head: [T(l, `Interessi netti più alti nel calcolo: ${nome(best)}`, `Highest net interest in this calculation: ${nome(best)}`), eur(best.netti, l)],
-      sub: T(l, `${pct(best.rendNetto, l, 2)} netto all’anno su ${eur(v.importo, l)} per ${anni} ${anni > 1 ? 'anni' : 'anno'}`, `${pct(best.rendNetto, l, 2)} net a year on ${eur(v.importo, l)} for ${anni} year${anni > 1 ? 's' : ''}`),
+      head: [T(l, `Il guadagno netto più alto: ${nome(best)}`, `The highest net gain: ${nome(best)}`), eur(best.netti, l)],
+      sub: T(l, `guadagnati in ${anni} ${anni > 1 ? 'anni' : 'anno'} su ${eur(v.importo, l)}, dopo tasse e bollo: ${pct(best.rendNetto, l, 2)} netto all’anno`, `earned over ${anni} year${anni > 1 ? 's' : ''} on ${eur(v.importo, l)}, after tax and stamp duty: ${pct(best.rendNetto, l, 2)} net a year`),
       rows: righe.map((r) => [nome(r), `${eur(r.netti, l)} · ${pct(r.rendNetto, l, 2)}`] as [string, string]),
-      note: T(l, 'Calcolo, non consiglio: rischio, possibilità di vendere prima e situazione fiscale personale cambiano la scelta. BTP al prezzo dell’asta, comprato oggi e tenuto fino alla scadenza.', 'A calculation, not advice: risk, the option to sell early and your own tax position change the choice. BTP at the auction price, bought today and held to maturity.'),
+      note: notaBuono + T(l, 'Calcolo, non consiglio: rischio, possibilità di vendere prima e situazione fiscale personale cambiano la scelta. BTP al prezzo dell’asta, comprato oggi e tenuto fino alla scadenza.', 'A calculation, not advice: risk, the option to sell early and your own tax position change the choice. BTP at the auction price, bought today and held to maturity.'),
       table: {
         caption: T(l, 'Dettaglio: tasse e bollo già tolti', 'Detail: tax and stamp duty already taken off'),
-        headers: T(l, ['Strumento', 'Dato del', 'Tasse', 'Bollo', 'Interessi netti'], ['Product', 'Data from', 'Tax', 'Stamp duty', 'Net interest']),
-        align: ['l', 'l', 'r', 'r', 'r'],
-        rows: righe.map((r) => [nome(r), r.fonte.length === 7 ? r.fonte : data(r.fonte, l), eur(r.tassa, l), eur(r.bollo, l), eur(r.netti, l)]),
+        headers: T(l, ['Strumento', 'Interessi netti', 'Tasse', 'Bollo', 'Dato usato'], ['Product', 'Net interest', 'Tax', 'Stamp duty', 'Figure used']),
+        align: ['l', 'r', 'r', 'r', 'l'],
+        rows: righe.map((r) => [nome(r), eur(r.netti, l), eur(r.tassa, l), eur(r.bollo, l), fonte(r)]),
       },
     };
   },

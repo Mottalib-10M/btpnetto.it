@@ -30,7 +30,7 @@ export default defineGuide({
       { q: 'Perché per alcune durate manca il BOT?', a: 'Perché i BOT durano al massimo dodici mesi. Per durate più lunghe il confronto usa il BTP con la scadenza più vicina agli anni scelti, tra quelli venduti nelle ultime aste del Tesoro. Per il Buono usa l’Ordinario, o il 4 anni Plus a quattro anni.' },
     ],
     body: (h) => `<h2>Quanto rendono 10.000 euro da uno a dieci anni</h2>
-<p>Ogni riga è il risultato del calcolo per ${h.eur(10000)}: BTP dall’${h.src('mefAste', 'ultima asta del Tesoro')}, ${h.src('posteOrdinario', 'Buono Ordinario di Poste')}, deposito al tasso medio della ${h.src('bceMir', 'Banca centrale europea')}, tutti con il bollo del ${h.src('dpr642', 'DPR n. 642 del 1972')}.</p>
+<p>Ogni riga è il risultato del calcolo per ${h.eur(10000)}: BTP dall’${h.src('mefAste', 'ultima asta del Tesoro')}, ${h.src('posteOrdinario', 'Buono Ordinario di Poste')}, deposito al tasso medio della ${h.src('bceMir', 'Banca centrale europea')}, tutti con il bollo previsto dalla ${h.src('dpr642', 'legge')}.</p>
 ${tabConfronto(h, 10000, [1, 2, 3, 4, 5, 7, 10])}
 <h2>Come leggere il confronto</h2>
 <p>Il netto del BTP dipende dal prezzo: se in banca il titolo costa più di quanto pagato all’asta, il rendimento scende. Il deposito usa una media: la tua banca può offrire di più o di meno, e il campo del tasso nel calcolo serve a scriverlo. Il Buono si rimborsa sempre almeno al capitale e non ha commissioni. I dettagli di ogni strumento sono nelle pagine ${h.a('rendimento-btp', 'sul rendimento netto dei BTP')}, ${h.a('buoni-fruttiferi-postali', 'sui Buoni postali')} e ${h.a('conto-deposito-o-btp', 'sul conto deposito')}.</p>`,
@@ -54,7 +54,7 @@ ${tabConfronto(h, 10000, [1, 2, 3, 4, 5, 7, 10])}
       { q: 'Why is BOT missing for some terms?', a: 'Because BOT last twelve months at most. For longer terms the comparison uses the BTP maturing closest to the chosen years, among those sold at the latest Treasury auctions. For the postal bond it uses the Ordinario, or the 4 anni Plus at four years.' },
     ],
     body: (h) => `<h2>Earnings on €10,000 over one to ten years</h2>
-<p>Each row is the calculation for ${h.eur(10000)}: BTP from the ${h.src('mefAste', 'latest Treasury auction')}, ${h.src('posteOrdinario', 'Poste’s Buono Ordinario')}, a deposit at the ${h.src('bceMir', 'European Central Bank')} average rate, all with the stamp duty of ${h.src('dpr642', 'Presidential Decree 642 of 1972')}.</p>
+<p>Each row is the calculation for ${h.eur(10000)}: BTP from the ${h.src('mefAste', 'latest Treasury auction')}, ${h.src('posteOrdinario', 'Poste’s Buono Ordinario')}, a deposit at the ${h.src('bceMir', 'European Central Bank')} average rate, all with the stamp duty of Italian ${h.src('dpr642', 'law')}.</p>
 ${tabConfronto(h, 10000, [1, 2, 3, 4, 5, 7, 10])}
 <h2>How to read the comparison</h2>
 <p>The BTP net depends on price: if your bank charges more than the auction price, the yield falls. The deposit uses an average: your bank may offer more or less, and the rate field in the calculation is there to type it. A postal bond is always repaid at least at its capital and has no fees. Details for each product are on the ${h.a('rendimento-btp', 'BTP net yield')}, ${h.a('buoni-fruttiferi-postali', 'postal savings bonds')} and ${h.a('conto-deposito-o-btp', 'deposit account')} pages.</p>`,

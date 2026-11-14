@@ -52,7 +52,7 @@ export default function MiniSim({ kind, lang = 'en', href, title, idPrefix = 'm'
   const dp = deuxPoints(lang);
   const champ = (i: MiniInput) => (i.options
     ? <SelectField key={i.id} id={fid(i.id)} label={i.label} value={String(v[i.id])} onChange={(x) => set(i.id)(Number(x))} options={i.options} help={i.help} />
-    : <NumberField key={i.id} id={fid(i.id)} label={i.label} value={v[i.id]} onChange={set(i.id)} unit={i.unit} max={i.max} decimals={i.decimals} help={i.help} />);
+    : <NumberField key={i.id} id={fid(i.id)} label={i.label} value={v[i.id]} onChange={set(i.id)} unit={i.unit} max={i.max} decimals={i.decimals} help={i.help} lang={lang} />);
   const visibles = spec.inputs.filter((i) => !locked.includes(i.id) && (!i.showIf || i.showIf(v)));
   const fixes = spec.inputs.filter((i) => locked.includes(i.id));
   const avances = visibles.filter((i) => i.avance);
@@ -68,13 +68,13 @@ export default function MiniSim({ kind, lang = 'en', href, title, idPrefix = 'm'
               <summary className="cursor-pointer text-sm font-medium text-navy-700">{lib.plusDeReglages}
                 <span data-actuellement className="mt-1 block text-xs font-normal text-navy-600">
                   <span className="block">{lib.actuellement}{dp}</span>
-                  {avances.map((i) => <span key={i.id} data-suppose className="block pl-2">{i.label}{dp} <span className="font-semibold text-navy-900">{valeurAffichee(i, v[i.id])}</span></span>)}
+                  {avances.map((i) => <span key={i.id} data-suppose className="block pl-2">{i.label}{dp} <span className="font-semibold text-navy-900">{valeurAffichee(i, v[i.id], lang)}</span></span>)}
                 </span></summary>
               <div className="mt-3 space-y-3">{avances.map(champ)}</div>
             </details>
           )}
           {fixes.length > 0 && (
-            <p data-fixe className="text-xs text-navy-600">{lib.fixeParLaPage}{dp} {fixes.map((i, n) => <span key={i.id}>{n > 0 && ' · '}{i.label}{dp} <span className="font-semibold text-navy-900">{valeurAffichee(i, v[i.id])}</span></span>)}</p>
+            <p data-fixe className="text-xs text-navy-600">{lib.fixeParLaPage}{dp} {fixes.map((i, n) => <span key={i.id}>{n > 0 && ' · '}{i.label}{dp} <span className="font-semibold text-navy-900">{valeurAffichee(i, v[i.id], lang)}</span></span>)}</p>
           )}
         </form>
         <div aria-live="polite" className="rounded-lg bg-navy-50 p-4">
@@ -96,7 +96,7 @@ export default function MiniSim({ kind, lang = 'en', href, title, idPrefix = 'm'
 }
 
 /** Valeur d'un champ telle que le lecteur la lit : libellé de l'option choisie, ou nombre et unité. */
-export function valeurAffichee(i: MiniInput, x: number): string {
+export function valeurAffichee(i: MiniInput, x: number, lang?: string): string {
   if (i.options) return i.options.find((o) => o.value === String(x))?.label ?? String(x);
-  return `${formatNumber(x, Number.isInteger(x) ? 0 : (i.decimals ?? 0))}${i.unit ? `\u00a0${i.unit}` : ''}`;
+  return `${formatNumber(x, Number.isInteger(x) ? 0 : (i.decimals ?? 0), lang)}${i.unit ? `\u00a0${i.unit}` : ''}`;
 }

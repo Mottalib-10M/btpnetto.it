@@ -38,16 +38,16 @@ export function btpPerDurata(anni: number, oggi = BUILD_TODAY): Asta {
 /** Taux moyen BCE des dépôts à durée convenue en Italie, selon la durée. */
 export const tassoDeposito = (anni: number) => (anni <= 1 ? P.deposito.entro_1_anno : P.deposito.oltre_2_anni);
 
-export interface Riga { id: 'btp' | 'bot' | 'buono' | 'deposito'; nome: string; fonte: string; netti: number; rendNetto: number; tassa: number; bollo: number }
+export interface Riga { id: 'btp' | 'bot' | 'buono' | 'deposito'; nome: string; scadenza?: string; cedola?: number; fonte: string; netti: number; rendNetto: number; tassa: number; bollo: number }
 /** Les quatre placements pour un montant et une durée (années pleines de 1 à 10). */
 export function confronto(nominale: number, anni: number, tassoDep = tassoDeposito(anni), oggi = BUILD_TODAY): Riga[] {
   const out: Riga[] = [];
   const a = btpPerDurata(anni, oggi);
   const r = btp(a, nominale, a.prezzo, oggi);
-  out.push({ id: 'btp', nome: `${a.nome.split(' (')[0]} ${a.cedola?.toString().replace('.', ',')}% · ${a.scadenza}`, fonte: a.asta, netti: r.guadagnoNetto, rendNetto: r.irrNetto, tassa: r.tassaCedole + r.tassaScarto, bollo: r.bollo });
+  out.push({ id: 'btp', nome: a.nome.split(' (')[0], scadenza: a.scadenza, cedola: a.cedola ?? undefined, fonte: a.asta, netti: r.guadagnoNetto, rendNetto: r.irrNetto, tassa: r.tassaCedole + r.tassaScarto, bollo: r.bollo });
   if (anni <= 1 && BOT12) {
     const b = bot(BOT12, nominale, BOT12.prezzo, oggi);
-    out.push({ id: 'bot', nome: `BOT · ${BOT12.scadenza}`, fonte: BOT12.asta, netti: b.netto, rendNetto: b.rendNetto, tassa: b.tassa, bollo: b.bollo });
+    out.push({ id: 'bot', nome: 'BOT 12 mesi', scadenza: BOT12.scadenza, fonte: BOT12.asta, netti: b.netto, rendNetto: b.rendNetto, tassa: b.tassa, bollo: b.bollo });
   }
   const id = anni === 4 ? '4plus' : 'ordinario';
   const bb = buono(id, nominale, anni);

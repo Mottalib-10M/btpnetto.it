@@ -38,7 +38,7 @@ export default defineGuide({
       { q: 'Quando ci sarà il prossimo BTP Valore?', a: 'Lo annuncia il Ministero dell’economia con un comunicato qualche settimana prima, con i tassi minimi garantiti; i tassi definitivi escono l’ultimo giorno del collocamento. Il sito riporta l’ultima emissione letta e la data del comunicato: una nuova emissione non cambia i titoli già comprati.' },
     ],
     body: (h) => `<h2>Le emissioni di BTP Valore lette sui comunicati</h2>
-<p>La tabella riassume le ultime emissioni riservate ai risparmiatori, con i tassi definitivi letti nei comunicati del ${h.src('mefBtpValore', 'Ministero dell’economia del 23 ottobre 2026')} e del ${h.src('mefBtpValore2032', '6 marzo 2026')}. Il netto toglie il 12,5% previsto dal ${h.src('dlgs239', 'decreto legislativo n. 239 del 1996')} e il bollo dello 0,20% annuo.</p>
+<p>La tabella riassume le ultime emissioni riservate ai risparmiatori, con i tassi definitivi letti nei comunicati del ${h.src('mefBtpValore', 'Ministero dell’economia del 23 ottobre 2026')} e del ${h.src('mefBtpValore2032', '6 marzo 2026')}. Il netto toglie il 12,5% previsto dalla ${h.src('dlgs239', 'legge')} e il bollo dello 0,20% annuo.</p>
 ${tab(h)}
 <h2>Come si calcola il rendimento del BTP Valore</h2>
 <p>Ogni anno la cedola è il tasso di quell’anno per il capitale. Il calcolo somma le cedole degli anni pieni che tieni il titolo, aggiunge il premio finale se arrivi alla scadenza e toglie tassa e bollo. Il netto annuo è la somma divisa per il capitale e per gli anni, senza reinvestire le cedole. Per i BTP ordinari comprati sotto 100 il conto è diverso, perché c’è anche lo scarto: è nella pagina sul ${h.a('rendimento-btp', 'rendimento netto dei BTP')}.</p>`,
@@ -61,7 +61,7 @@ ${tab(h)}
       { q: 'When is the next BTP Valore?', a: 'The Ministry of Economy announces it a few weeks ahead with guaranteed minimum rates; final rates come out on the last day of the placement. The site shows the latest issue read and the release date: a new issue does not change bonds already bought.' },
     ],
     body: (h) => `<h2>BTP Valore issues read from the releases</h2>
-<p>The table sums up the latest retail-only issues, with the final rates read in the ${h.src('mefBtpValore', 'Ministry of Economy release of 23 October 2026')} and the one of ${h.src('mefBtpValore2032', '6 March 2026')}. The net figure takes off the 12.5% set by ${h.src('dlgs239', 'Legislative Decree 239 of 1996')} and the 0.20% yearly stamp duty.</p>
+<p>The table sums up the latest retail-only issues, with the final rates read in the ${h.src('mefBtpValore', 'Ministry of Economy release of 23 October 2026')} and the one of ${h.src('mefBtpValore2032', '6 March 2026')}. The net figure takes off the 12.5% set by Italian ${h.src('dlgs239', 'law')} and the 0.20% yearly stamp duty.</p>
 ${tab(h)}
 <h2>How the BTP Valore yield is worked out</h2>
 <p>Each year the coupon is that year’s rate times the capital. The calculation adds the coupons for the full years you hold the bond, adds the final bonus if you reach maturity and takes off tax and stamp duty. The yearly net is that sum divided by the capital and the years, with no coupon reinvestment. For ordinary BTP bought below 100 the sum differs, since there is also the discount: see the ${h.a('rendimento-btp', 'BTP net yield')} page.</p>`,

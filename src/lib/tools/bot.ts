@@ -25,7 +25,7 @@ export default (l: L): ToolSpec => ({
         [T(l, 'Differenza incassata a scadenza', 'Gain paid at maturity'), eur2(r.scarto, l)],
         [T(l, 'Tassa 12,5%', '12.5% tax'), eur2(r.tassa, l)],
         [T(l, 'Bollo 0,20% al prorata', '0.20% stamp duty, pro rata'), eur2(r.bollo, l)],
-        [T(l, 'Rendimento lordo (base 360 del Tesoro)', 'Gross yield (Treasury 360-day basis)'), pct(r.rendLordo360, l, 3)],
+        [T(l, 'Rendimento prima delle tasse (anno di 360 giorni, come il Tesoro)', 'Yield before tax (360-day year, as the Treasury does)'), pct(r.rendLordo360, l, 3)],
       ],
       note: T(l, 'Il BOT non paga cedole: guadagni la differenza tra il prezzo pagato e 100. Commissioni escluse.', 'A BOT pays no coupon: the gain is the gap between the price paid and 100. Fees not included.'),
     };

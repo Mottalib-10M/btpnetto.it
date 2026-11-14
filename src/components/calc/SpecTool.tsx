@@ -14,6 +14,7 @@ import { readParams, updateURL } from '../../lib/url-state';
 import { deuxPoints, exempleSuppose, libellesTrame } from '../../lib/libelles-trame';
 import { valeurAffichee } from './MiniSim';
 import type { ToolInput } from '../../lib/tool-types';
+import { etiquettes } from '../../lib/tableaux';
 
 interface Props { kind: string; lang: 'it' | 'en'; id: string; opts?: Record<string, unknown>; methodHref?: string }
 
@@ -56,7 +57,7 @@ export default function SpecTool({ kind, lang, id, opts, methodHref }: Props) {
   const fid = (k: string) => `${id}-${k}`;
   const champ = (i: ToolInput) => (i.options
     ? <SelectField key={i.id} id={fid(i.id)} label={i.label} value={String(v[i.id])} onChange={(x) => set(i.id)(Number(x))} options={i.options} help={i.help} />
-    : <NumberField key={i.id} id={fid(i.id)} label={i.label} value={v[i.id]} onChange={set(i.id)} unit={i.unit} max={i.max} decimals={i.decimals} help={i.help} />);
+    : <NumberField key={i.id} id={fid(i.id)} label={i.label} value={v[i.id]} onChange={set(i.id)} unit={i.unit} max={i.max} decimals={i.decimals} help={i.help} lang={lang} />);
   const visibles = spec.inputs.filter((i) => !i.showIf || i.showIf(v));
   const avances = visibles.filter((i) => i.avance);
   const form = (
@@ -68,7 +69,7 @@ export default function SpecTool({ kind, lang, id, opts, methodHref }: Props) {
           <summary className="cursor-pointer text-sm font-medium text-navy-700">{lib.plusDeReglages}
             <span data-actuellement className="mt-1 block text-xs font-normal text-navy-600">
               <span className="block">{lib.actuellement}{dp}</span>
-              {avances.map((i) => <span key={i.id} data-suppose className="block pl-2">{i.label}{dp} <span className="font-semibold text-navy-900">{valeurAffichee(i, v[i.id])}</span></span>)}
+              {avances.map((i) => <span key={i.id} data-suppose className="block pl-2">{i.label}{dp} <span className="font-semibold text-navy-900">{valeurAffichee(i, v[i.id], lang)}</span></span>)}
             </span></summary>
           <div className="mt-3 grid gap-x-4 gap-y-4 sm:grid-cols-2">{avances.map(champ)}</div>
         </details>
@@ -93,10 +94,11 @@ export default function SpecTool({ kind, lang, id, opts, methodHref }: Props) {
   );
   const below = out.table ? (
     <div className="mt-5 overflow-x-auto">
-      <table className="w-full text-sm">
+      {/* Fiches sous 768 px (lib/tableaux.ts) : coupé à droite, le tableau cachait la colonne du net (testeurs naïfs du 2026-11-14). */}
+      <table className="empile w-full text-sm">
         {out.table.caption && <caption className="mb-2 text-left text-sm text-navy-700">{out.table.caption}</caption>}
         <thead><tr>{out.table.headers.map((h, k) => <th key={h} scope="col" className={`border-b border-navy-300 px-2 py-1.5 font-semibold text-navy-900 ${out.table!.align?.[k] === 'r' ? 'text-right' : 'text-left'}`}>{h}</th>)}</tr></thead>
-        <tbody>{out.table.rows.map((r, n) => <tr key={n}>{r.map((c, k) => <td key={k} className={`tabular-nums border-b border-navy-100 px-2 py-1.5 text-navy-800 ${out.table!.align?.[k] === 'r' ? 'text-right' : 'text-left'}`}>{c}</td>)}</tr>)}</tbody>
+        <tbody>{out.table.rows.map((r, n) => { const lab = etiquettes(out.table!.headers, r.length); return <tr key={n}>{r.map((c, k) => <td key={k} data-label={lab[k]} className={`tabular-nums border-b border-navy-100 px-2 py-1.5 text-navy-800 ${out.table!.align?.[k] === 'r' ? 'text-right' : 'text-left'}`}>{c}</td>)}</tr>; })}</tbody>
       </table>
     </div>
   ) : undefined;

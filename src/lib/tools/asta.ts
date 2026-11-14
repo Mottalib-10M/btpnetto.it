@@ -2,14 +2,14 @@
 import { T, pct, data, type L } from '../minis/_kit';
 import { ULTIME, btp, bot } from '../engine/index';
 import type { ToolSpec } from '../tool-types';
-import { nomeTitolo } from './_opz';
+import { nomeTitolo, dataBreve } from './_opz';
 import { formatDecimal } from '../format';
 const LISTA = ULTIME.filter((a) => a.tipo === 'BOT' || a.cedola != null);
 export default (l: L): ToolSpec => ({
   exemple: T(l, 'Esempio: il titolo dell’ultima asta, al suo prezzo', 'Example: the latest auctioned security, at its price'),
   inputs: [
-    { id: 'titolo', label: T(l, 'Titolo all’asta', 'Auctioned security'), def: 0, options: LISTA.map((a, i) => ({ value: String(i), label: a.tipo === 'BOT' ? `BOT · ${T(l, 'scad.', 'matures')} ${data(a.scadenza, l)}` : nomeTitolo(a, l) })) },
-    { id: 'prezzo', label: T(l, 'Prezzo per 100 € (0 = prezzo d’asta)', 'Price per €100 (0 = auction price)'), def: 0, max: 200, decimals: 3 },
+    { id: 'titolo', label: T(l, 'Titolo all’asta', 'Auctioned security'), def: 0, options: LISTA.map((a, i) => ({ value: String(i), label: a.tipo === 'BOT' ? `BOT, ${T(l, 'scade il', 'matures')} ${dataBreve(a.scadenza, l)}` : nomeTitolo(a, l, true) })) },
+    { id: 'prezzo', label: T(l, 'Prezzo pagato per 100 € di titolo (vuoto o 0 = prezzo d’asta)', 'Price paid per €100 of bond (empty or 0 = auction price)'), def: 0, max: 200, decimals: 3 },
   ],
   run: (v) => {
     const a = LISTA[Math.min(LISTA.length - 1, Math.max(0, v.titolo))];

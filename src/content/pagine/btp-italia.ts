@@ -36,7 +36,7 @@ export default defineGuide({
       { q: 'Che differenza c’è con il BTP €i?', a: 'Il BTP €i è indicizzato all’inflazione dell’area euro, esclusi i tabacchi, e non paga la rivalutazione ogni sei mesi ma alla scadenza. Il BTP Italia segue invece i prezzi italiani ed è pensato per i risparmiatori. Il sito calcola solo il BTP Italia.' },
     ],
     body: (h) => `<h2>Il BTP Italia con cinque ipotesi di inflazione</h2>
-<p>La tabella usa il tasso reale del ${h.src('mefBtpItalia', 'comunicato del Ministero dell’economia')} e un prezzo di 100, e cambia solo l’inflazione ipotizzata. La tassa è quella del ${h.src('dlgs239', 'decreto legislativo n. 239 del 1996')}, il bollo quello del ${h.src('dpr642', 'DPR n. 642 del 1972')}.</p>
+<p>La tabella usa il tasso reale del ${h.src('mefBtpItalia', 'comunicato del Ministero dell’economia')} e un prezzo di 100, e cambia solo l’inflazione ipotizzata. Tassa e bollo sono quelli previsti dalla ${h.src('dlgs239', 'legge sui titoli di Stato')} e dalla ${h.src('dpr642', 'legge sul bollo')}.</p>
 ${tab(h)}
 <h2>Come si calcola il rendimento del BTP Italia</h2>
 <p>Il calcolo è un’approssimazione annuale: per ogni anno il lordo è il capitale per (1 + inflazione) × (1 + tasso reale) − 1, cioè la rivalutazione più la cedola sul capitale rivalutato. Il risultato non è una previsione, perché l’inflazione futura non si conosce: serve a vedere quanto cambia il netto se cambia l’inflazione. Per confrontarlo con un BTP a tasso fisso della stessa durata, il ${h.a('rendimento-btp', 'calcolo del rendimento netto BTP')} dà il netto certo di un titolo comprato oggi.</p>`,
@@ -59,7 +59,7 @@ ${tab(h)}
       { q: 'How does it differ from BTP €i?', a: 'BTP €i is linked to euro-area inflation excluding tobacco and pays its revaluation at maturity rather than every six months. BTP Italia follows Italian prices and is aimed at retail savers. The site only calculates BTP Italia, the one sold to retail savers.' },
     ],
     body: (h) => `<h2>BTP Italia under five inflation assumptions</h2>
-<p>The table uses the real rate from the ${h.src('mefBtpItalia', 'Ministry of Economy release')} and a price of 100, changing only the assumed inflation. Tax follows ${h.src('dlgs239', 'Legislative Decree 239 of 1996')}, stamp duty ${h.src('dpr642', 'Presidential Decree 642 of 1972')}.</p>
+<p>The table uses the real rate from the ${h.src('mefBtpItalia', 'Ministry of Economy release')} and a price of 100, changing only the assumed inflation. Tax and stamp duty follow Italian ${h.src('dlgs239', 'bond tax law')} and ${h.src('dpr642', 'stamp duty law')}.</p>
 ${tab(h)}
 <h2>How the BTP Italia yield is worked out</h2>
 <p>The calculation is a yearly approximation: each year the gross is capital times (1 + inflation) × (1 + real rate) − 1, the revaluation plus the coupon on revalued capital. The result is not a forecast, since future inflation is unknown: it shows how much the net changes when inflation changes. To compare it with a fixed-rate BTP of the same term, the ${h.a('rendimento-btp', 'BTP net yield calculation')} gives the known net of a bond bought today.</p>`,

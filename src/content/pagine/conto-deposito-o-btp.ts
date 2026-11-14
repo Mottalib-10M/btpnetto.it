@@ -36,7 +36,7 @@ export default defineGuide({
       { q: 'Il bollo si paga anche sul conto deposito?', a: `Sì, lo ${h.pct(h.P.fisco.bollo, 2)} annuo sul valore del deposito, come per i titoli nel conto titoli. Per i conti correnti e i libretti postali esiste invece un bollo fisso di ${h.eur(h.P.fisco.bollo_libretto_annuo, 2)} all’anno per le persone fisiche, dovuto quando la giacenza media supera 5.000 euro.` },
     ],
     body: (h) => `<h2>Conto deposito o BTP: il punto di pareggio</h2>
-<p>La tabella tiene fisso il BTP con la scadenza più vicina a tre anni, dall’${h.src('mefAste', 'ultima asta del Tesoro')}, e fa variare il tasso del deposito. Il 26% è l’aliquota del ${h.src('dl66', 'decreto-legge n. 66 del 2014')}, che lascia il 12,5% ai titoli di Stato.</p>
+<p>La tabella tiene fisso il BTP con la scadenza più vicina a tre anni, dall’${h.src('mefAste', 'ultima asta del Tesoro')}, e fa variare il tasso del deposito. Il 26% è l’aliquota della ${h.src('dl66', 'legge')}, che lascia il 12,5% ai titoli di Stato.</p>
 ${tab(h)}
 <h2>Il tasso medio dei depositi in Italia</h2>
 <p>Il valore proposto nel calcolo è la media dei nuovi depositi vincolati delle famiglie italiane pubblicata dalla ${h.src('bceMir', 'Banca centrale europea')}: ${h.num(D(h).entro_1_anno, 2)}% fino a un anno, ${h.num(D(h).oltre_2_anni, 2)}% oltre due anni, nel mese di ${D(h).mese.replace('2026-09', 'settembre 2026')}. Il tasso BCE sui depositi delle banche è del ${h.num(D(h).bce_depositi, 2)}% (${h.src('bceTassi', 'dato BCE')}). Le offerte delle singole banche possono essere più alte o più basse: scrivi la tua. Per un anno o meno il confronto giusto è con i BOT, nella pagina ${h.a('bot-rendimento', 'sul rendimento dei BOT')}.</p>`,
@@ -59,7 +59,7 @@ ${tab(h)}
       { q: 'Is stamp duty due on a deposit account too?', a: `Yes, ${h.pct(h.P.fisco.bollo, 2)} a year on the deposit’s value, as for bonds in a securities account. Current accounts and postal savings books instead carry a flat ${h.eur(h.P.fisco.bollo_libretto_annuo, 2)} a year for individuals, due when the average balance exceeds 5,000 euros. Check your bank’s statement to see which one applies.` },
     ],
     body: (h) => `<h2>Deposit account or BTP: the break-even rate</h2>
-<p>The table holds fixed the BTP maturing closest to three years, from the ${h.src('mefAste', 'latest Treasury auction')}, and varies the deposit rate. The 26% is the rate of ${h.src('dl66', 'Decree-Law 66 of 2014')}, which kept 12.5% for government bonds.</p>
+<p>The table holds fixed the BTP maturing closest to three years, from the ${h.src('mefAste', 'latest Treasury auction')}, and varies the deposit rate. The 26% is the rate set by Italian ${h.src('dl66', 'law')}, which kept 12.5% for government bonds.</p>
 ${tab(h)}
 <h2>Average deposit rates in Italy</h2>
 <p>The figure suggested in the calculation is the average for new fixed-term deposits of Italian households published by the ${h.src('bceMir', 'European Central Bank')}: ${h.num(D(h).entro_1_anno, 2)}% up to a year, ${h.num(D(h).oltre_2_anni, 2)}% over two years, in ${D(h).mese.replace('2026-09', 'September 2026')}. The ECB deposit facility rate is ${h.num(D(h).bce_depositi, 2)}% (${h.src('bceTassi', 'ECB data')}). Individual bank offers can be higher or lower: type your own. For a year or less the right comparison is with BOT, on the ${h.a('bot-rendimento', 'BOT net yield')} page.</p>`,

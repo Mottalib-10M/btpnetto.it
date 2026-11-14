@@ -35,7 +35,7 @@ export default defineGuide({
       { q: 'Il bollo cambia il confronto?', a: `Su importi piccoli sì: il Buono non paga il bollo finché i Buoni posseduti non superano ${h.eur(h.P.fisco.bollo_buoni_franchigia)}, il BTP lo paga sempre, lo ${h.pct(h.P.fisco.bollo, 2)} all’anno. Su ${h.eur(10000)} il Buono paga il bollo come il BTP, e il calcolo ne tiene conto.` },
     ],
     body: (h) => `<h2>BTP o Buoni postali per cinque durate</h2>
-<p>La tabella confronta ${h.eur(10000)} su un BTP dell’${h.src('mefAste', 'ultima asta del Tesoro')} con la scadenza più vicina e sul ${h.src('posteOrdinario', 'Buono Ordinario')}, o sul ${h.src('poste4Plus', 'Buono 4 anni Plus')} per quattro anni. Per entrambi il netto toglie il 12,5% e il bollo del ${h.src('dpr642', 'DPR n. 642 del 1972')}.</p>
+<p>La tabella confronta ${h.eur(10000)} su un BTP dell’${h.src('mefAste', 'ultima asta del Tesoro')} con la scadenza più vicina e sul ${h.src('posteOrdinario', 'Buono Ordinario')}, o sul ${h.src('poste4Plus', 'Buono 4 anni Plus')} per quattro anni. Per entrambi il netto toglie il 12,5% e il bollo previsto dalla ${h.src('dpr642', 'legge')}.</p>
 ${tab(h)}
 <h2>Cosa il confronto non dice</h2>
 <p>Il BTP del confronto è comprato al prezzo d’asta: in banca il prezzo di oggi può essere diverso e c’è la commissione. I Buoni non hanno commissioni. Il confronto vale poi per chi tiene fino alla fine: chi potrebbe aver bisogno dei soldi prima dovrebbe guardare quanto rende il Buono in quell’anno, nella ${h.a('buono-ordinario', 'tabella del Buono Ordinario')}, e ricordare che il BTP si vende al prezzo del giorno.</p>`,
@@ -58,7 +58,7 @@ ${tab(h)}
       { q: 'Does stamp duty change the comparison?', a: `On small amounts yes: postal bonds pay no stamp duty while your holdings stay at ${h.eur(h.P.fisco.bollo_buoni_franchigia)} or less, while a BTP always pays ${h.pct(h.P.fisco.bollo, 2)} a year. On ${h.eur(10000)} the postal bond pays it like the BTP, and the calculation accounts for it.` },
     ],
     body: (h) => `<h2>BTP or postal bonds over five terms</h2>
-<p>The table compares ${h.eur(10000)} in a BTP from the ${h.src('mefAste', 'latest Treasury auction')} with the closest maturity and in the ${h.src('posteOrdinario', 'Buono Ordinario')}, or the ${h.src('poste4Plus', 'Buono 4 anni Plus')} for four years. For both, the net takes off 12.5% and the stamp duty of ${h.src('dpr642', 'Presidential Decree 642 of 1972')}.</p>
+<p>The table compares ${h.eur(10000)} in a BTP from the ${h.src('mefAste', 'latest Treasury auction')} with the closest maturity and in the ${h.src('posteOrdinario', 'Buono Ordinario')}, or the ${h.src('poste4Plus', 'Buono 4 anni Plus')} for four years. For both, the net takes off 12.5% and the stamp duty of Italian ${h.src('dpr642', 'law')}.</p>
 ${tab(h)}
 <h2>What the comparison does not tell you</h2>
 <p>The BTP here is bought at its auction price: at your bank today’s price may differ and there is a fee. Postal bonds have no fees. The comparison also assumes you hold to the end: if you might need the money earlier, check what the bond pays in that year in the ${h.a('buono-ordinario', 'Buono Ordinario table')}, and remember a BTP sells at the day’s price.</p>`,

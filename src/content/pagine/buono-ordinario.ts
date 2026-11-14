@@ -36,7 +36,7 @@ export default defineGuide({
       { q: 'Si possono rimborsare solo alcuni euro del Buono Ordinario?', a: 'Sì per i Buoni dematerializzati: il rimborso parziale è ammesso per multipli di 50 euro, il resto continua a maturare. I Buoni cartacei invece si rimborsano per intero. Gli interessi della parte rimborsata seguono il tasso del periodo trascorso, come da tabella.' },
     ],
     body: (h) => `<h2>Il Buono Ordinario anno per anno</h2>
-<p>La tabella riporta, per ${h.eur(1000)}, il valore a ogni anniversario con i tassi letti sulla ${h.src('posteOrdinario', 'pagina del Buono Ordinario')}. Sotto ${h.eur(h.P.fisco.bollo_buoni_franchigia)} di Buoni non si paga bollo, quindi il netto toglie solo la tassa del 12,5% sugli interessi prevista per i titoli pubblici e assimilati dal ${h.src('dlgs239', 'decreto legislativo n. 239 del 1996')}.</p>
+<p>La tabella riporta, per ${h.eur(1000)}, il valore a ogni anniversario con i tassi letti sulla ${h.src('posteOrdinario', 'pagina del Buono Ordinario')}. Sotto ${h.eur(h.P.fisco.bollo_buoni_franchigia)} di Buoni non si paga bollo, quindi il netto toglie solo la tassa del 12,5% sugli interessi prevista per i titoli pubblici e assimilati dalla ${h.src('dlgs239', 'legge')}.</p>
 ${tab(h)}
 <h2>Rimborsare presto o tenere vent’anni</h2>
 <p>Nei primi quattro anni il tasso resta basso, poi cresce di circa un decimo di punto all’anno. Chi pensa di riavere i soldi entro pochi anni trova tassi più alti nei Buoni a scadenza fissa o nei titoli di Stato della stessa durata; il Buono Ordinario serve a chi vuole poter uscire in qualsiasi anno senza perdere gli interessi maturati. Il ${h.a('btp-o-buoni-postali', 'confronto con il BTP della stessa durata')} mette i due numeri fianco a fianco.</p>`,
@@ -60,7 +60,7 @@ ${tab(h)}
       { q: 'Can I cash in only part of a Buono Ordinario?', a: 'Yes for paperless bonds: partial redemption is allowed in multiples of 50 euros, and the rest keeps growing. Paper bonds are cashed in whole. Interest on the part cashed in follows the rate for the time elapsed, as set in the table.' },
     ],
     body: (h) => `<h2>The Buono Ordinario year by year</h2>
-<p>The table gives, for ${h.eur(1000)}, the value at each anniversary using the rates read on the ${h.src('posteOrdinario', 'Buono Ordinario page')}. Below ${h.eur(h.P.fisco.bollo_buoni_franchigia)} of bonds there is no stamp duty, so the net figure takes off only the 12.5% tax on interest set for public securities by ${h.src('dlgs239', 'Legislative Decree 239 of 1996')}.</p>
+<p>The table gives, for ${h.eur(1000)}, the value at each anniversary using the rates read on the ${h.src('posteOrdinario', 'Buono Ordinario page')}. Below ${h.eur(h.P.fisco.bollo_buoni_franchigia)} of bonds there is no stamp duty, so the net figure takes off only the 12.5% tax on interest set for public securities by Italian ${h.src('dlgs239', 'law')}.</p>
 ${tab(h)}
 <h2>Cash in early or hold for twenty years</h2>
 <p>In the first four years the rate stays low, then rises by about a tenth of a point a year. If you expect to need the money within a few years, fixed-term bonds or government bonds of the same length pay higher rates; the Buono Ordinario suits those who want to be able to leave in any year without losing accrued interest. The ${h.a('btp-o-buoni-postali', 'comparison with a BTP of the same term')} puts the two figures side by side.</p>`,

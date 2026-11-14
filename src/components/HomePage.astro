@@ -30,7 +30,9 @@ const jsonLd = [websiteSchema(lang), organizationSchema(lang), webPageSchema({ n
 const it = lang === 'it';
 import * as M from '../lib/engine/index';
 const ultime = M.ULTIME.slice(0, 4);
-const nomeA = (a: (typeof ultime)[number]) => (a.tipo === 'BOT' ? `BOT ${it ? 'scad.' : 'to'} ${H.date(a.scadenza)}` : `${a.nome.split(' (')[0]}${a.cedola != null ? ` ${H.num(a.cedola, 2)}%` : ''}`);
+// Testeurs naïfs du 2026-11-14 : « 3,58 % » puis « BTP 3 anni 3,00 % », deux taux sans nom, et deux dates collées.
+const nomeA = (a: (typeof ultime)[number]) => { const n = a.nome.split(' (')[0]; return it ? n : n.replace(/anni/g, 'years').replace(/mesi/g, 'months'); };
+const dettA = (a: (typeof ultime)[number]) => `${a.cedola != null ? `${it ? 'cedola' : 'coupon'} ${H.num(a.cedola, 2)}% · ` : ''}${it ? 'scade il' : 'matures'} ${H.date(a.scadenza)}`;
 const cats = navCategories(lang);
 ---
 <PageLayout title={x.title} description={x.description} lang={lang} jsonLd={jsonLd} faqs={faqs} sources={sources}>
@@ -39,6 +41,7 @@ const cats = navCategories(lang);
     <p class="mt-2 text-base text-navy-700 max-sm:text-[0.95rem] sm:text-lg">{x.intro}</p>
   </header>
   <div data-outil><Outil tool="confronto" lang={lang} id="home" methodHref={route('method', lang)} /></div>
+  <p class="mt-3 text-sm text-navy-700">{it ? 'Gratis e senza registrazione: il calcolo si fa sul tuo telefono o computer, gli importi che scrivi non vengono inviati né salvati.' : 'Free, no sign-up: the calculation runs on your phone or computer, the amounts you type are neither sent nor stored.'}</p>
   <Clamp text={resume} lang={lang} id="clamp-home" sentences={2} class="mt-4" />
   <p class="mt-3 text-sm text-navy-600">{it ? 'Di' : 'By'} <a href={route('about', lang)} class="underline">{AUTHOR_NAME}</a> · <a href={route('method', lang)} class="underline">{it ? 'Metodo e fonti' : 'Method and sources'}</a> · <a href={route('rendimento-btp', lang)} class="underline">{it ? 'Calcola un BTP preciso' : 'Work out one BTP'}</a></p>
   <section data-chrome class="mt-8 rounded-xl border border-navy-200 bg-navy-50 p-4 sm:p-6" aria-labelledby="aste">
@@ -46,8 +49,10 @@ const cats = navCategories(lang);
     <ol class="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
       {ultime.map((a) => (
         <li class="rounded-lg bg-white p-3 shadow-sm">
-          <p class="tabular-nums text-xl font-bold text-accent-700">{H.num(a.rendimento, 2)}%</p>
-          <p class="mt-1 text-sm text-navy-700"><a href={route('aste-titoli-di-stato', lang)} class="hover:underline">{nomeA(a)}</a> · <time datetime={a.asta}>{H.date(a.asta)}</time></p>
+          <p class="text-sm font-semibold text-navy-900"><a href={route('aste-titoli-di-stato', lang)} class="hover:underline">{nomeA(a)}</a></p>
+          <p class="mt-1"><span class="tabular-nums text-xl font-bold text-accent-700">{H.num(a.rendimento, 2)}%</span> <span class="text-sm text-navy-700">{it ? 'rendimento lordo all’asta' : 'gross yield at auction'}</span></p>
+          <p class="mt-1 text-sm text-navy-700">{dettA(a)}</p>
+          <p class="text-sm text-navy-600">{it ? 'asta del' : 'auction of'} <time datetime={a.asta}>{H.date(a.asta)}</time></p>
         </li>
       ))}
     </ol>

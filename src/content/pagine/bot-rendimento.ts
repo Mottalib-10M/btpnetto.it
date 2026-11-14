@@ -31,7 +31,7 @@ export default defineGuide({
     body: (h) => {
       const { a, r } = es(h);
       return `<h2>Il rendimento netto del BOT in quattro numeri</h2>
-<p>Un BOT ha un solo flusso dopo l’acquisto: il rimborso a 100 alla scadenza. La tassa colpisce lo scarto di emissione, cioè la differenza tra 100 e il prezzo, secondo il ${h.src('dlgs239', 'decreto legislativo n. 239 del 1996')}. Il bollo si conta per i giorni in cui hai il titolo. Ecco l’esempio su ${h.eur(10000)} nominali del BOT scelto dal calcolo.</p>
+<p>Un BOT ha un solo flusso dopo l’acquisto: il rimborso a 100 alla scadenza. La tassa colpisce lo scarto di emissione, cioè la differenza tra 100 e il prezzo, secondo la ${h.src('dlgs239', 'legge')}. Il bollo si conta per i giorni in cui hai il titolo. Ecco l’esempio su ${h.eur(10000)} nominali del BOT scelto dal calcolo.</p>
 ${h.table(['Voce', 'Importo'], [['Spesa', h.eur(r.costo, 2)], ['Differenza a scadenza', h.eur(r.scarto, 2)], ['Tassa', h.eur(r.tassa, 2)], ['Bollo', h.eur(r.bollo, 2)], ['Netto', h.eur(r.netto, 2)], ['Giorni', String(r.giorni)]], `BOT con scadenza il ${h.date(a.scadenza)}, prezzo d’asta ${h.num(a.prezzo, 3)}`, ['l', 'r'])}
 <h2>I BOT ancora in vita</h2>
 <p>Ogni riga è l’ultima asta di un BOT che non è ancora scaduto, letta nei PDF del ${h.src('mefBot', 'Dipartimento del Tesoro')}. Alcuni sono riaperture: titoli emessi mesi fa e rimessi all’asta con la vita che resta.</p>
@@ -59,7 +59,7 @@ ${tabBot(h)}
     body: (h) => {
       const { a, r } = es(h);
       return `<h2>BOT net yield in four figures</h2>
-<p>After you buy a BOT there is a single cash flow: repayment at 100 on maturity. The tax hits the issue discount, the gap between 100 and the price, under ${h.src('dlgs239', 'Legislative Decree 239 of 1996')}. Stamp duty counts the days you hold the bill. Here is the example on ${h.eur(10000)} face value of the BOT the calculation picks.</p>
+<p>After you buy a BOT there is a single cash flow: repayment at 100 on maturity. The tax hits the issue discount, the gap between 100 and the price, under Italian ${h.src('dlgs239', 'law')}. Stamp duty counts the days you hold the bill. Here is the example on ${h.eur(10000)} face value of the BOT the calculation picks.</p>
 ${h.table(['Item', 'Amount'], [['Cost', h.eur(r.costo, 2)], ['Gain at maturity', h.eur(r.scarto, 2)], ['Tax', h.eur(r.tassa, 2)], ['Stamp duty', h.eur(r.bollo, 2)], ['Net', h.eur(r.netto, 2)], ['Days', String(r.giorni)]], `BOT maturing on ${h.date(a.scadenza)}, auction price ${h.num(a.prezzo, 3)}`, ['l', 'r'])}
 <h2>BOT still running</h2>
 <p>Each row is the latest auction of a BOT that has not yet matured, read in the ${h.src('mefBot', 'Treasury Department’s')} PDFs. Some are reopenings: bills issued months ago and auctioned again for their remaining life.</p>

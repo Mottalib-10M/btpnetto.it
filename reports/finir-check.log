@@ -1,0 +1,122 @@
+
+> btpnetto.it@0.1.0 check
+> npm run build && npx vitest run && node scripts/typo-nbsp.mjs dist --check && node scripts/check-legal.mjs && python3 scripts/check-seo.py . && python3 scripts/check-unique.py . && python3 scripts/check-trame.py . && python3 scripts/check-liens.py . && node scripts/check-layout.mjs . && node scripts/check-sources.mjs . && python3 scripts/check-simulateurs.py . && python3 scripts/check-hreflang.py . && python3 scripts/check-anglais.py . && python3 scripts/check-portefeuille.py . && python3 scripts/check-cookies.py . && node scripts/check-url-propre.mjs . && node scripts/check-premier-ecran.mjs . && node scripts/check-droits.mjs . && node scripts/check-copie.mjs . && node scripts/check-nombres.mjs . && node scripts/check-contraste.mjs . && node scripts/check-saisie.mjs . && python3 scripts/check-regles.py . && python3 scripts/check-motcle.py .
+
+
+> btpnetto.it@0.1.0 build
+> astro build && node scripts/typo-nbsp.mjs && python3 scripts/check-snippets.py dist
+
+17:38:28 [types] Generated 110ms
+17:38:28 [build] output: "static"
+17:38:28 [build] mode: "static"
+17:38:28 [build] directory: /Users/mottalib/Documents/GitHub/a-publier/Mottalib-10M/btpnetto.it/dist/
+17:38:28 [build] Collecting build info...
+17:38:28 [build] ✓ Completed in 128ms.
+17:38:28 [build] Building static entrypoints...
+17:38:30 [vite] ✓ built in 1.31s
+17:38:30 [vite] ✓ built in 636ms
+17:38:30 [build] Rearranging server assets...
+
+ generating static routes 
+17:38:30   ├─ /404.html (+12ms) 
+17:38:30   ├─ /embed/confronto-netto/index.html (+22ms) 
+17:38:31   ├─ /embed/net-comparison/index.html (+10ms) 
+17:38:31   ├─ /en/about/index.html (+6ms) 
+17:38:31   ├─ /en/contact/index.html (+4ms) 
+17:38:31   ├─ /en/cookies/index.html (+4ms) 
+17:38:31   ├─ /en/editorial-policy/index.html (+3ms) 
+17:38:31   ├─ /en/legal-notice/index.html (+4ms) 
+17:38:31   ├─ /en/method/index.html (+7ms) 
+17:38:31   ├─ /en/privacy/index.html (+3ms) 
+17:38:31   ├─ /en/widget/index.html (+2ms) 
+17:38:31   ├─ /en/btp-or-postal-bonds/index.html (+19ms) 
+17:38:31   ├─ /en/btp-valore/index.html (+6ms) 
+17:38:31   ├─ /en/postal-savings-bonds/index.html (+7ms) 
+17:38:31   ├─ /en/btp-net-yield/index.html (+34ms) 
+17:38:31   ├─ /en/bot-net-yield/index.html (+7ms) 
+17:38:31   ├─ /en/btp-italia-inflation-linked/index.html (+6ms) 
+17:38:31   ├─ /en/buono-ordinario-20-year-bond/index.html (+7ms) 
+17:38:31   ├─ /en/deposit-account-or-btp/index.html (+8ms) 
+17:38:31   ├─ /en/treasury-auction-results/index.html (+17ms) 
+17:38:31   ├─ /en/postal-bond-for-children/index.html (+4ms) 
+17:38:31   ├─ /en/what-10000-euros-earns/index.html (+17ms) 
+17:38:31   ├─ /en/italian-bond-tax/index.html (+4ms) 
+17:38:31   ├─ /en/index.html (+15ms) 
+17:38:31   ├─ /it/chi-siamo/index.html (+3ms) 
+17:38:31   ├─ /it/contatti/index.html (+2ms) 
+17:38:31   ├─ /it/cookie/index.html (+2ms) 
+17:38:31   ├─ /it/metodo/index.html (+2ms) 
+17:38:31   ├─ /it/note-legali/index.html (+2ms) 
+17:38:31   ├─ /it/politica-editoriale/index.html (+2ms) 
+17:38:31   ├─ /it/privacy/index.html (+3ms) 
+17:38:31   ├─ /it/widget/index.html (+3ms) 
+17:38:31   ├─ /it/btp-o-buoni-postali/index.html (+11ms) 
+17:38:31   ├─ /it/btp-valore/index.html (+4ms) 
+17:38:31   ├─ /it/buoni-fruttiferi-postali/index.html (+6ms) 
+17:38:31   ├─ /it/rendimento-btp/index.html (+46ms) 
+17:38:31   ├─ /it/bot-rendimento/index.html (+6ms) 
+17:38:31   ├─ /it/btp-italia/index.html (+3ms) 
+17:38:31   ├─ /it/buono-ordinario/index.html (+4ms) 
+17:38:31   ├─ /it/conto-deposito-o-btp/index.html (+7ms) 
+17:38:31   ├─ /it/aste-titoli-di-stato/index.html (+12ms) 
+17:38:31   ├─ /it/buoni-minori/index.html (+3ms) 
+17:38:31   ├─ /it/quanto-rendono-10000-euro/index.html (+15ms) 
+17:38:31   ├─ /it/tassazione-titoli-di-stato/index.html (+3ms) 
+17:38:31   ├─ /it/index.html (+13ms) 
+17:38:31   ├─ /llms.txt (+1ms) 
+17:38:31   ├─ /index.html (+5ms) 
+17:38:31 ✓ Completed in 435ms.
+
+17:38:31 [build] ✓ Completed in 2.44s.
+17:38:31 [@astrojs/sitemap] `sitemap-index.xml` created at `dist`
+17:38:31 [build] 46 page(s) built in 2.64s
+17:38:31 [build] Complete!
+typo-nbsp: 924 espace(s) rendue(s) insécable(s) dans 22 page(s)
+check-snippets : 30 pages indexables, titres 50-60, descriptions 150-160, ordre des mots et unicite conformes
+
+ RUN  v4.1.12 /Users/mottalib/Documents/GitHub/a-publier/Mottalib-10M/btpnetto.it
+
+
+ Test Files  2 passed (2)
+      Tests  74 passed (74)
+   Start at  17:38:32
+   Duration  568ms (transform 304ms, setup 0ms, import 386ms, tests 131ms, environment 0ms)
+
+typo-nbsp: 0 espace(s) à corriger dans 0 page(s)
+typo-nbsp: 0 décimale(s) avec un point dans une langue à virgule
+typo-nbsp: 0 pourcentage(s) écrit(s) mal placé(s) : « 20 % » là où la langue écrit « 20% », ou après le nombre en turc, qui écrit « %20 » (souvent dans un composant React : corriger la source)
+typo-nbsp: 0 mot(s) français sans accent ou avec un accent faux
+Identité légale complète, aucune mention provisoire.
+. : 30 pages indexables, 0 à corriger
+
+. : 30 pages comparées, 0 paire(s) trop proches, 0 question(s) recyclée(s)
+
+. : 45 pages, 0 à corriger, 0 question(s) de FAQ recyclée(s)
+. : 49 pages, 0 cible(s) morte(s), 0 lien(s) a corriger, 0 route(s) vide(s)
+check-layout: 30 pages × 4 largeurs, 0 défaut(s)
+check-sources: 52 source(s), 0 morte(s), 0 injoignable(s), 0 bloquée(s) aux robots
+. : 26 page(s) de contenu, 0 sans simulateur
+. : 30 pages, 30 avec hreflang, 0 à corriger
+. : 15 page(s) en langue locale, 0 sans version anglaise
+check-portefeuille : 0 paragraphe(s) copiés, 0 site(s) du portefeuille liés, 60 sites comparés.
+check-cookies : 0 défaut (47 pages, Clarity sur 43, GA4 G-M7TQRJ7ZGQ sur 43, langues en, it)
+check-url-propre: 30 page(s) du sitemap, 0 défaut(s)
+check-premier-ecran : 0 page(s) fautive(s) sur 26 page(s) à simulateur (30 pages lues)
+check-droits : 45 page(s) lues dans dist ; licences citées : aucune ; workflow planifié : oui
+  (a) liens soumis à autorisation (citer l’organisme sans lien : titre, adresse en texte, date) : 0
+  (b) relais juridique présenté comme officiel (lien vers le texte officiel, ou « relais non officiel ») : 0
+  (c) copie web.archive.org présentée comme officielle (écrire « copie archivée du JJ/MM/AAAA ») : 0
+  (d) attribution de licence absente du pied de page : 0
+  (e) promesse de mise à jour sans workflow planifié (écrire « lu le JJ/MM/AAAA, mise à jour manuelle ») : 0
+check-droits : 0 défaut
+check-copie : sans objet (pas de data/textes-sources/*.txt)
+  30 page(s), 0 champ(s) mal formaté(s)
+check-contraste: 30 page(s), 0 texte(s) sous le seuil
+check-saisie: 20 page(s) à calculateur, 0 défaut(s)
+  trame        ok         site le plus proche : bonusisee.it (51 % de blocs en commun)
+  chiffres     ok         date de mise à jour visible · 3 source(s) officielle(s) liée(s)
+  credibilite  ok         À propos lié · méthode liée
+  reseau       ok         liens vers : aucun site du portefeuille
+  publicite    ok         0 emplacement(s) publicitaire(s) sur l’accueil
+check-regles : 292 accueils comparés, 0 règle(s) KO ou à revoir
+check-motcle : 0/26 page(s) où le terme-clé du titre manque {}
