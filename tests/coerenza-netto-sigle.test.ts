@@ -73,7 +73,7 @@ describe('2. noms qui contredisent la durée', () => {
 const pagine = (dir: string): string[] => readdirSync(dir).flatMap((n) => { const p = join(dir, n); return statSync(p).isDirectory() ? pagine(p) : n === 'index.html' ? [p] : []; });
 const ESCLUSE = /\/(chi-siamo|about|contatti|contact|privacy|cookie|cookies|note-legali|legal-notice|politica-editoriale|editorial-policy|widget)\//;
 describe.skipIf(!existsSync('dist/it'))('1. sigles BTP et BOT expliqués à leur première apparition (dist/)', () => {
-  for (const f of pagine('dist').filter((p) => !ESCLUSE.test(p) && !p.includes('embed'))) {
+  for (const f of (existsSync('dist/it') ? pagine('dist') : []).filter((p) => !ESCLUSE.test(p) && !p.includes('embed'))) {
     it(f, () => {
       const s = readFileSync(f, 'utf8');
       if (/noindex/.test(s.slice(0, 4000))) return;
