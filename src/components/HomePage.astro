@@ -28,12 +28,13 @@ const sources = keys.map((k) => ({ name: P.sources[k].label[lang], url: P.source
 const jsonLd = [websiteSchema(lang), organizationSchema(lang), webPageSchema({ name: x.h1, description: x.description, path, lang }), webApplicationSchema({ name: x.h1, description: x.description, path, lang }), faqSchema(faqs, lang)];
 const it = lang === 'it';
 import * as M from '../lib/engine/index';
-import { nomeBase, traQuanto } from '../lib/nomi';
+import { nomeBase, emesso } from '../lib/nomi';
 const ultime = M.ULTIME.slice(0, 4);
 // Testeurs naïfs du 2026-11-14 : « 3,58 % » puis « BTP 3 anni 3,00 % », deux taux sans nom, et deux dates collées.
 // 2e tour : « BTP 7 anni » qui échoit en 2031 se lisait comme une erreur ; le nom reste, le temps restant s'ajoute (lib/nomi.ts).
 const nomeA = (a: (typeof ultime)[number]) => nomeBase(a, lang);
-const dettA = (a: (typeof ultime)[number]) => `${a.cedola != null ? `${it ? 'cedola' : 'coupon'} ${H.num(a.cedola, 2)}% · ` : ''}${it ? 'scade il' : 'matures'} ${H.date(a.scadenza)}${traQuanto(a, lang)}`;
+const dettA = (a: (typeof ultime)[number]) => `${a.cedola != null ? `${it ? 'cedola' : 'coupon'} ${H.num(a.cedola, 2)}% · ` : ''}${it ? 'scade il' : 'matures'} ${H.date(a.scadenza)}`;
+// 5e tour : sous chaque nom, « emesso a 7 anni, ne restano circa 4 anni » quand le nom ne dit plus le temps qui reste.
 // Corps : la première section (le tableau par durée) reste ouverte, les suivantes se replient sous leur titre
 // (testeurs naïfs du 2026-11-14, 2e tour : « longs paragraphes non repliés » ; tout reste dans le HTML).
 const sezioni = (html: string) => { let n = 0; return html.split(/(?=<h2>)/).map((s) => (!s.startsWith('<h2>') || n++ === 0 ? s : s.replace(/^<h2>(.*?)<\/h2>/s, '<details class="sezione"><summary class="cursor-pointer"><h2 class="inline">$1</h2></summary>') + '</details>')).join(''); };
@@ -56,6 +57,7 @@ const cats = navCategories(lang);
       {ultime.map((a) => (
         <li class="rounded-lg bg-white p-3 shadow-sm">
           <p class="text-sm font-semibold text-navy-900"><a href={route('aste-titoli-di-stato', lang)} class="hover:underline">{nomeA(a)}</a></p>
+          {emesso(a, lang) && <p class="text-sm text-navy-700">{emesso(a, lang)}</p>}
           <p class="mt-1"><span class="tabular-nums text-xl font-bold text-accent-700">{H.num(a.rendimento, 2)}%</span> <span class="text-sm text-navy-700">{it ? 'rendimento lordo all’asta' : 'gross yield at auction'}</span></p>
           <p class="mt-1 text-sm text-navy-700">{dettA(a)}</p>
           <p class="text-sm text-navy-600">{it ? 'asta del' : 'auction of'} <time datetime={a.asta}>{H.date(a.asta)}</time></p>

@@ -20,7 +20,7 @@ export default defineGuide({
     title: 'Quanto rendono 10.000 euro: BTP, Buoni, BOT o deposito',
     description: 'Quanto rendono 10.000 euro netti in BTP, BOT, Buoni fruttiferi postali o conto deposito, da 1 a 10 anni, con tassa del 12,5% o 26% e bollo, ai tassi letti oggi.',
     h1: 'Quanto rendono 10.000 euro in titoli di Stato e depositi',
-    intro: 'Quanto rendono 10.000 euro dipende dalla durata e dallo strumento: il calcolo mette insieme BTP, BOT, Buono postale e conto deposito ai tassi letti oggi e mostra gli interessi netti di ciascuno.',
+    intro: 'Quanto rendono 10.000 euro dipende dalla durata e dallo strumento: il calcolo mette insieme BTP e BOT (prestiti allo Stato: i Buoni del Tesoro poliennali durano più anni, i Buoni ordinari del Tesoro al massimo uno), Buono postale e conto deposito ai tassi letti oggi e mostra gli interessi netti di ciascuno.',
     resume: (h) => {
       const b1 = best(h, 1), b5 = best(h, 5), b10 = best(h, 10);
       const nmIt = (r: ReturnType<typeof best>) => (r.id === 'deposito' ? 'il conto deposito' : r.titolo ? nomeChiaro(r.titolo, 'it', h.today) : r.nome);
@@ -44,7 +44,7 @@ ${tabConfronto(h, 10000, [1, 2, 3, 4, 5, 7, 10])}
     title: 'Earnings on €10,000: BTP, postal bonds or deposit in Italy',
     description: 'Earnings on €10,000 in Italy in BTP, BOT, postal savings bonds or a deposit account, from 1 to 10 years, net of 12.5% or 26% tax and stamp duty, today.',
     h1: 'Earnings on €10,000 in Italian bonds and deposits',
-    intro: 'Earnings on €10,000 depend on the term and the product: the calculation puts BTP, BOT, a postal bond and a deposit account together at today’s rates and shows each one’s net interest.',
+    intro: 'Earnings on €10,000 depend on the term and the product: the calculation puts BTP and BOT (loans to the Italian State: Buoni del Tesoro poliennali last several years, Buoni ordinari del Tesoro one at most), a postal bond and a deposit account together at today’s rates and shows each one’s net interest.',
     resume: (h) => {
       const b1 = best(h, 1), b5 = best(h, 5), b10 = best(h, 10);
       const nm = (r: ReturnType<typeof best>) => (r.id === 'deposito' ? 'the deposit account' : r.titolo ? nomeChiaro(r.titolo, 'en', h.today) : r.nome);

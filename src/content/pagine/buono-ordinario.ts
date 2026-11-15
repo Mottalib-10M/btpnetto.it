@@ -39,7 +39,7 @@ export default defineGuide({
 <p>La tabella riporta, per ${h.eur(1000)}, il valore a ogni anniversario con i tassi letti sulla ${h.src('posteOrdinario', 'pagina del Buono Ordinario')}. Sotto ${h.eur(h.P.fisco.bollo_buoni_franchigia)} di Buoni non si paga bollo, quindi il netto toglie solo la tassa del 12,5% sugli interessi prevista per i titoli pubblici e assimilati dalla ${h.src('dlgs239', 'legge')}.</p>
 ${tab(h)}
 <h2>Rimborsare presto o tenere vent’anni</h2>
-<p>Nei primi quattro anni il tasso resta basso, poi cresce di circa un decimo di punto all’anno. Chi pensa di riavere i soldi entro pochi anni trova tassi più alti nei Buoni a scadenza fissa o nei titoli di Stato della stessa durata; il Buono Ordinario serve a chi vuole poter uscire in qualsiasi anno senza perdere gli interessi maturati. Il ${h.a('btp-o-buoni-postali', 'confronto con il BTP della stessa durata')} mette i due numeri fianco a fianco.</p>`,
+<p>Nei primi quattro anni il tasso resta basso, poi cresce di circa un decimo di punto all’anno. Chi pensa di riavere i soldi entro pochi anni trova tassi più alti nei Buoni a scadenza fissa o nei titoli di Stato della stessa durata; il Buono Ordinario serve a chi vuole poter uscire in qualsiasi anno senza perdere gli interessi maturati. Il ${h.a('btp-o-buoni-postali', 'confronto con il BTP (Buono del Tesoro poliennale, un prestito allo Stato) della stessa durata')} mette i due numeri fianco a fianco.</p>`,
   },
   en: {
     slug: 'buono-ordinario-20-year-bond',
@@ -63,6 +63,6 @@ ${tab(h)}
 <p>The table gives, for ${h.eur(1000)}, the value at each anniversary using the rates read on the ${h.src('posteOrdinario', 'Buono Ordinario page')}. Below ${h.eur(h.P.fisco.bollo_buoni_franchigia)} of bonds there is no stamp duty, so the net figure takes off only the 12.5% tax on interest set for public securities by Italian ${h.src('dlgs239', 'law')}.</p>
 ${tab(h)}
 <h2>Cash in early or hold for twenty years</h2>
-<p>In the first four years the rate stays low, then rises by about a tenth of a point a year. If you expect to need the money within a few years, fixed-term bonds or government bonds of the same length pay higher rates; the Buono Ordinario suits those who want to be able to leave in any year without losing accrued interest. The ${h.a('btp-o-buoni-postali', 'comparison with a BTP of the same term')} puts the two figures side by side.</p>`,
+<p>In the first four years the rate stays low, then rises by about a tenth of a point a year. If you expect to need the money within a few years, fixed-term bonds or government bonds of the same length pay higher rates; the Buono Ordinario suits those who want to be able to leave in any year without losing accrued interest. The ${h.a('btp-o-buoni-postali', 'comparison with a BTP (Buono del Tesoro poliennale, a loan to the Italian State) of the same term')} puts the two figures side by side.</p>`,
   },
 });

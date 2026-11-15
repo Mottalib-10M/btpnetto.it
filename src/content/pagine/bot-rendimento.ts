@@ -18,7 +18,7 @@ export default defineGuide({
     title: 'BOT rendimento netto: calcolo dall’ultima asta del Tesoro',
     description: 'BOT, rendimento netto: dal prezzo dell’ultima asta calcola quanto incassi a scadenza, la tassa del 12,5% sulla differenza, il bollo dei giorni e il netto annuo.',
     h1: 'BOT, rendimento netto: quanto incassi a scadenza',
-    intro: 'Il rendimento netto di un BOT nasce tutto dalla differenza tra il prezzo pagato e i 100 rimborsati a scadenza: il calcolo toglie la tassa del 12,5% e il bollo (un’imposta dello 0,20% all’anno sul valore dei titoli) per i giorni in cui lo tieni.',
+    intro: 'Il rendimento netto di un BOT (Buono ordinario del Tesoro: un prestito allo Stato che dura al massimo un anno) nasce tutto dalla differenza tra il prezzo pagato e i 100 rimborsati a scadenza: il calcolo toglie la tassa del 12,5% e il bollo (un’imposta dello 0,20% all’anno sul valore dei titoli) per i giorni in cui lo tieni.',
     resume: (h) => {
       const { a, r } = es(h);
       return `I BOT, Buoni ordinari del Tesoro, sono titoli di Stato senza cedola (non pagano interessi periodici) che durano al massimo un anno. Si comprano sotto 100 e alla scadenza lo Stato rimborsa 100: il guadagno è la differenza. Su questa differenza si paga il ${h.pct(h.P.fisco.titoli_stato, 1)}, trattenuto alla fonte; la banca aggiunge il bollo dello ${h.pct(h.P.fisco.bollo, 2)} l’anno, solo per i giorni in cui hai il titolo. Nell’asta del ${h.date(a.asta)} il BOT che scade il ${h.date(a.scadenza)} è stato venduto al prezzo medio di ${h.num(a.prezzo, 3)}, con un rendimento lordo, cioè prima delle tasse, del ${h.num(a.rendimento, 3)}% calcolato dal Tesoro. Su ${h.eur(10000)} nominali, comprati oggi a quel prezzo, si spendono ${h.eur(r.costo, 2)} e si incassano ${h.eur(r.netto, 2)} netti, cioè il ${h.pct(r.rendNetto, 2)} all’anno. Il BOT non paga nulla prima della scadenza e si può rivendere, ma al prezzo di mercato del giorno.`;
@@ -36,7 +36,7 @@ ${h.table(['Voce', 'Importo'], [['Spesa', h.eur(r.costo, 2)], ['Differenza a sca
 <h2>I BOT ancora in vita</h2>
 <p>Ogni riga è l’ultima asta di un BOT che non è ancora scaduto, letta nei PDF del ${h.src('mefBot', 'Dipartimento del Tesoro')}. Alcuni sono riaperture: il Tesoro rimette all’asta un BOT emesso mesi prima, con la stessa scadenza. Per questo un «BOT 12 mesi» può scadere fra pochi mesi: il tempo che manca è scritto accanto al nome.</p>
 ${tabBot(h)}
-<p>Più il BOT è vicino alla scadenza, meno pesa il bollo: il rendimento netto si avvicina allora a quello lordo meno la tassa del 12,5%. Chi compra in Borsa paga anche la commissione della banca, che su durate brevi può mangiare una parte importante del guadagno: conviene controllarla prima. L’elenco completo delle aste, con i BTP, è nella pagina ${h.a('aste-titoli-di-stato', 'sulle aste dei titoli di Stato')}.</p>`;
+<p>Più il BOT è vicino alla scadenza, meno pesa il bollo: il rendimento netto si avvicina allora a quello lordo meno la tassa del 12,5%. Chi compra in Borsa paga anche la commissione della banca, che su durate brevi può mangiare una parte importante del guadagno: conviene controllarla prima. L’elenco completo delle aste, con i BTP (Buoni del Tesoro poliennali, prestiti allo Stato che durano più anni), è nella pagina ${h.a('aste-titoli-di-stato', 'sulle aste dei titoli di Stato')}.</p>`;
     },
   },
   en: {
@@ -46,7 +46,7 @@ ${tabBot(h)}
     title: 'BOT net yield: Italian Treasury bill return from the auction',
     description: 'BOT net yield for Italian Treasury bills: from the latest auction price, what you collect at maturity, the 12.5% tax on the gap, stamp duty and the yearly net.',
     h1: 'BOT net yield: what you collect at maturity',
-    intro: 'The BOT net yield comes entirely from the gap between the price you pay and the 100 repaid at maturity: the calculation takes off the 12.5% tax and the stamp duty (a 0.20% yearly levy on the value of your bonds) for the days you hold it.',
+    intro: 'The BOT net yield (BOT, Buoni ordinari del Tesoro: loans to the Italian State lasting a year at most) comes entirely from the gap between the price you pay and the 100 repaid at maturity: the calculation takes off the 12.5% tax and the stamp duty (a 0.20% yearly levy on the value of your bonds) for the days you hold it.',
     resume: (h) => {
       const { a, r } = es(h);
       return `BOT (Buoni ordinari del Tesoro) are Italian Treasury bills: government securities with no coupon (no periodic interest) that last a year at most. You buy them below 100 and at maturity the State repays 100: the gain is the difference. That difference is taxed at ${h.pct(h.P.fisco.titoli_stato, 1)}, withheld at source; the bank adds the ${h.pct(h.P.fisco.bollo, 2)} yearly stamp duty, only for the days you hold the bill. At the auction of ${h.date(a.asta)} the BOT maturing on ${h.date(a.scadenza)} sold at an average price of ${h.num(a.prezzo, 3)}, a gross yield, before tax, of ${h.num(a.rendimento, 3)}% as worked out by the Treasury. On ${h.eur(10000)} face value bought today at that price you spend ${h.eur(r.costo, 2)} and collect ${h.eur(r.netto, 2)} net, or ${h.pct(r.rendNetto, 2)} a year. A BOT pays nothing before maturity and can be sold, but at that day’s market price.`;
@@ -64,7 +64,7 @@ ${h.table(['Item', 'Amount'], [['Cost', h.eur(r.costo, 2)], ['Gain at maturity',
 <h2>BOT still running</h2>
 <p>Each row is the latest auction of a BOT that has not yet matured, read in the ${h.src('mefBot', 'Treasury Department’s')} PDFs. Some are reopenings: the Treasury auctions again a bill issued months earlier, with the same maturity. That is why a “12-month BOT” can mature in a few months: the time left is shown next to the name.</p>
 ${tabBot(h)}
-<p>The closer a BOT is to maturity, the less the stamp duty weighs and the closer the net yield gets to the gross minus the 12.5% tax. Buying on the market also costs your bank’s fee, which on short terms can eat a large share of the gain: check it first. The full auction list, BTP included, is on the ${h.a('aste-titoli-di-stato', 'Treasury auction results')} page.</p>`;
+<p>The closer a BOT is to maturity, the less the stamp duty weighs and the closer the net yield gets to the gross minus the 12.5% tax. Buying on the market also costs your bank’s fee, which on short terms can eat a large share of the gain: check it first. The full auction list, BTP included (Buoni del Tesoro poliennali, loans to the State lasting several years), is on the ${h.a('aste-titoli-di-stato', 'Treasury auction results')} page.</p>`;
     },
   },
 });

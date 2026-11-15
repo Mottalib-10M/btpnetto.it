@@ -1,5 +1,5 @@
 /** Prix ↔ rendement : pour un titre des dernières adjudications, rendement brut et net au prix saisi. */
-import { T, pct, data, type L } from '../minis/_kit';
+import { T, pct, eur, data, type L } from '../minis/_kit';
 import { ULTIME, btp, bot } from '../engine/index';
 import type { ToolSpec } from '../tool-types';
 import { nomeTitolo, dataBreve } from './_opz';
@@ -16,18 +16,19 @@ export default (l: L): ToolSpec => ({
     const a = LISTA[Math.min(LISTA.length - 1, Math.max(0, v.titolo))];
     const px = v.prezzo > 0 ? v.prezzo : a.prezzo;
     const isBot = a.tipo === 'BOT';
-    const lordo = isBot ? bot(a, 10000, px).rendLordo360 : btp(a, 10000, px).irrLordo;
-    const nettoR = isBot ? bot(a, 10000, px).rendNetto : btp(a, 10000, px).irrNetto;
+    // Même « netto all'anno » que sur les autres pages (mediaAnnua) ; le chiffre du Tesoro reste dans sa ligne.
+    const r = isBot ? bot(a, 10000, px) : btp(a, 10000, px);
+    const lordo = r.rendLordo, nettoR = r.rendNetto;
     return {
       head: [T(l, `Rendimento netto all’anno, al prezzo di ${formatDecimal(px, 3, l)}`, `Net yield a year, at a price of ${formatDecimal(px, 3, l)}`), pct(nettoR, l, 2)],
-      sub: T(l, `dopo la tassa e il bollo (l’imposta dello 0,20% all’anno sul valore dei titoli), comprando oggi · prima delle tasse: ${pct(lordo, l, 2)}`, `after tax and stamp duty (the 0.20% yearly levy on the value of your bonds), buying today · before tax: ${pct(lordo, l, 2)}`),
+      sub: T(l, `in media, cioè ${eur(nettoR * 10000, l)} all’anno ogni 10.000 € investiti, dopo la tassa e il bollo (l’imposta dello 0,20% all’anno sul valore dei titoli), comprando oggi · prima delle tasse: ${pct(lordo, l, 2)}`, `on average, i.e. ${eur(nettoR * 10000, l)} a year per €10,000 invested, after tax and stamp duty (the 0.20% yearly levy on the value of your bonds), buying today · before tax: ${pct(lordo, l, 2)}`),
       rows: [
         [T(l, 'Data dell’asta', 'Auction date'), data(a.asta, l)],
         [T(l, 'Prezzo d’asta', 'Auction price'), formatDecimal(a.prezzo, 3, l)],
         [T(l, 'Rendimento pubblicato dal Tesoro', 'Yield published by the Treasury'), `${formatDecimal(a.rendimento, 3, l)}%`],
         [T(l, 'Codice ISIN (il codice del titolo, per cercarlo in banca)', 'ISIN code (the bond’s code, to look it up at your bank)'), a.isin],
       ],
-      note: isBot ? T(l, 'Rendimento prima delle tasse calcolato come nei comunicati del Tesoro (che contano l’anno come 360 giorni).', 'Yield before tax worked out as in Treasury releases (which count a year as 360 days).') : T(l, 'Qui il rendimento parte da oggi; quello del Tesoro parte dal giorno in cui chi ha comprato all’asta ha pagato il titolo, per questo i due possono differire di poco.', 'Here the yield starts today; the Treasury figure starts on the day auction buyers paid for the bond, so the two can differ slightly.'),
+      note: T(l, 'Qui il rendimento è il guadagno diviso per la spesa e per gli anni, come in tutti i calcoli del sito, e parte da oggi. Il Tesoro usa un altro metodo e parte dal giorno dell’asta: per questo il suo numero può essere diverso.', 'Here the yield is the gain divided by the cost and by the years, as in every calculation on the site, and starts today. The Treasury uses another method and starts on the auction day, so its figure can differ.'),
     };
   },
 });

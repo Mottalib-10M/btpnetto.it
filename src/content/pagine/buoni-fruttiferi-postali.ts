@@ -39,7 +39,7 @@ export default defineGuide({
 ${tab(h)}
 <h2>Come funziona il rendimento dei Buoni fruttiferi postali</h2>
 <p>Il tasso indicato da Poste è «effettivo annuo lordo»: gli interessi si capitalizzano, cioè maturano anche sugli interessi già maturati, e vengono pagati tutti al rimborso. Per questo il valore cresce ogni anno un po’ di più dell’anno prima (la formula è nella pagina ${h.a('method', 'sul metodo')}). La tassa si paga una volta sola, al rimborso, sugli interessi complessivi. Il ${h.src('poste4Plus', 'Buono 4 anni Plus')} e il ${h.src('posteEredita', 'Buono Soluzione Eredità')} hanno un solo tasso, valido se arrivi alla scadenza; il ${h.src('posteRisparmiosemplice', 'Buono 4 anni risparmiosemplice')} ha un tasso standard e uno premiale dopo 24 versamenti del piano. Il calcolo qui sopra mostra il netto per ogni durata, e per l’Ordinario la tabella anno per anno.</p>
-<p>I Buoni non hanno un prezzo di mercato: non si vendono in Borsa, si rimborsano a Poste al valore maturato. È la differenza principale rispetto a un BTP, il cui valore cambia ogni giorno prima della scadenza.</p>`,
+<p>I Buoni non hanno un prezzo di mercato: non si vendono in Borsa, si rimborsano a Poste al valore maturato. È la differenza principale rispetto a un BTP (Buono del Tesoro poliennale, un prestito allo Stato), il cui valore cambia ogni giorno prima della scadenza.</p>`,
   },
   en: {
     slug: 'postal-savings-bonds',
@@ -64,6 +64,6 @@ ${tab(h)}
 ${tab(h)}
 <h2>How postal savings bond returns work</h2>
 <p>The rate Poste shows is a gross effective yearly rate: interest compounds, earning interest on interest, and is all paid at redemption. So the value grows a little more each year than the year before (the formula is on the ${h.a('method', 'method page')}). Tax is paid once, at redemption, on the total interest. The ${h.src('poste4Plus', 'Buono 4 anni Plus')} and the ${h.src('posteEredita', 'Soluzione Eredità bond')} have a single rate, earned only at maturity; the ${h.src('posteRisparmiosemplice', 'risparmiosemplice bond')} has a standard rate and a higher one after 24 plan payments. The calculation above shows the net for each term, and for the Ordinario a year-by-year table.</p>
-<p>Postal bonds have no market price: they are not traded, they are cashed in at Poste for their accrued value. That is the main difference from a BTP, whose value changes every day before maturity.</p>`,
+<p>Postal bonds have no market price: they are not traded, they are cashed in at Poste for their accrued value. That is the main difference from a BTP (Buono del Tesoro poliennale, a loan to the Italian State), whose value changes every day before maturity.</p>`,
   },
 });

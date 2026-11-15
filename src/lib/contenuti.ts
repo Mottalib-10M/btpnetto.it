@@ -7,10 +7,11 @@ const nome = (h: Helpers, a: { nome: string; tipo: string; scadenza: string }) =
 export function tabBtp(h: Helpers, filtro?: (a: (typeof h.M.BTPS)[number]) => boolean): string {
   const L = h.M.BTPS.filter(filtro ?? (() => true));
   return h.table(
-    it(h) ? ['Titolo', 'Cedola', 'Scadenza', 'Asta del', 'Prezzo', 'Lordo all’asta', 'Netto all’asta'] : ['Bond', 'Coupon', 'Maturity', 'Auction of', 'Price', 'Gross at auction', 'Net at auction'],
+    it(h) ? ['Titolo', 'Cedola', 'Scadenza', 'Asta del', 'Prezzo', 'Lordo all’asta', 'Netto all’asta, metodo del Tesoro'] : ['Bond', 'Coupon', 'Maturity', 'Auction of', 'Price', 'Gross at auction', 'Net at auction, Treasury method'],
     // Netto calcolato dal giorno dell'asta, come il lordo del Tesoro : confrontabili (testeurs naïfs du 2026-11-14).
+    // TRI gardé ici (5e tour) : la moyenne simple dépasserait le brut du Tesoro pour le BTP 50 anni (4,92 % contre 4,61 %).
     L.map((a) => { const r = h.M.btp(a, 10000, a.prezzo, a.asta); return [nome(h, a), `${h.num(a.cedola as number, 2)}%`, h.date(a.scadenza), h.date(a.asta), h.num(a.prezzo, 2), `${h.num(a.rendimento, 2)}%`, h.pct(r.irrNetto, 2)]; }),
-    it(h) ? 'BTP a tasso fisso: ultimo prezzo d’asta del Tesoro. Lordo = prima delle tasse, come pubblicato dal Tesoro; netto = dopo la tassa del 12,5% e il bollo, per chi ha comprato all’asta e tiene fino alla scadenza' : 'Fixed-rate BTP: latest Treasury auction price. Gross = before tax, as published by the Treasury; net = after the 12.5% tax and stamp duty, for a buyer at the auction who holds to maturity',
+    it(h) ? 'BTP a tasso fisso: ultimo prezzo d’asta del Tesoro. Lordo = prima delle tasse, come pubblicato dal Tesoro; netto = dopo la tassa del 12,5% e il bollo, per chi ha comprato all’asta e tiene fino alla scadenza, calcolato con il metodo del Tesoro per confrontarlo con il lordo (i calcoli del sito danno invece la media all’anno)' : 'Fixed-rate BTP: latest Treasury auction price. Gross = before tax, as published by the Treasury; net = after the 12.5% tax and stamp duty, for a buyer at the auction who holds to maturity, worked out with the Treasury method to compare with the gross (the site’s calculations give the yearly average instead)',
     ['l', 'r', 'l', 'l', 'r', 'r', 'r'],
   );
 }

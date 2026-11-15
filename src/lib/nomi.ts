@@ -32,12 +32,20 @@ export function nomeIngannevole(a: Titolo, oggi = BUILD_TODAY): boolean {
   const mA = /(\d+) anni/.exec(n), mM = /(\d+) mesi/.exec(n);
   return Boolean((mA && Math.round(anni) !== Number(mA[1])) || (mM && Math.abs(Math.round(anni * 12) - Number(mM[1])) >= 2));
 }
-/** « (tra circa 4 anni) » à poser après la date d'échéance, seulement quand le nom trompe. */
-export const traQuanto = (a: Titolo, l: L, oggi = BUILD_TODAY) => (nomeIngannevole(a, oggi) ? ` (${l === 'en' ? 'in' : 'tra'} ${restante(a.scadenza, l, oggi)})` : '');
-/** Nom seul, sans date à côté : le temps restant entre parenthèses quand le nom trompe. */
-export function nomeChiaro(a: Titolo, l: L, oggi = BUILD_TODAY): string {
-  const base = nomeBase(a, l);
-  if (!nomeIngannevole(a, oggi)) return base;
+/**
+ * « emesso a 7 anni, ne restano circa 4 anni » (5e tour, validé par l'éditeur) : le nom du Trésor dit la durée à
+ * l'émission ; quand elle ne dit plus le temps qui reste, cette phrase l'explique sous le nom, partout où il apparaît.
+ */
+export function emesso(a: Titolo, l: L, oggi = BUILD_TODAY): string {
+  if (!nomeIngannevole(a, oggi)) return '';
+  const orig = /(\d+) (anni|mesi)/.exec(a.nome.split(' (')[0])!;
   const r = restante(a.scadenza, l, oggi);
-  return l === 'en' ? `${base} (${r} left)` : `${base} (${r === '1 mese' ? 'manca' : 'mancano'} ${r} alla scadenza)`;
+  if (l === 'en') return `issued for ${orig[1]} ${orig[2] === 'anni' ? 'years' : 'months'}, ${r} left`;
+  return `emesso a ${orig[1]} ${orig[2]}, ${r === '1 mese' ? 'ne resta' : 'ne restano'} ${r}`;
+}
+/** « (emesso a 7 anni, ne restano circa 4 anni) » à poser après le nom ou la date d'échéance, seulement quand le nom trompe. */
+export const traQuanto = (a: Titolo, l: L, oggi = BUILD_TODAY) => (nomeIngannevole(a, oggi) ? ` (${emesso(a, l, oggi)})` : '');
+/** Nom seul, sans date à côté : la durée d'émission et le temps restant entre parenthèses quand le nom trompe. */
+export function nomeChiaro(a: Titolo, l: L, oggi = BUILD_TODAY): string {
+  return `${nomeBase(a, l)}${traQuanto(a, l, oggi)}`;
 }

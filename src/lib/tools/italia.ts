@@ -1,5 +1,5 @@
 /** BTP Italia 04/06/2032 : taux réel de 1,85 % + inflation italienne supposée par le lecteur. */
-import { T, eur, eur2, pct, data, type L } from '../minis/_kit';
+import { T, eur, eur2, data, nettoAnno, type L } from '../minis/_kit';
 import { italia2032, anniTra } from '../engine/index';
 import { P } from '../engine/params';
 import { BUILD_TODAY } from '../today';
@@ -19,7 +19,7 @@ export default (l: L): ToolSpec => ({
     const r = italia2032(v.importo, v.infl, anni);
     return {
       head: [T(l, 'Interessi netti fino alla scadenza (ipotesi)', 'Net interest to maturity (assumption)'), eur(r.netti, l)],
-      sub: T(l, `${pct(r.rendNetto, l, 2)} netto all’anno · il titolo paga ogni anno l’inflazione più l’${formatDecimal(R.tasso_reale, 2, l)}%, prima delle tasse · scade il ${data(R.scadenza, l)}`, `${pct(r.rendNetto, l, 2)} net a year · each year the bond pays inflation plus ${formatDecimal(R.tasso_reale, 2, l)}%, before tax · matures ${data(R.scadenza, l)}`),
+      sub: T(l, `${durata(anni, l)} · ${nettoAnno(r.rendNetto, l)} · il titolo paga ogni anno l’inflazione più l’${formatDecimal(R.tasso_reale, 2, l)}%, prima delle tasse · scade il ${data(R.scadenza, l)}`, `${durata(anni, l)} · ${nettoAnno(r.rendNetto, l)} · each year the bond pays inflation plus ${formatDecimal(R.tasso_reale, 2, l)}%, before tax · matures ${data(R.scadenza, l)}`),
       rows: [
         // Tout sur la durée entière : un brut annuel à côté d'une taxe totale faisait croire à 70 % d'impôt (testeurs naïfs du 2026-11-14).
         [T(l, `Interessi prima delle tasse, ${durata(anni, l)} (stima)`, `Interest before tax, ${durata(anni, l)} (estimate)`), eur2(r.lordi, l)],

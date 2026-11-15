@@ -1,5 +1,5 @@
 /** BTP Valore (step-up), BTP Valore Insieme, BTP Valore 2032 avec prime finale. */
-import { T, eur, eur2, pct, data, type L } from '../minis/_kit';
+import { T, eur, eur2, pct, data, nettoAnno, type L } from '../minis/_kit';
 import { valore2031, valore2032, insieme2031 } from '../engine/index';
 import { P } from '../engine/params';
 import type { ToolSpec } from '../tool-types';
@@ -24,7 +24,7 @@ export default (l: L): ToolSpec => ({
       const r = insieme2031(v.importo);
       return {
         head: [T(l, 'Cedola netta alla scadenza', 'Net coupon at maturity'), eur(r.netti, l)],
-        sub: T(l, `una sola cedola pari al ${formatDecimal(R.insieme_2031.cedola_unica, 2, l)}% del capitale, prima delle tasse, pagata il ${data(R.insieme_2031.scadenza, l)} · ${pct(r.rendNetto, l, 2)} netto all’anno`, `a single coupon of ${formatDecimal(R.insieme_2031.cedola_unica, 2, l)}% of the capital, before tax, paid on ${data(R.insieme_2031.scadenza, l)} · ${pct(r.rendNetto, l, 2)} net a year`),
+        sub: T(l, `una sola cedola pari al ${formatDecimal(R.insieme_2031.cedola_unica, 2, l)}% del capitale, prima delle tasse, pagata il ${data(R.insieme_2031.scadenza, l)} · ${nettoAnno(r.rendNetto, l)}`, `a single coupon of ${formatDecimal(R.insieme_2031.cedola_unica, 2, l)}% of the capital, before tax, paid on ${data(R.insieme_2031.scadenza, l)} · ${nettoAnno(r.rendNetto, l)}`),
         alert: chiuso(R.insieme_2031.godimento, l) || undefined,
         rows: [[T(l, 'Cedola lorda', 'Gross coupon'), eur2(r.lordo, l)], [T(l, 'Tassa 12,5%', '12.5% tax'), eur2(r.tassa, l)], [T(l, 'Bollo 0,20% per 5 anni', '0.20% stamp duty for 5 years'), eur2(r.bollo, l)]],
         note: T(l, `Tasso definitivo del comunicato del Ministero dell’economia del ${data(R.insieme_2031.comunicato, l)} (minimo annunciato: ${formatDecimal(R.insieme_2031.cedola_minima, 2, l)}%).`, `Final rate from the Ministry of Economy release of ${data(R.insieme_2031.comunicato, l)} (announced minimum: ${formatDecimal(R.insieme_2031.cedola_minima, 2, l)}%).`),
@@ -35,7 +35,7 @@ export default (l: L): ToolSpec => ({
     const t = nuovo ? R.valore_2031 : R.valore_2032;
     return {
       head: [T(l, `Cedole nette in ${r.anni} ${r.anni === 1 ? 'anno' : 'anni'}`, `Net coupons over ${r.anni} year${r.anni === 1 ? '' : 's'}`), eur(r.netti, l)],
-      sub: T(l, `${pct(r.rendNetto, l, 2)} netto all’anno in media · ${t.nome}`, `${pct(r.rendNetto, l, 2)} net a year on average · ${t.nome}`),
+      sub: T(l, `su ${eur(v.importo, l)} · ${nettoAnno(r.rendNetto, l)} · ${t.nome}`, `on ${eur(v.importo, l)} · ${nettoAnno(r.rendNetto, l)} · ${t.nome}`),
       // Collocamento chiuso : dit sous le gros chiffre, plus en bas de carte (testeurs naïfs du 2026-11-14, 2e tour).
       alert: chiuso(t.godimento, l) || undefined,
       rows: [

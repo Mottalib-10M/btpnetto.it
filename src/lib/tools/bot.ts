@@ -1,5 +1,5 @@
 /** Un BOT précis : écart au pair, impôt de 12,5 %, timbre au prorata, rendement net annuel. */
-import { T, eur2, pct, data, type L } from '../minis/_kit';
+import { T, eur2, pct, data, nettoAnno, type L } from '../minis/_kit';
 import { BOTS, bot } from '../engine/index';
 import type { ToolSpec } from '../tool-types';
 import { opzBot, importo, prezzo } from './_opz';
@@ -18,7 +18,7 @@ export default (l: L): ToolSpec => ({
     const r = bot(a, v.importo, px);
     return {
       head: [T(l, 'Guadagno netto a scadenza', 'Net gain at maturity'), eur2(r.netto, l)],
-      sub: T(l, `${pct(r.rendNetto, l, 2)} netto all’anno se compri oggi a questo prezzo · ${r.giorni} giorni, scadenza ${data(a.scadenza, l)}`, `${pct(r.rendNetto, l, 2)} net a year if you buy today at this price · ${r.giorni} days, matures ${data(a.scadenza, l)}`),
+      sub: T(l, `${nettoAnno(r.rendNetto, l)}, se compri oggi a questo prezzo · ${r.giorni} giorni, scadenza ${data(a.scadenza, l)}`, `${nettoAnno(r.rendNetto, l)}, if you buy today at this price · ${r.giorni} days, matures ${data(a.scadenza, l)}`),
       rows: [
         [T(l, `Prezzo (asta del ${data(a.asta, l)}: ${formatDecimal(a.prezzo, 3, l)})`, `Price (auction of ${data(a.asta, l)}: ${formatDecimal(a.prezzo, 3, l)})`), formatDecimal(px, 3, l)],
         [T(l, 'Spesa oggi', 'Cost today'), eur2(r.costo, l)],

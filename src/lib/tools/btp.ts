@@ -1,5 +1,5 @@
 /** Un BTP précis : cédoles nettes, impôt sur l'écart au pair, timbre, rendement net annuel jusqu'à l'échéance. */
-import { T, eur, eur2, pct, data, type L } from '../minis/_kit';
+import { T, eur, eur2, pct, data, nettoAnno, periodo, type L } from '../minis/_kit';
 import { BTPS, btp } from '../engine/index';
 import type { ToolSpec } from '../tool-types';
 import { opzBtp, defBtp, importo, prezzo, nomeTitolo } from './_opz';
@@ -17,7 +17,7 @@ export default (l: L, o: { titolo?: string } = {}): ToolSpec => ({
     const r = btp(a, v.importo, px);
     return {
       head: [T(l, 'Guadagno netto fino alla scadenza', 'Net gain to maturity'), eur(r.guadagnoNetto, l)],
-      sub: T(l, `${pct(r.irrNetto, l, 2)} netto all’anno (${pct(r.irrLordo, l, 2)} prima delle tasse) · ${nomeTitolo(a, l)}`, `${pct(r.irrNetto, l, 2)} net a year (${pct(r.irrLordo, l, 2)} before tax) · ${nomeTitolo(a, l)}`),
+      sub: T(l, `in ${periodo(r.anni, l)} · ${nettoAnno(r.rendNetto, l)} (${pct(r.rendLordo, l, 2)} prima delle tasse) · ${nomeTitolo(a, l)}`, `over ${periodo(r.anni, l)} · ${nettoAnno(r.rendNetto, l)} (${pct(r.rendLordo, l, 2)} before tax) · ${nomeTitolo(a, l)}`),
       rows: [
         [T(l, `Prezzo usato (asta del ${data(a.asta, l)}: ${formatDecimal(a.prezzo, 3, l)})`, `Price used (auction of ${data(a.asta, l)}: ${formatDecimal(a.prezzo, 3, l)})`), formatDecimal(px, 3, l)],
         [T(l, 'Spesa oggi, rateo compreso', 'Cost today, accrued interest included'), eur2(r.costoNetto, l)],

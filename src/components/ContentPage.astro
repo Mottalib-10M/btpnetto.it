@@ -30,7 +30,7 @@ const faqs = x.faqs(H);
 const jsonLd = [articleSchema({ title: x.h1, description: x.description, path, lang }), webPageSchema({ name: x.h1, description: x.description, path, lang }), breadcrumbSchema([{ name: ui.breadcrumbHome, path: route('home', lang) }, { name: x.nav, path }])];
 if (page.tool) jsonLd.push(webApplicationSchema({ name: x.h1, description: x.description, path, lang }));
 if (faqs.length) jsonLd.push(faqSchema(faqs, lang));
-const related = page.related.filter((id) => ROUTES.some((r) => r.id === id)).map((id) => ({ href: route(id, lang), name: label(id, lang), description: pageById(id)?.[lang].card ?? (id === 'home' ? (lang === 'it' ? 'Lo stesso importo e la stessa durata su BTP, BOT, Buoni postali e conto deposito: il netto dei quattro fianco a fianco.' : 'The same amount and term in BTP, BOT, postal bonds and a deposit account: the four net figures side by side.') : '') }));
+const related = page.related.filter((id) => ROUTES.some((r) => r.id === id)).map((id) => ({ href: route(id, lang), name: label(id, lang), description: pageById(id)?.[lang].card ?? (id === 'home' ? (lang === 'it' ? 'Lo stesso importo e la stessa durata su BTP e BOT (prestiti allo Stato di più anni o fino a un anno), Buoni postali e conto deposito: il netto dei quattro fianco a fianco.' : 'The same amount and term in BTP and BOT (loans to the Italian State over several years or up to one), postal bonds and a deposit account: the four net figures side by side.') : '') }));
 const sources = page.sources.map((k) => ({ name: P.sources[k].label[lang], url: P.sources[k].url }));
 const methodHref = route('method', lang);
 /** Cible du bouton des mini-simulateurs : le calculateur de l'accueil, sauf indication de la page. */

@@ -1,8 +1,10 @@
 /** Un montant, une durée : BTP de l'adjudication la plus proche, BOT à 12 mois, Buono, dépôt — nets d'impôt et de timbre. */
-import { T, eur, pct, data, type L } from '../minis/_kit';
+import { T, eur, pct, data, nettoAnno, periodo, type L } from '../minis/_kit';
 import { formatDecimal } from '../format';
 import { confronto, tassoDeposito, tassoBuono, buonoById } from '../engine/index';
 import { nomeBase, traQuanto } from '../nomi';
+// Durée réelle quand elle n'est pas celle choisie (BTP jusqu'à l'échéance) : « 1713 € guadagnati in 5 anni » pour un titre de 5 ans et 2 mois.
+const diversa = (r: { anni: number }, anni: number) => Math.abs(r.anni - anni) * 12 >= 1;
 import { P } from '../engine/params';
 import type { ToolSpec } from '../tool-types';
 import { ANNI, importo } from './_opz';
@@ -32,7 +34,8 @@ export default (l: L, o: Opts = {}): ToolSpec => ({
     const fonte = (r: (typeof righe)[number]) => r.id === 'deposito' ? T(l, `media BCE di ${mese(r.fonte, l)}`, `ECB average, ${mese(r.fonte, l)}`)
       : r.id === 'buono' ? T(l, `tassi Poste in vigore dal ${data(r.fonte, l)}`, `Poste rates in force since ${data(r.fonte, l)}`)
       : T(l, `prezzo dell’ultima asta di questo titolo, il ${data(r.fonte, l)}`, `price at this bond’s latest auction, ${data(r.fonte, l)}`);
-    const best = [...righe].sort((a, b) => b.netti - a.netti)[0];
+    // Classement par le « netto all'anno » (même base pour tous : 10 000 € et un an), pas par le total, qui mélange des durées.
+    const best = [...righe].sort((a, b) => b.rendNetto - a.rendNetto)[0];
     const ord = righe.find((r) => r.id === 'buono' && r.nome === 'Buono Ordinario');
     const senzaBot = anni > 1 && (!o.solo || o.solo.includes('bot'));
     const minori = buonoById('minori');
@@ -40,9 +43,9 @@ export default (l: L, o: Opts = {}): ToolSpec => ({
     const notaBuono = ord ? T(l, `Il Buono fruttifero postale Ordinario rende poco se lo tieni pochi anni: il suo tasso prima delle tasse è ${tOrd(1)}% all’anno fino a 4 anni e sale con gli anni, fino al ${tOrd(20)}% a 20 anni. Altri Buoni pagano di più, ma con vincoli: il 4 anni Plus ${formatDecimal(tassoBuono('4plus', 4), 2, l)}% se lo tieni 4 anni, il Buono dedicato ai Minori ${formatDecimal(minori.tasso_unico as number, 2, l)}% fino ai 18 anni del bambino. `, `The Buono Ordinario postal bond pays little if held only a few years: its rate before tax is ${tOrd(1)}% a year up to 4 years and rises with time, to ${tOrd(20)}% at 20 years. Other postal bonds pay more, with strings attached: the 4 anni Plus ${formatDecimal(tassoBuono('4plus', 4), 2, l)}% if held 4 years, the bond for minors ${formatDecimal(minori.tasso_unico as number, 2, l)}% until the child turns 18. `) : '';
     const notaBot = senzaBot ? T(l, 'Il BOT non compare: dura al massimo 12 mesi. ', 'BOT is not listed: it lasts 12 months at most. ') : '';
     return {
-      head: [T(l, `Il guadagno netto più alto: ${nome(best, true)}`, `The highest net gain: ${nome(best, true)}`), eur(best.netti, l)],
-      sub: T(l, `guadagnati in ${anni} ${anni > 1 ? 'anni' : 'anno'} su ${eur(v.importo, l)}, dopo la tassa e il bollo (l’imposta dello 0,20% all’anno sul valore): ${pct(best.rendNetto, l, 2)} netto all’anno`, `earned over ${anni} year${anni > 1 ? 's' : ''} on ${eur(v.importo, l)}, after tax and stamp duty (the 0.20% yearly levy on the value): ${pct(best.rendNetto, l, 2)} net a year`),
-      rows: righe.map((r) => [nome(r), `${eur(r.netti, l)} · ${pct(r.rendNetto, l, 2)}`] as [string, string]),
+      head: [T(l, `Il rendimento netto più alto: ${nome(best, true)}`, `The highest net yield: ${nome(best, true)}`), eur(best.netti, l)],
+      sub: T(l, `guadagnati in ${periodo(best.anni, l)}${diversa(best, anni) ? ', fino alla scadenza,' : ''} su ${eur(v.importo, l)}, dopo la tassa e il bollo (l’imposta dello 0,20% all’anno sul valore): ${nettoAnno(best.rendNetto, l)}`, `earned over ${periodo(best.anni, l)}${diversa(best, anni) ? ', to maturity,' : ''} on ${eur(v.importo, l)}, after tax and stamp duty (the 0.20% yearly levy on the value): ${nettoAnno(best.rendNetto, l)}`),
+      rows: righe.map((r) => [nome(r), `${eur(r.netti, l)}${diversa(r, anni) ? T(l, ` in ${periodo(r.anni, l)}`, ` over ${periodo(r.anni, l)}`) : ''} · ${pct(r.rendNetto, l, 2)} ${T(l, 'all’anno', 'a year')}`] as [string, string]),
       note: notaBot + notaBuono + T(l, 'Calcolo, non consiglio: rischio, possibilità di vendere prima e situazione fiscale personale cambiano la scelta. BTP al prezzo dell’asta, comprato oggi e tenuto fino alla scadenza.', 'A calculation, not advice: risk, the option to sell early and your own tax position change the choice. BTP at the auction price, bought today and held to maturity.'),
       table: {
         caption: T(l, 'Dettaglio: tasse e bollo già tolti', 'Detail: tax and stamp duty already taken off'),

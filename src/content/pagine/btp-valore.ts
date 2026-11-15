@@ -10,7 +10,7 @@ const tab = (h: Helpers) => {
     [v1.nome, v1.tassi.map(([, t]) => h.pct(t / 100, 2)).join(' · '), h.date(v1.scadenza), h.eur(a.netti), h.pct(a.rendNetto, 2)],
     [ins.nome, it ? `${h.num(ins.cedola_unica, 2)}% in un’unica cedola, pagata alla scadenza` : `${h.num(ins.cedola_unica, 2)}% in a single coupon, paid at maturity`, h.date(ins.scadenza), h.eur(c.netti), h.pct(c.rendNetto, 2)],
     [v2.nome, v2.tassi.map(([, t]) => h.pct(t / 100, 2)).join(' · ') + (it ? `, più un premio finale dello ${h.num(v2.premio_finale, 1)}% a chi tiene fino alla scadenza` : `, plus a ${h.num(v2.premio_finale, 1)}% final bonus if held to maturity`), h.date(v2.scadenza), h.eur(b.netti), h.pct(b.rendNetto, 2)],
-  ], it ? 'Tassi definitivi dei comunicati del Ministero dell’economia, acquisto a 100 in emissione, interessi netti di tassa del 12,5% e bollo; netto annuo semplice (composto per il Valore Insieme)' : 'Final rates from the Ministry releases, bought at 100 at issue, interest net of 12.5% tax and stamp duty; simple yearly net (compounded for Valore Insieme)', ['l', 'l', 'l', 'r', 'r']);
+  ], it ? 'Tassi definitivi dei comunicati del Ministero dell’economia, acquisto a 100 in emissione, interessi netti di tassa del 12,5% e bollo; netto all’anno in media: guadagno netto diviso per il capitale e per gli anni, come in tutti i calcoli del sito' : 'Final rates from the Ministry releases, bought at 100 at issue, interest net of 12.5% tax and stamp duty; average yearly net: net gain divided by the capital and the years, as in every calculation on the site', ['l', 'l', 'l', 'r', 'r']);
 };
 
 export default defineGuide({
@@ -27,7 +27,7 @@ export default defineGuide({
     title: 'BTP Valore: cedole nette e rendimento con i tassi definitivi',
     description: 'BTP Valore 2031, Valore Insieme e Valore 2032: cedole nette anno per anno con i tassi definitivi del MEF, premio finale, tassa del 12,5% e bollo annuo.',
     h1: 'BTP Valore: quanto rendono netti',
-    intro: 'I BTP Valore sono riservati ai risparmiatori e pagano cedole, cioè interessi periodici, che salgono nel tempo: scegli l’emissione, scrivi l’importo e gli anni, e il calcolo mostra le cedole nette con i tassi definitivi del Tesoro.',
+    intro: 'I BTP Valore (Buoni del Tesoro poliennali, cioè prestiti allo Stato che durano più anni) sono riservati ai risparmiatori e pagano cedole, cioè interessi periodici, che salgono nel tempo: scegli l’emissione, scrivi l’importo e gli anni, e il calcolo mostra le cedole nette con i tassi definitivi del Tesoro.',
     resume: (h) => {
       const v1 = R(h).valore_2031, a = h.M.valore2031(10000, 5), c = h.M.insieme2031(10000);
       const chiusi = v1.godimento <= h.today;
@@ -51,7 +51,7 @@ ${tab(h)}
     title: 'BTP Valore: net coupons and yield at final Treasury rates',
     description: 'BTP Valore 2031, Valore Insieme and Valore 2032: net coupons year by year at the Ministry’s final rates, final bonus, 12.5% tax and stamp duty, for your amount.',
     h1: 'BTP Valore: what it returns net',
-    intro: 'BTP Valore bonds are sold only to retail savers and pay coupons, that is periodic interest, that step up over time: pick the issue, type the amount and years, and the calculation shows net coupons at the Treasury’s final rates.',
+    intro: 'BTP Valore bonds (Buoni del Tesoro poliennali, that is loans to the Italian State lasting several years) are sold only to retail savers and pay coupons, that is periodic interest, that step up over time: pick the issue, type the amount and years, and the calculation shows net coupons at the Treasury’s final rates.',
     resume: (h) => {
       const v1 = R(h).valore_2031, a = h.M.valore2031(10000, 5), c = h.M.insieme2031(10000);
       const chiusi = v1.godimento <= h.today;

@@ -1,5 +1,5 @@
 /** Buoni fruttiferi postali en émission : valeur à la date choisie, impôt de 12,5 %, timbre au-delà de 5 000 €. */
-import { T, eur, eur2, pct, data, type L } from '../minis/_kit';
+import { T, eur, eur2, pct, data, nettoAnno, type L } from '../minis/_kit';
 import { buono, buonoById, tassoBuono } from '../engine/index';
 import { P } from '../engine/params';
 import type { ToolSpec } from '../tool-types';
@@ -23,7 +23,7 @@ export default (l: L, o: { fisso?: string } = {}): ToolSpec => ({
       // Le gros chiffre est le gain, comme à l'accueil ; le total remboursé vient dessous (testeurs naïfs du 2026-11-14, 2e tour :
       // « 10.184 € » lu comme un gain).
       head: [T(l, `${b.nome}: guadagno netto dopo ${r.anni} ${r.anni === 1 ? 'anno' : 'anni'}`, `${b.nome}: net gain after ${r.anni} year${r.anni === 1 ? '' : 's'}`), eur(r.netto - v.importo, l)],
-      sub: T(l, `ti restituiscono in tutto ${eur(r.netto, l)} · ${pct(r.rendNetto, l, 2)} netto all’anno · tasso lordo ${formatDecimal(r.tasso, 2, l)}% (condizioni dal ${data(b.dal, l)})`, `you get back ${eur(r.netto, l)} in all · ${pct(r.rendNetto, l, 2)} net a year · gross rate ${formatDecimal(r.tasso, 2, l)}% (terms from ${data(b.dal, l)})`),
+      sub: T(l, `ti restituiscono in tutto ${eur(r.netto, l)} · ${nettoAnno(r.rendNetto, l)} (${pct(r.rendLordo, l, 2)} prima delle tasse)`, `you get back ${eur(r.netto, l)} in all · ${nettoAnno(r.rendNetto, l)} (${pct(r.rendLordo, l, 2)} before tax)`),
       alert: r.tasso === 0 ? T(l, `Rimborsato così presto, questo Buono restituisce solo il capitale: gli interessi maturano ${b.interessi_prima}.`, `Cashed in this early, the bond only returns your capital.`) : oltre ? T(l, `Il Buono scade dopo ${b.anni} anni e poi non frutta più: il calcolo si ferma alla scadenza.`, `The bond matures after ${b.anni} years and earns nothing afterwards: the calculation stops at maturity.`) : undefined,
       rows: [
         [T(l, 'Valore lordo', 'Gross value'), eur2(r.valoreLordo, l)],
@@ -33,7 +33,7 @@ export default (l: L, o: { fisso?: string } = {}): ToolSpec => ({
         [T(l, 'Interessi netti', 'Net interest'), eur2(r.netto - v.importo, l), true],
         [T(l, 'Rimborso totale netto (capitale più interessi)', 'Total net cash-in (capital plus interest)'), eur2(r.netto, l)],
       ],
-      note: T(l, `Tassi di Poste Italiane per i Buoni sottoscritti oggi. Tasso a ${b.anni} anni: ${formatDecimal(tassoBuono(id, b.anni), 2, l)}% lordo.`, `Poste Italiane rates for bonds bought today. Rate at ${b.anni} years: ${formatDecimal(tassoBuono(id, b.anni), 2, l)}% gross.`),
+      note: T(l, `Tasso di Poste Italiane per questa durata: ${formatDecimal(r.tasso, 2, l)}% lordo all’anno, calcolato ogni anno anche sugli interessi già maturati (condizioni dal ${data(b.dal, l)}); a ${b.anni} anni: ${formatDecimal(tassoBuono(id, b.anni), 2, l)}%. La media all’anno qui sopra divide il guadagno per gli anni.`, `Poste Italiane rate for this term: ${formatDecimal(r.tasso, 2, l)}% gross a year, worked out each year on interest already earned too (terms from ${data(b.dal, l)}); at ${b.anni} years: ${formatDecimal(tassoBuono(id, b.anni), 2, l)}%. The yearly average above divides the gain by the years.`),
       table: id === 'ordinario' ? {
         caption: T(l, 'Buono Ordinario anno per anno, per l’importo scritto sopra', 'Buono Ordinario year by year, for the amount above'),
         headers: T(l, ['Rimborso dopo', 'Tasso lordo', 'Valore lordo', 'Netto'], ['Cashed in after', 'Gross rate', 'Gross value', 'Net']), align: ['l', 'r', 'r', 'r'],
