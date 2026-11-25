@@ -21,7 +21,7 @@ export const AUTHOR_DESC: Record<string, string> = {"it": "Radif Partners legge 
  *  declare ici sans page qui le couvre est une declaration fausse. */
 export const KNOWS_ABOUT: Record<string, string[]> = {"it": ["Rendimento netto dei BTP", "BOT e aste del Tesoro", "Buoni fruttiferi postali", "BTP Valore e BTP Italia", "Tassazione 12,5 % e 26 %", "Imposta di bollo sui titoli", "Conti deposito"], "en": ["Net yield of Italian BTP bonds", "Italian BOT bills and Treasury auctions", "Italian postal savings bonds", "BTP Valore and BTP Italia", "Italy's 12.5% and 26% savings tax", "Italy's stamp duty on securities", "Deposit accounts in Italy"]};
 export const CONTACT_EMAIL = "contatti@btpnetto.it";
-export const THEME_COLOR = '#1D4E89';
+export const THEME_COLOR = '#0F2418';
 export const LOGO_SYMBOL = '%';
 export const BING_VERIFY_CODE = '';
 export const GOOGLE_VERIFY_CODE = '';

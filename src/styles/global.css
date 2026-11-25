@@ -3,8 +3,8 @@
 @font-face { font-family: 'Source Serif 4'; font-style: normal; font-weight: 200 900; font-display: swap; src: url('/fonts/source-serif-4-var.woff2') format('woff2'); }
 @font-face { font-family: 'Inter'; font-style: normal; font-weight: 400 700; font-display: swap; src: url('/fonts/inter-var.woff2') format('woff2'); }
 @theme {
-  --color-navy-50: #f8fafc; --color-navy-100: #f1f5f9; --color-navy-200: #e2e8f0; --color-navy-300: #cbd5e1; --color-navy-400: #94a3b8; --color-navy-500: #64748b; --color-navy-600: #475569; --color-navy-700: #334155; --color-navy-800: #1e293b; --color-navy-900: #0f172a; --color-navy-950: #020617;
-  --color-accent-50: #eef4fb; --color-accent-100: #d9e7f7; --color-accent-200: #b3ceef; --color-accent-300: #81aee4; --color-accent-400: #4e8dda; --color-accent-500: #1D4E89; --color-accent-600: #194274; --color-accent-700: #143760; --color-accent-800: #102c4d; --color-accent-900: #0d223c;
+  --color-navy-50: #F4F7F5; --color-navy-100: #E8EEEA; --color-navy-200: #D2DDD6; --color-navy-300: #AFC2B6; --color-navy-400: #7E978A; --color-navy-500: #5B7366; --color-navy-600: #435A4D; --color-navy-700: #2F4538; --color-navy-800: #1D3226; --color-navy-900: #0F2418; --color-navy-950: #020617;
+  --color-accent-50: #EEF6F1; --color-accent-100: #D9EBE0; --color-accent-200: #AED5BE; --color-accent-300: #7BBB96; --color-accent-400: #3F9567; --color-accent-500: #00703C; --color-accent-600: #0B5D33; --color-accent-700: #0A4E2B; --color-accent-800: #083E22; --color-accent-900: #06301B;
   --color-success: #15803d; --color-warning: #b45309; --color-error: #dc2626;
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
@@ -125,3 +125,60 @@ p[id$="-help"]:not([role="status"]), [data-fixe], [data-actuellement], [aria-liv
 :where(form, div, fieldset):has(> .grid-rows-subgrid) { align-content: start; }
 /* Dans une grille, le cadre du formulaire s'arrête sous ses champs au lieu de s'étirer à la hauteur du résultat. */
 .grid > form:has(> .grid-rows-subgrid) { align-self: start; }
+
+/* Charte de page du 2026-11-25 (refonte d'identité validée par l'éditeur, reports/refonte-identite-2026-11-24/sites/btpnetto.it) :
+   en-tête plein, bandeau du H1, carte du simulateur, sections alternées, chiffres-résultats, boutons, pied sombre. */
+/* Refaite le 2026-11-25 à la demande de l'éditeur (« juste rouge sans vrai design ») :
+   vert d'Italie #00703C en bandeau, teinte sombre #0F2418 (en-tête, pied), rouge #C8102E en accent seulement
+   (filets, trait au-dessus du H1, bord de la carte, soulignement des titres). Aplats, ni dégradé fondu. */
+/* En-tête sombre, filet rouge */
+header nav[aria-label] { background:#0F2418 !important; border-bottom:4px solid #C8102E !important; }
+header nav[aria-label] > div:first-child > a, header nav[aria-label] > div:first-child > div > a, header nav[aria-label] .nav-dropdown-trigger, #mobile-menu-toggle { color:#fff !important; }
+header nav[aria-label] > div:first-child > a span.text-accent-500 { color:#7FD1A4 !important; }
+header nav[aria-label] .nav-dropdown-trigger:hover, header nav[aria-label] > div:first-child > div > a:hover { background:rgba(255,255,255,.12) !important; }
+header nav[aria-label] > div:first-child a[hreflang], header nav[aria-label] > div:first-child a[lang] { border-color:rgba(255,255,255,.55) !important; }
+header nav[aria-label] img[src="/logo.svg"] { background:#fff; border-radius:8px; padding:2px; }
+.nav-dropdown-panel a, #mobile-menu a, #mobile-menu button { color:#0F2418 !important; }
+/* Bandeau héros vert : trait rouge au-dessus du H1, titre serif blanc */
+main > div:first-child { padding-top:0 !important; }
+main > div > header:has(h1), main > div > header:has(h1) ~ :not(section,[data-outil]):has(~ [data-outil]) { box-shadow:0 0 0 100vmax #00703C; clip-path:inset(0 -100vmax); margin-bottom:0 !important; }
+main > div > header:has(h1) { background:#00703C; color:#fff; padding:2rem 0 1.5rem; }
+main > div > header:has(h1) h1::before { content:""; display:block; width:56px; height:5px; background:#C8102E; border-radius:3px; margin-bottom:.9rem; }
+main > div > header:has(h1) ~ :not(section,[data-outil]):has(~ [data-outil]) { background:#00703C; margin-top:0 !important; margin-bottom:1rem !important; clip-path:inset(0 -100vmax -1rem) !important; }
+main > div > header:has(h1) ~ :not(section,nav,[data-outil]):has(~ [data-outil]) :is(p,span,a,label,li,time) { color:rgba(255,255,255,.94) !important; }
+main > div > header:has(h1) h1 { color:#fff !important; letter-spacing:-0.015em; line-height:1.12; }
+main > div > header:has(h1) h1 span { color:#fff !important; }
+main > div > header:has(h1) p, main > div > header:has(h1) div, main > div > header:has(h1) a, main > div > header:has(h1) time, main > div > header:has(h1) span:not(h1 span) { color:rgba(255,255,255,.94) !important; }
+
+main > div > header:has(h1) + nav { background:#00703C; box-shadow:0 0 0 100vmax #00703C; clip-path:inset(0 -100vmax); margin:0 !important; padding-bottom:.9rem; }
+main > div > header:has(h1) + nav, main > div > header:has(h1) + nav * { color:#fff !important; }
+main > div > header:has(h1) + nav a[class*="bg-white"] { background:#fff !important; border-color:#fff !important; color:#0B5D33 !important; font-weight:600; }
+main > div > header:has(h1) + nav a[class*="bg-white"] * { color:#0B5D33 !important; }
+main > div > header:has(h1) + nav a[class*="bg-white"]:hover { background:#EEF6F1 !important; }
+/* Carte du simulateur : blanche, bord haut rouge, posée à cheval sur le bandeau */
+main [data-outil] , main > div > header:has(h1) + :not(nav,style,script,p,.clamp,[class*="amber"],[class*="border-l"]) , main > div > header:has(h1) + nav + * , main > div > header:has(h1) ~ astro-island:first-of-type > *:first-child { border-image:linear-gradient(#00703C 0 5.5rem, transparent 5.5rem) fill 0//0 100vmax; }
+main [data-outil] > astro-island > :first-child, main [data-outil] > div:not([class*="amber"]):first-of-type, main > div > header:has(h1) ~ astro-island:first-of-type > :first-child > :first-child { background:#fff; border:1px solid #D2DDD6; border-top:6px solid #C8102E !important; border-radius:16px; }
+/* Sections alternées blanc / vert très clair, titres sombres soulignés de rouge */
+main > div > section:nth-of-type(even), main > div > div.prose:nth-of-type(odd) { border-image:conic-gradient(#F3F8F5 0 0) fill 0//0 100vmax; padding-block:2rem; }
+main section h2, main .prose h2 { color:#0F2418 !important; letter-spacing:-0.01em; text-decoration:underline; text-decoration-color:#C8102E; text-decoration-thickness:4px; text-underline-offset:10px; text-decoration-skip-ink:none; }
+main section h3, main .prose h3 { color:#0B5D33; }
+/* Chiffres-résultats : grands, vert foncé, sur encadré vert clair à barre verte */
+main .bg-accent-50 { background:#EEF6F1 !important; border-left:6px solid #00703C; }
+main [class*="tabular-nums"][class*="text-2xl"], main [class*="tabular-nums"][class*="text-3xl"], main [class*="tabular-nums"][class*="text-4xl"], main dd[class*="text-2xl"], main dd[class*="text-xl"], main [data-outil] [class*="text-3xl"], main [data-outil] [class*="text-4xl"] { font-size:2.5rem !important; line-height:1.05; letter-spacing:-0.02em; color:#0B5D33 !important; font-variant-numeric:tabular-nums; }
+/* Boutons pleins vert foncé, liens soulignés de vert */
+main a[class*="border-accent"], main a[class*="bg-accent-5"], main a[class*="bg-accent-6"], main button:is([class*="bg-accent-5"],[class*="bg-accent-6"],[class*="bg-accent-7"]):not([class*="bg-accent-50"]):not(.fixed), main button[type="submit"] { background:#0B5D33 !important; color:#FFFFFF !important; border-color:#0B5D33 !important; border-radius:10px; }
+main a[class*="border-accent"]:hover, main button:is([class*="bg-accent-5"],[class*="bg-accent-6"],[class*="bg-accent-7"]):not([class*="bg-accent-50"]):not(.fixed):hover { background:#0A4E2B !important; }
+main a[class*="border-accent"] * { color:#FFFFFF !important; }
+main p a, main li > a:not([class*="rounded"]), main .prose a { color:#0B5D33 !important; text-decoration:underline; text-decoration-color:#00703C; text-decoration-thickness:2px; text-underline-offset:3px; }
+main table thead th { color:#0F2418; border-bottom:3px solid #00703C !important; }
+/* Pied sombre, filet rouge */
+body > footer, footer.mt-16 { background:#0F2418 !important; border-top:5px solid #C8102E !important; }
+body > footer *, footer.mt-16 * { color:#E8EEEA !important; border-color:rgba(255,255,255,.16) !important; }
+body > footer a, footer.mt-16 a { color:#7FD1A4 !important; }
+footer [class*="bg-"] { background: transparent !important; }
+/* sites sans data-outil : simulateur directement dans un astro-island (carte .rechner) ou dans une section/div enveloppe */
+main > div > header:has(h1):has(~ astro-island:first-of-type > .rechner.rechner) { padding-bottom:4.5rem; }
+main > div > header:has(h1) ~ astro-island:first-of-type > .rechner.rechner { border-image:none !important; position:relative; margin-top:-3.25rem; background:#fff !important; border:1px solid #D2DDD6 !important; border-top:6px solid #C8102E !important; border-radius:16px; }
+main > div > header:has(h1) ~ astro-island:first-of-type > .rechner.rechner > :first-child { background:transparent !important; border-top:0 !important; box-shadow:none !important; border-radius:0; }
+main > div > header:has(h1) [class*="bg-white"], main > div > header:has(h1) [class*="bg-white"] * { color:#0F2418 !important; }
+main > div > header:has(h1) + :is(section,div):not([data-outil]) > astro-island > :first-child { background:#fff; border-top:6px solid #C8102E !important; border-radius:16px; }
